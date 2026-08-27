@@ -26,7 +26,11 @@ export const profile = {
   shortName: 'Asim',
   role: 'AI & Full-Stack Developer',
   location: 'Palakkad, Kerala, India',
-  email: null as string | null,
+  email: 'asimaslu7@gmail.com',
+  primaryPhone: '+91 9207900426',
+  secondaryPhone: '+91 7510875426',
+  whatsappUrl:
+    'https://wa.me/919207900426?text=Hi%20Asim%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.',
   githubUrl: null as string | null,
   linkedinUrl: null as string | null,
   resumeUrl: '/resume.pdf',

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { profile } from '@/data/profile';
 import './globals.css';
+import './project-demos.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -44,8 +45,7 @@ export const metadata: Metadata = {
 const themeScript = `
   try {
     const saved = localStorage.getItem('theme');
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (saved === 'dark' || (!saved && systemDark)) document.documentElement.classList.add('dark');
+    if (saved !== 'light') document.documentElement.classList.add('dark');
   } catch (_) {}
 `;
 

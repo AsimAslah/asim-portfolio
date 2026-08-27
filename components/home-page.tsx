@@ -1,18 +1,15 @@
 'use client';
 
-import { FormEvent } from 'react';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   ArrowDown,
   ArrowUpRight,
-  Code2,
   FileDown,
   Mail,
   MapPin,
-  ScanSearch,
-  ShieldCheck,
-  Sparkles,
+  MessageCircle,
+  Phone,
 } from 'lucide-react';
 import {
   academicWork,
@@ -23,6 +20,7 @@ import {
   skillGroups,
 } from '@/data/profile';
 import { Navbar } from './navbar';
+import { AboutPortraits, HeroPortrait } from './editorial-portrait';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 
@@ -35,30 +33,6 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
       </div>
       {description && <p>{description}</p>}
     </div>
-  );
-}
-
-function ContactForm({ email }: { email: string }) {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const name = String(data.get('name') ?? '');
-    const sender = String(data.get('email') ?? '');
-    const message = String(data.get('message') ?? '');
-    const subject = encodeURIComponent(`Portfolio inquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\nFrom: ${name}\nEmail: ${sender}`);
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-  }
-
-  return (
-    <form className="contact-form" onSubmit={handleSubmit}>
-      <div className="field-row">
-        <label><span>Name</span><input type="text" name="name" autoComplete="name" required /></label>
-        <label><span>Email</span><input type="email" name="email" autoComplete="email" required /></label>
-      </div>
-      <label><span>Message</span><textarea name="message" rows={5} required /></label>
-      <button className="primary-button" type="submit">Open in email <ArrowUpRight aria-hidden="true" /></button>
-    </form>
   );
 }
 
@@ -93,24 +67,12 @@ export function HomePage() {
           </motion.div>
 
           <motion.div
-            className="system-map"
+            className="hero-media"
             initial={reducedMotion ? false : { opacity: 0, scale: 0.97 }}
             animate={reducedMotion ? undefined : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            aria-label="A visual map of Asim's practical product development process"
           >
-            <div className="system-map-header"><span>PRODUCT SYSTEM / 01</span><span className="map-live"><i /> ACTIVE</span></div>
-            <div className="map-canvas">
-              <div className="map-node map-main"><small>BUILD</small><strong>Practical AI</strong><span>Ideas → working products</span></div>
-              <div className="map-node map-one"><span>01</span><ScanSearch aria-hidden="true" /> Vision</div>
-              <div className="map-node map-two"><span>02</span><Code2 aria-hidden="true" /> APIs</div>
-              <div className="map-node map-three"><span>03</span><Sparkles aria-hidden="true" /> Product</div>
-              <div className="map-connector connector-one" />
-              <div className="map-connector connector-two" />
-              <div className="map-connector connector-three" />
-              <div className="map-pulse pulse-one" /><div className="map-pulse pulse-two" />
-            </div>
-            <div className="system-map-footer"><span>Python / TypeScript</span><span>{profile.location}</span></div>
+            <HeroPortrait />
           </motion.div>
         </section>
 
@@ -119,15 +81,18 @@ export function HomePage() {
             <SectionHeading eyebrow="About / 01" title="Engineering with a product mindset." />
           </Reveal>
           <div className="about-grid">
-            <Reveal className="about-copy">
-              <p>{profile.about}</p>
-              <div className="location-line"><MapPin aria-hidden="true" /> Based in {profile.location}</div>
-            </Reveal>
-            <Reveal className="principles" delay={0.08}>
-              <div><span>01</span><strong>Useful over novel</strong><p>Start with a real problem and build the smallest dependable path to solving it.</p></div>
-              <div><span>02</span><strong>AI with guardrails</strong><p>Treat privacy, reliability, and user control as product requirements.</p></div>
-              <div><span>03</span><strong>End-to-end ownership</strong><p>Connect models and APIs to interfaces people can actually use.</p></div>
-            </Reveal>
+            <Reveal className="about-media"><AboutPortraits /></Reveal>
+            <div className="about-story">
+              <Reveal className="about-copy">
+                <p>{profile.about}</p>
+                <div className="location-line"><MapPin aria-hidden="true" /> Based in {profile.location}</div>
+              </Reveal>
+              <Reveal className="principles" delay={0.08}>
+                <div><span>01</span><strong>Useful over novel</strong><p>Start with a real problem and build the smallest dependable path to solving it.</p></div>
+                <div><span>02</span><strong>AI with guardrails</strong><p>Treat privacy, reliability, and user control as product requirements.</p></div>
+                <div><span>03</span><strong>End-to-end ownership</strong><p>Connect models and APIs to interfaces people can actually use.</p></div>
+              </Reveal>
+            </div>
           </div>
         </section>
 
@@ -137,7 +102,7 @@ export function HomePage() {
           </Reveal>
           <div className="project-grid">
             {projects.map((project, index) => (
-              <Reveal key={project.slug} delay={(index % 2) * 0.07}>
+              <Reveal className={`project-reveal ${index < 2 ? 'is-major' : ''}`} key={project.slug} delay={(index % 2) * 0.07}>
                 <ProjectCard project={project} index={index} />
               </Reveal>
             ))}
@@ -202,17 +167,30 @@ export function HomePage() {
           <Reveal className="contact-card">
             <div className="contact-copy">
               <p className="micro-label">Contact / 06</p>
-              <h2>Let’s build something useful.</h2>
-              <p>I’m interested in software development, AI/ML, full-stack, and AI engineering opportunities where practical product thinking matters.</p>
-              <div className="contact-links">
-                {profile.email && <a href={`mailto:${profile.email}`}><Mail aria-hidden="true" /> {profile.email}</a>}
-                {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noreferrer"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
-                {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noreferrer"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span> LinkedIn</a>}
-              </div>
+              <h2>Have something worth building?</h2>
+              <p>I&apos;m open to AI, full-stack and product-focused opportunities.</p>
+              <p className="contact-status"><span /> Available for opportunities</p>
             </div>
-            {profile.email ? <ContactForm email={profile.email} /> : (
-              <div className="contact-mark" aria-hidden="true"><ShieldCheck /><span>Open to meaningful work</span></div>
-            )}
+            <div className="contact-directory">
+              <a className="contact-row" href={`mailto:${profile.email}`}>
+                <span><Mail aria-hidden="true" /> Email</span><strong>{profile.email}</strong><ArrowUpRight aria-hidden="true" />
+              </a>
+              <a className="contact-row" href="tel:+919207900426">
+                <span><Phone aria-hidden="true" /> Phone</span><strong>{profile.primaryPhone}</strong><ArrowUpRight aria-hidden="true" />
+              </a>
+              <a className="contact-row" href="tel:+917510875426">
+                <span><Phone aria-hidden="true" /> Secondary</span><strong>{profile.secondaryPhone}</strong><ArrowUpRight aria-hidden="true" />
+              </a>
+              <a className="whatsapp-button" href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <MessageCircle aria-hidden="true" /> Chat on WhatsApp <ArrowUpRight aria-hidden="true" />
+              </a>
+              {(profile.githubUrl || profile.linkedinUrl) && (
+                <div className="contact-socials">
+                  {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>}
+                  {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>}
+                </div>
+              )}
+            </div>
           </Reveal>
         </section>
       </main>
