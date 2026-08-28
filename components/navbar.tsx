@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { FileDown, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { navigation, profile } from '@/data/profile';
+import { SectionAnchor } from './section-anchor';
 import { ThemeToggle } from './theme-toggle';
 
 export function Navbar() {
@@ -12,14 +12,15 @@ export function Navbar() {
   return (
     <header className="site-header">
       <nav className="navbar shell" aria-label="Primary navigation">
-        <Link className="brand" href="/#home" aria-label={`${profile.name}, home`}>
+        <SectionAnchor className="brand" sectionId="home" aria-label={`${profile.name}, home`}>
           AA<span>.</span>
-        </Link>
+        </SectionAnchor>
 
         <div className="desktop-nav">
-          {navigation.map((item) => (
-            <Link key={item.label} href={item.href}>{item.label}</Link>
-          ))}
+          {navigation.map((item) => {
+            const sectionId = item.href.split('#')[1];
+            return <SectionAnchor key={item.label} href={item.href} sectionId={sectionId}>{item.label}</SectionAnchor>;
+          })}
         </div>
 
         <div className="nav-actions">
@@ -45,11 +46,14 @@ export function Navbar() {
 
       <div className={`mobile-menu ${isOpen ? 'is-open' : ''}`} id="mobile-menu">
         <div className="shell mobile-menu-inner">
-          {navigation.map((item, index) => (
-            <Link key={item.label} href={item.href} onClick={() => setIsOpen(false)}>
-              <span>0{index + 1}</span>{item.label}
-            </Link>
-          ))}
+          {navigation.map((item, index) => {
+            const sectionId = item.href.split('#')[1];
+            return (
+              <SectionAnchor key={item.label} href={item.href} sectionId={sectionId} onNavigate={() => setIsOpen(false)}>
+                <span>0{index + 1}</span>{item.label}
+              </SectionAnchor>
+            );
+          })}
           <div className="mobile-menu-footer">
             <span>{profile.role}</span>
             <span>{profile.location}</span>

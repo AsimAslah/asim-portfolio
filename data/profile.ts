@@ -202,8 +202,8 @@ export const education = [
   },
   {
     degree: 'B.Tech — Computer Science & Engineering',
-    institution: null as string | null,
-    university: null as string | null,
+    institution: 'MES College of Engineering',
+    university: 'APJ Abdul Kalam Technological University',
     period: 'Graduated 2024',
   },
 ];

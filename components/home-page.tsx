@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import {
@@ -25,6 +24,7 @@ import { Navbar } from './navbar';
 import { AboutPortraits, HeroPortrait, LifestylePortrait } from './editorial-portrait';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
+import { SectionAnchor } from './section-anchor';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -87,9 +87,9 @@ function ScrollProgressRail() {
           const id = item.href.split('#')[1];
           const isActive = activeSection === id;
           return (
-            <a key={item.label} href={item.href} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined}>
+            <SectionAnchor key={item.label} href={item.href} sectionId={id} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined}>
               <span>{String(index + 1).padStart(2, '0')}</span><b>{item.label}</b>
-            </a>
+            </SectionAnchor>
           );
         })}
       </nav>
@@ -311,7 +311,7 @@ export function HomePage() {
       <footer className="footer">
         <div className="shell footer-statement"><p>Have a useful problem worth solving?</p><span>Let&apos;s build the first working version.</span></div>
         <div className="shell footer-inner">
-          <div><Link className="brand" href="/#home">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div>
+          <div><SectionAnchor className="brand" sectionId="home">AA<span>.</span></SectionAnchor><p>{profile.name}<br />{profile.role}</p></div>
           <div className="footer-links">
             {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub</a>}
             {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>}
