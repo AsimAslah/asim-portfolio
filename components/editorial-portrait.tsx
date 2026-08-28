@@ -39,7 +39,7 @@ export function HeroPortrait() {
         srcSet="/images/asim-hero-720.webp 720w, /images/asim-hero-1080.webp 1080w, /images/asim-hero-1440.webp 1440w"
         sizes="(max-width: 1040px) calc(100vw - 48px), 42vw"
         width={1440}
-        height={1800}
+        height={1078}
         alt="Asim Aslah P M"
         eager
       />

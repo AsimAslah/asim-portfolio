@@ -33,7 +33,7 @@ export const profile = {
   githubUrl: 'https://github.com/AsimAslah',
   linkedinUrl: 'https://www.linkedin.com/in/asim-aslah-pm-05906a222',
   resumeUrl: '/resume.pdf',
-  siteUrl: null as string | null,
+  siteUrl: 'https://asim-aslah-portfolio.asimaslu7.chatgpt.site',
   headline: 'Building useful products at the intersection of AI and the web.',
   intro:
     'I build practical AI-powered applications using Python, FastAPI, modern web technologies, computer vision, and machine learning.',
