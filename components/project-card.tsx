@@ -8,7 +8,10 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <article className={`project-card ${isMajor ? 'is-major' : ''}`} data-project={`0${index + 1}`}>
-      <ProjectDemo project={project} index={index} />
+      <Link className="project-visual-link" href={`/projects/${project.slug}`} aria-label={`View ${project.shortTitle} case study`}>
+        <ProjectDemo project={project} index={index} />
+        <span className="project-hover-label">View case study <ArrowUpRight aria-hidden="true" /></span>
+      </Link>
       <div className="project-content">
         <div className="project-kicker"><p className="micro-label">Project / 0{index + 1}</p><span>{project.label}</span></div>
         <h3><Link href={`/projects/${project.slug}`}>{project.shortTitle}</Link></h3>

@@ -16,6 +16,7 @@ import {
   academicWork,
   education,
   focusAreas,
+  navigation,
   profile,
   projects,
   skillGroups,
@@ -34,6 +35,66 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
       </div>
       {description && <p>{description}</p>}
     </div>
+  );
+}
+
+const capabilityMatrix = [
+  { label: 'AI', detail: 'Models → products', depth: 5 },
+  { label: 'Backend', detail: 'APIs → systems', depth: 4 },
+  { label: 'Vision', detail: 'Pixels → decisions', depth: 4 },
+  { label: 'Frontend', detail: 'Ideas → interfaces', depth: 4 },
+] as const;
+
+function ScrollProgressRail() {
+  const [activeSection, setActiveSection] = useState('home');
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const ids = navigation.map((item) => item.href.split('#')[1]);
+    const sections = ids.map((id) => document.getElementById(id)).filter((section): section is HTMLElement => Boolean(section));
+    let frame = 0;
+
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        setProgress(Math.min(1, Math.max(0, window.scrollY / scrollable)));
+
+        let current = sections[0]?.id ?? 'home';
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= window.innerHeight * 0.42) current = section.id;
+        });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) current = sections.at(-1)?.id ?? current;
+        setActiveSection(current);
+      });
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  return (
+    <>
+      <nav className="scroll-progress-rail" aria-label="Section progress">
+        <div className="scroll-progress-track" aria-hidden="true"><i style={{ transform: `scaleY(${progress})` }} /></div>
+        {navigation.map((item, index) => {
+          const id = item.href.split('#')[1];
+          const isActive = activeSection === id;
+          return (
+            <a key={item.label} href={item.href} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined}>
+              <span>{String(index + 1).padStart(2, '0')}</span><b>{item.label}</b>
+            </a>
+          );
+        })}
+      </nav>
+      <div className="scroll-progress-mobile" aria-hidden="true"><i style={{ transform: `scaleX(${progress})` }} /></div>
+    </>
   );
 }
 
@@ -59,6 +120,7 @@ export function HomePage() {
   return (
     <>
       <Navbar />
+      <ScrollProgressRail />
       <main>
         <section className="hero shell" id="home">
           <motion.div
@@ -145,6 +207,18 @@ export function HomePage() {
           <Reveal>
             <SectionHeading eyebrow="Capabilities / 03" title="A focused, full-stack toolkit." description="Tools chosen to move from model experimentation to reliable APIs and usable web products." />
           </Reveal>
+          <Reveal className="capability-matrix">
+            {capabilityMatrix.map((capability, index) => (
+              <article key={capability.label}>
+                <div><span>0{index + 1}</span><p>Capability signal</p></div>
+                <h3>{capability.label}</h3>
+                <p>{capability.detail}</p>
+                <div className="capability-level" aria-label={`${capability.label} capability signal: ${capability.depth} of 5`}>
+                  {Array.from({ length: 5 }, (_, dot) => <i key={dot} className={dot < capability.depth ? 'is-active' : ''} aria-hidden="true" />)}
+                </div>
+              </article>
+            ))}
+          </Reveal>
           <div className="skills-grid">
             {skillGroups.map((group, index) => (
               <Reveal className="skill-group" key={group.name} delay={(index % 3) * 0.05}>
@@ -174,8 +248,9 @@ export function HomePage() {
           <div className="education-list">
             {education.map((item, index) => (
               <Reveal className="education-item" key={item.degree} delay={index * 0.07}>
-                <div className="education-marker"><span>0{index + 1}</span><i /></div>
-                <div><p className="micro-label">{item.period}</p><h3>{item.degree}</h3><p>{[item.institution, item.university].filter(Boolean).join(' · ')}</p></div>
+                <div className="education-period"><span>0{index + 1}</span><time>{item.period}</time></div>
+                <div className="education-marker" aria-hidden="true"><i /></div>
+                <div className="education-detail"><h3>{item.degree}</h3>{[item.institution, item.university].some(Boolean) && <p>{[item.institution, item.university].filter(Boolean).join(' · ')}</p>}</div>
               </Reveal>
             ))}
           </div>
@@ -234,6 +309,7 @@ export function HomePage() {
       </main>
 
       <footer className="footer">
+        <div className="shell footer-statement"><p>Have a useful problem worth solving?</p><span>Let&apos;s build the first working version.</span></div>
         <div className="shell footer-inner">
           <div><Link className="brand" href="/#home">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div>
           <div className="footer-links">

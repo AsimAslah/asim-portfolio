@@ -39,12 +39,15 @@ export function HeroPortrait() {
         srcSet="/images/asim-hero-720.webp 720w, /images/asim-hero-1080.webp 1080w, /images/asim-hero-1440.webp 1440w"
         sizes="(max-width: 1040px) calc(100vw - 48px), 42vw"
         width={1440}
-        height={1078}
+        height={1920}
         alt="Asim Aslah P M"
         eager
       />
       <div className="portrait-edge" aria-hidden="true" />
       <div className="portrait-grid" aria-hidden="true" />
+      <div className="portrait-scanline" aria-hidden="true" />
+      <div className="portrait-system-state" aria-hidden="true"><span><i /> SYSTEM / ONLINE</span><span>CV · API · WEB</span></div>
+      <div className="portrait-orbit" aria-hidden="true"><i /><i /><i /></div>
       <div className="portrait-coordinate portrait-coordinate-a" aria-hidden="true">01 / AI ENGINEER</div>
       <div className="portrait-coordinate portrait-coordinate-b" aria-hidden="true">PYTHON / FASTAPI</div>
       <div className="portrait-coordinate portrait-coordinate-c" aria-hidden="true">AI / FULL STACK</div>
