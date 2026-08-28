@@ -8,7 +8,7 @@
 .project-card.is-major { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.34fr) minmax(340px, .66fr); min-height: 520px; }
 .project-card.is-major .project-content { display: flex; flex-direction: column; justify-content: center; padding: clamp(32px, 4vw, 54px); border-left: 1px solid var(--line); }
 .project-card.is-major .project-content h3 { margin-top: 14px; font-size: clamp(32px, 4vw, 48px); }
-.project-card.is-major .project-content > p:not(.micro-label) { min-height: auto; }
+.project-card.is-major .project-summary { min-height: auto; }
 .project-card.is-major .project-actions { margin-top: auto; }
 
 .project-demo { --demo-accent: #9c96ff; position: relative; min-height: 520px; overflow: hidden; isolation: isolate; color: #f4f3ef; background: #15151e; }

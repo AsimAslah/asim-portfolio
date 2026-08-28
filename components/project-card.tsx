@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Code2 } from 'lucide-react';
 import type { Project } from '@/data/profile';
 import { ProjectDemo } from './project-demo';
 
@@ -12,7 +12,14 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       <div className="project-content">
         <div className="project-kicker"><p className="micro-label">Project / 0{index + 1}</p><span>{project.label}</span></div>
         <h3><Link href={`/projects/${project.slug}`}>{project.shortTitle}</Link></h3>
-        <p>{project.summary}</p>
+        {isMajor && (
+          <p className="project-campaign">
+            {project.slug === 'dataveil'
+              ? 'Your data. Your privacy. Before AI sees it.'
+              : 'Turn a single image into an interactive 3D experience.'}
+          </p>
+        )}
+        <p className="project-summary">{project.summary}</p>
         <ul className="project-features">
           {project.features.slice(0, 3).map((feature) => <li key={feature}>{feature}</li>)}
         </ul>
@@ -20,18 +27,18 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           {project.technologies.slice(0, 5).map((technology) => <span key={technology}>{technology}</span>)}
         </div>
         <div className="project-actions">
-          <Link className="text-link" href={`/projects/${project.slug}`}>
-            Case study <ArrowUpRight aria-hidden="true" />
+          <Link className="project-action project-action-primary" href={`/projects/${project.slug}`}>
+            View project <ArrowUpRight aria-hidden="true" />
           </Link>
           {project.githubUrl && (
-            <a className="small-button" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} on GitHub`}>
-              <span className="brand-icon" aria-hidden="true">GH</span>
+            <a className="project-action project-action-secondary" href={project.githubUrl} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} source code on GitHub`}>
+              View code <Code2 aria-hidden="true" />
             </a>
           )}
-          {project.demoUrl && (
-            <a className="small-button" href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-              Live demo <ArrowUpRight aria-hidden="true" />
-            </a>
+          {!project.githubUrl && (
+            <Link className="project-action project-action-secondary" href={`/projects/${project.slug}`}>
+              Learn more <ArrowUpRight aria-hidden="true" />
+            </Link>
           )}
         </div>
       </div>

@@ -20,7 +20,6 @@ export type Project = {
   screenshot: string | null;
 };
 
-// Replace null values as links and contact details become available.
 export const profile = {
   name: 'Asim Aslah P M',
   shortName: 'Asim',
@@ -31,8 +30,8 @@ export const profile = {
   secondaryPhone: '+91 7510875426',
   whatsappUrl:
     'https://wa.me/919207900426?text=Hi%20Asim%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.',
-  githubUrl: null as string | null,
-  linkedinUrl: null as string | null,
+  githubUrl: 'https://github.com/AsimAslah',
+  linkedinUrl: 'https://www.linkedin.com/in/asim-aslah-pm-05906a222',
   resumeUrl: '/resume.pdf',
   siteUrl: null as string | null,
   headline: 'Building useful products at the intersection of AI and the web.',
@@ -81,7 +80,7 @@ export const projects: Project[] = [
     outcome:
       'A practical middleware concept that demonstrates how privacy controls can sit between users and generative AI services without discarding the utility of those services.',
     tone: 'indigo',
-    githubUrl: null,
+    githubUrl: 'https://github.com/AsimAslah/Dataveil',
     demoUrl: null,
     screenshot: null,
   },
@@ -114,7 +113,7 @@ export const projects: Project[] = [
     outcome:
       'An end-to-end prototype connecting AI reconstruction to a practical shopping and product-visualization experience.',
     tone: 'amber',
-    githubUrl: null,
+    githubUrl: 'https://github.com/AsimAslah/Image-to-3D',
     demoUrl: null,
     screenshot: null,
   },

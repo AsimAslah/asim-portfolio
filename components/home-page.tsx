@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -20,7 +21,7 @@ import {
   skillGroups,
 } from '@/data/profile';
 import { Navbar } from './navbar';
-import { AboutPortraits, HeroPortrait } from './editorial-portrait';
+import { AboutPortraits, HeroPortrait, LifestylePortrait } from './editorial-portrait';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 
@@ -38,6 +39,22 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
 
 export function HomePage() {
   const reducedMotion = useReducedMotion();
+  const [hideFloatingChat, setHideFloatingChat] = useState(false);
+
+  useEffect(() => {
+    const denseSections = Array.from(document.querySelectorAll('#projects, #contact'));
+    if (!denseSections.length || !('IntersectionObserver' in window)) return;
+    const visibleSections = new Set<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => entry.isIntersecting ? visibleSections.add(entry.target) : visibleSections.delete(entry.target));
+        setHideFloatingChat(visibleSections.size > 0);
+      },
+      { threshold: 0.12 },
+    );
+    denseSections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -139,8 +156,9 @@ export function HomePage() {
         </section>
 
         <section className="section shell focus-section">
-          <Reveal>
+          <Reveal className="focus-intro">
             <SectionHeading eyebrow="Focus areas / 04" title="What I build." />
+            <LifestylePortrait />
           </Reveal>
           <Reveal className="focus-list">
             {focusAreas.map((area, index) => (
@@ -163,33 +181,53 @@ export function HomePage() {
           </div>
         </section>
 
+        <section className="section shell cta-section" aria-labelledby="cta-heading">
+          <Reveal className="cta-panel">
+            <div>
+              <p className="micro-label">A good idea deserves momentum</p>
+              <h2 id="cta-heading">Have an idea?<br /><em>Let&apos;s make it real.</em></h2>
+            </div>
+            <div className="cta-actions">
+              <p>From the first useful prototype to a polished AI product, I&apos;m ready to help shape what comes next.</p>
+              <div>
+                <a className="primary-button" href="#contact">Start a conversation <ArrowDown aria-hidden="true" /></a>
+                <a className="secondary-button" href="#projects">View my work <ArrowUpRight aria-hidden="true" /></a>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
         <section className="section shell contact-section" id="contact">
           <Reveal className="contact-card">
+            <div className="contact-glow" aria-hidden="true" />
             <div className="contact-copy">
               <p className="micro-label">Contact / 06</p>
-              <h2>Have something worth building?</h2>
-              <p>I&apos;m open to AI, full-stack and product-focused opportunities.</p>
+              <h2>Let&apos;s build something useful together.</h2>
+              <p>Reach out for AI projects, software development, internships, freelance opportunities, or a thoughtful collaboration.</p>
+              <ul className="contact-opportunities" aria-label="Open to">
+                <li>AI projects</li><li>Software development</li><li>Internships</li><li>Freelance</li><li>Collaboration</li>
+              </ul>
               <p className="contact-status"><span /> Available for opportunities</p>
             </div>
             <div className="contact-directory">
-              <a className="contact-row" href={`mailto:${profile.email}`}>
-                <span><Mail aria-hidden="true" /> Email</span><strong>{profile.email}</strong><ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile contact-tile-wide" href={`mailto:${profile.email}`}>
+                <span className="contact-icon"><Mail aria-hidden="true" /></span><span><small>Email</small><strong>{profile.email}</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="contact-row" href="tel:+919207900426">
-                <span><Phone aria-hidden="true" /> Phone</span><strong>{profile.primaryPhone}</strong><ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile" href="tel:9207900426">
+                <span className="contact-icon"><Phone aria-hidden="true" /></span><span><small>Phone</small><strong>{profile.primaryPhone}</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="contact-row" href="tel:+917510875426">
-                <span><Phone aria-hidden="true" /> Secondary</span><strong>{profile.secondaryPhone}</strong><ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile" href="tel:7510875426">
+                <span className="contact-icon"><Phone aria-hidden="true" /></span><span><small>Alternative phone</small><strong>{profile.secondaryPhone}</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="whatsapp-button" href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircle aria-hidden="true" /> Chat on WhatsApp <ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile contact-tile-whatsapp" href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <span className="contact-icon"><MessageCircle aria-hidden="true" /></span><span><small>WhatsApp</small><strong>Chat on WhatsApp</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              {(profile.githubUrl || profile.linkedinUrl) && (
-                <div className="contact-socials">
-                  {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>}
-                  {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noopener noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a>}
-                </div>
-              )}
+              <a className="contact-tile" href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                <span className="contact-icon"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span></span><span><small>LinkedIn</small><strong>Connect professionally</strong></span><ArrowUpRight aria-hidden="true" />
+              </a>
+              <a className="contact-tile" href={profile.githubUrl} target="_blank" rel="noopener noreferrer">
+                <span className="contact-icon"><span className="brand-icon" aria-hidden="true">GH</span></span><span><small>GitHub</small><strong>Explore my code</strong></span><ArrowUpRight aria-hidden="true" />
+              </a>
             </div>
           </Reveal>
         </section>
@@ -207,6 +245,10 @@ export function HomePage() {
           <p>© {new Date().getFullYear()} {profile.name}</p>
         </div>
       </footer>
+
+      <a className={`floating-whatsapp ${hideFloatingChat ? 'is-hidden' : ''}`} href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="Chat with Asim on WhatsApp" aria-hidden={hideFloatingChat} tabIndex={hideFloatingChat ? -1 : undefined}>
+        <MessageCircle aria-hidden="true" /><span>Chat on WhatsApp</span>
+      </a>
     </>
   );
 }
