@@ -14,6 +14,7 @@ import {
 import {
   academicWork,
   education,
+  experience,
   focusAreas,
   navigation,
   profile,
@@ -241,6 +242,34 @@ export function HomePage() {
           </Reveal>
         </section>
 
+        <section className="section shell experience-section" aria-labelledby="experience-heading">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Experience / Latest"
+              title="Industry experience."
+              description="A verified product internship connecting academic work with a real software team."
+            />
+          </Reveal>
+          <Reveal className="experience-card">
+            <div className="experience-caption">
+              <span>{experience.caption}</span>
+              <small>Completion verified</small>
+            </div>
+            <div className="experience-copy">
+              <p className="micro-label">{experience.product} / Product</p>
+              <h3 id="experience-heading">{experience.title}</h3>
+              <p className="experience-organization">{experience.organization}</p>
+              <p>{experience.description}</p>
+            </div>
+            <div className="experience-actions">
+              <time>{experience.period}</time>
+              <a className="secondary-button" href={experience.credentialUrl} target="_blank" rel="noreferrer">
+                View certificate <FileDown aria-hidden="true" />
+              </a>
+            </div>
+          </Reveal>
+        </section>
+
         <section className="section shell" id="education">
           <Reveal>
             <SectionHeading eyebrow="Education / 05" title="Academic foundation." />
@@ -301,7 +330,7 @@ export function HomePage() {
                 <span className="contact-icon"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span></span><span><small>LinkedIn</small><strong>Connect professionally</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
               <a className="contact-tile" href={profile.githubUrl} target="_blank" rel="noopener noreferrer">
-                <span className="contact-icon"><span className="brand-icon" aria-hidden="true">GH</span></span><span><small>GitHub</small><strong>Explore my code</strong></span><ArrowUpRight aria-hidden="true" />
+                <span className="contact-icon"><span className="brand-icon" aria-hidden="true">GH</span></span><span><small>GitHub</small><strong>@AsimAslah</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
             </div>
           </Reveal>

@@ -193,17 +193,28 @@ export const focusAreas = [
   'Progressive Web Apps',
 ];
 
+export const experience = {
+  caption: 'Latest',
+  title: 'Brickrat Product Internship',
+  organization: 'Realviz LLP',
+  product: 'Brickrat',
+  period: '01 Jun 2026 — 31 Jul 2026',
+  description:
+    'Contributed to the Brickrat product during a two-month internship with Realviz LLP under the guidance of CEO Indrajith Kottarathil.',
+  credentialUrl: '/documents/internship-completion-realviz-2026.pdf',
+};
+
 export const education = [
   {
     degree: 'M.Tech — Artificial Intelligence & Data Science',
     institution: 'Government Engineering College, Palakkad',
     university: 'APJ Abdul Kalam Technological University',
-    period: 'Current',
+    period: '2025 — 2027',
   },
   {
     degree: 'B.Tech — Computer Science & Engineering',
-    institution: 'MES College of Engineering',
+    institution: 'MES College of Engineering, Kuttippuram',
     university: 'APJ Abdul Kalam Technological University',
-    period: 'Graduated 2024',
+    period: '2020 — 2024',
   },
 ];

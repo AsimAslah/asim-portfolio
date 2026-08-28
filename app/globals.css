@@ -291,6 +291,18 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .focus-list p { margin: 0; font-size: 15px; }
 .focus-list svg { width: 14px; color: var(--muted-light); transition: transform .2s ease; }.focus-list > div:hover svg { transform: translate(2px, -2px); color: var(--accent); }
 
+.experience-section { padding-top: 96px; }
+.experience-card { display: grid; grid-template-columns: .32fr 1.15fr .53fr; gap: clamp(28px, 5vw, 74px); align-items: center; padding: clamp(28px, 4.5vw, 58px); border: 1px solid var(--line-strong); background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--surface)), var(--surface)); box-shadow: var(--shadow); }
+.experience-caption { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-right: 26px; border-right: 1px solid var(--line); font-family: var(--font-geist-mono), monospace; text-transform: uppercase; }
+.experience-caption span { width: fit-content; padding: 7px 10px; border: 1px solid color-mix(in srgb, var(--accent) 48%, var(--line)); background: color-mix(in srgb, var(--accent) 9%, transparent); color: var(--accent); font-size: 8px; letter-spacing: .12em; }
+.experience-caption small { color: var(--muted); font-size: 7px; letter-spacing: .09em; }
+.experience-copy .micro-label { margin-bottom: 14px; }
+.experience-copy h3 { margin: 0; font-size: clamp(28px, 3.2vw, 43px); font-weight: 590; letter-spacing: -.045em; }
+.experience-copy > p:last-child { max-width: 650px; margin: 18px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.experience-organization { margin: 8px 0 0; color: var(--ink); font-size: 14px; font-weight: 620; }
+.experience-actions { display: grid; justify-items: end; gap: 26px; }
+.experience-actions time { color: var(--muted); font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .08em; text-align: right; text-transform: uppercase; }
+
 .education-list { --timeline-marker: 141px; position: relative; border-top: 1px solid var(--line-strong); }
 .education-list::before { content: ''; position: absolute; top: 29px; bottom: 29px; left: var(--timeline-marker); width: 1px; background: linear-gradient(var(--accent), color-mix(in srgb, var(--accent) 20%, var(--line))); }
 .education-item { position: relative; display: grid; grid-template-columns: 120px 42px 1fr; align-items: center; min-height: 134px; padding: 25px 0; border-bottom: 1px solid var(--line); }
@@ -448,6 +460,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .focus-section { grid-template-columns: 1fr; gap: 48px; }
   .focus-intro { grid-template-columns: .8fr 1.2fr; align-items: end; }
   .focus-portrait { max-width: 470px; }
+  .experience-card { grid-template-columns: .3fr 1fr; }
+  .experience-actions { grid-column: 2; justify-items: start; }
   .cta-panel { grid-template-columns: 1fr; gap: 36px; }
   .contact-card { gap: 45px; }.contact-mark { min-height: 220px; }
   .footer-inner { grid-template-columns: 1fr 1fr; }.footer-inner > p { grid-column: span 2; justify-self: start; }
@@ -487,6 +501,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .education-period { font-size: 7px; }
   .focus-intro { grid-template-columns: 1fr; }
   .focus-portrait { width: min(100%, 420px); }
+  .experience-section { padding-top: 76px; }
+  .experience-card { grid-template-columns: 1fr; gap: 28px; padding: 28px 22px; }
+  .experience-caption { align-self: auto; flex-direction: row; align-items: center; gap: 15px; padding: 0 0 20px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .experience-actions { grid-column: auto; justify-items: stretch; }
+  .experience-actions time { text-align: left; }
+  .experience-actions a { width: 100%; }
   .cta-section { padding-block: 76px; }.cta-panel { padding: 34px 22px; }.cta-panel h2 { font-size: 43px; }.cta-actions > div { flex-direction: column; }.cta-actions a { width: 100%; }
   .contact-section { padding-bottom: 80px; }.contact-card { padding: 30px 22px; }.contact-copy h2 { font-size: 43px; }.field-row { grid-template-columns: 1fr; }
   .contact-directory { grid-template-columns: 1fr; }.contact-tile-wide { grid-column: auto; }
