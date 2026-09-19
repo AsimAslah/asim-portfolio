@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import {
   ArrowDown,
@@ -40,10 +39,10 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
 }
 
 const capabilityMatrix = [
-  { label: 'AI', detail: 'Models → products', depth: 5 },
-  { label: 'Backend', detail: 'APIs → systems', depth: 4 },
-  { label: 'Vision', detail: 'Pixels → decisions', depth: 4 },
-  { label: 'Frontend', detail: 'Ideas → interfaces', depth: 4 },
+  { label: 'AI systems', detail: 'Models → useful product flows', stack: 'PyTorch · NLP · Applied ML' },
+  { label: 'Backend', detail: 'APIs → dependable systems', stack: 'Python · FastAPI · REST' },
+  { label: 'Computer vision', detail: 'Pixels → practical decisions', stack: 'OpenCV · Image processing' },
+  { label: 'Frontend', detail: 'Ideas → clear interfaces', stack: 'React · Next.js · TypeScript' },
 ] as const;
 
 function ScrollProgressRail() {
@@ -100,7 +99,6 @@ function ScrollProgressRail() {
 }
 
 export function HomePage() {
-  const reducedMotion = useReducedMotion();
   const [hideFloatingChat, setHideFloatingChat] = useState(false);
 
   useEffect(() => {
@@ -124,19 +122,15 @@ export function HomePage() {
       <ScrollProgressRail />
       <main>
         <section className="hero shell" id="home">
-          <motion.div
-            className="hero-copy"
-            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-            animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="hero-copy">
             <p className="status-line"><span /> Available for opportunities</p>
-            <p className="hero-name">{profile.name}</p>
-            <h1>Building useful products at the intersection of <em>AI and the web.</em></h1>
+            <p className="hero-name"><strong>Asim Aslah</strong><span>/</span>{profile.role}</p>
+            <h1>Intelligence, shaped into <em>useful products.</em></h1>
             <p className="hero-intro">{profile.intro}</p>
             <div className="hero-actions">
               <a className="primary-button" href="#projects">View projects <ArrowDown aria-hidden="true" /></a>
               <a className="secondary-button" href={profile.resumeUrl} target="_blank" rel="noreferrer">Download resume <FileDown aria-hidden="true" /></a>
+              <a className="text-button" href="#contact">Contact me <ArrowUpRight aria-hidden="true" /></a>
             </div>
             {(profile.githubUrl || profile.linkedinUrl) && (
               <div className="hero-socials">
@@ -144,16 +138,11 @@ export function HomePage() {
                 {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noreferrer"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span> LinkedIn</a>}
               </div>
             )}
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="hero-media"
-            initial={reducedMotion ? false : { opacity: 0, scale: 0.97 }}
-            animate={reducedMotion ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="hero-media">
             <HeroPortrait />
-          </motion.div>
+          </div>
         </section>
 
         <section className="section shell" id="about">
@@ -204,48 +193,10 @@ export function HomePage() {
           </Reveal>
         </section>
 
-        <section className="section shell" id="skills">
-          <Reveal>
-            <SectionHeading eyebrow="Capabilities / 03" title="A focused, full-stack toolkit." description="Tools chosen to move from model experimentation to reliable APIs and usable web products." />
-          </Reveal>
-          <Reveal className="capability-matrix">
-            {capabilityMatrix.map((capability, index) => (
-              <article key={capability.label}>
-                <div><span>0{index + 1}</span><p>Capability signal</p></div>
-                <h3>{capability.label}</h3>
-                <p>{capability.detail}</p>
-                <div className="capability-level" aria-label={`${capability.label} capability signal: ${capability.depth} of 5`}>
-                  {Array.from({ length: 5 }, (_, dot) => <i key={dot} className={dot < capability.depth ? 'is-active' : ''} aria-hidden="true" />)}
-                </div>
-              </article>
-            ))}
-          </Reveal>
-          <div className="skills-grid">
-            {skillGroups.map((group, index) => (
-              <Reveal className="skill-group" key={group.name} delay={(index % 3) * 0.05}>
-                <div className="skill-group-heading"><span>0{index + 1}</span><h3>{group.name}</h3></div>
-                <ul>{group.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="section shell focus-section">
-          <Reveal className="focus-intro">
-            <SectionHeading eyebrow="Focus areas / 04" title="What I build." />
-            <LifestylePortrait />
-          </Reveal>
-          <Reveal className="focus-list">
-            {focusAreas.map((area, index) => (
-              <div key={area}><span>0{index + 1}</span><p>{area}</p><ArrowUpRight aria-hidden="true" /></div>
-            ))}
-          </Reveal>
-        </section>
-
-        <section className="section shell experience-section" aria-labelledby="experience-heading">
+        <section className="section shell experience-section" id="experience" aria-labelledby="experience-heading">
           <Reveal>
             <SectionHeading
-              eyebrow="Experience / Latest"
+              eyebrow="Experience / 03"
               title="Industry experience."
               description="A verified product internship connecting academic work with a real software team."
             />
@@ -270,9 +221,45 @@ export function HomePage() {
           </Reveal>
         </section>
 
+        <section className="section shell" id="skills">
+          <Reveal>
+            <SectionHeading eyebrow="Capabilities / 04" title="A focused, full-stack toolkit." description="Tools chosen to move from model experimentation to reliable APIs and usable web products." />
+          </Reveal>
+          <Reveal className="capability-matrix">
+            {capabilityMatrix.map((capability, index) => (
+              <article key={capability.label}>
+                <div><span>0{index + 1}</span><p>Core discipline</p></div>
+                <h3>{capability.label}</h3>
+                <p>{capability.detail}</p>
+                <small>{capability.stack}</small>
+              </article>
+            ))}
+          </Reveal>
+          <div className="skills-grid">
+            {skillGroups.map((group, index) => (
+              <Reveal className="skill-group" key={group.name} delay={(index % 3) * 0.05}>
+                <div className="skill-group-heading"><span>0{index + 1}</span><h3>{group.name}</h3></div>
+                <ul>{group.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="section shell focus-section">
+          <Reveal className="focus-intro">
+            <SectionHeading eyebrow="Focus areas / 05" title="What I build." />
+            <LifestylePortrait />
+          </Reveal>
+          <Reveal className="focus-list">
+            {focusAreas.map((area, index) => (
+              <div key={area}><span>0{index + 1}</span><p>{area}</p><ArrowUpRight aria-hidden="true" /></div>
+            ))}
+          </Reveal>
+        </section>
+
         <section className="section shell" id="education">
           <Reveal>
-            <SectionHeading eyebrow="Education / 05" title="Academic foundation." />
+            <SectionHeading eyebrow="Education / 06" title="Academic foundation." />
           </Reveal>
           <div className="education-list">
             {education.map((item, index) => (
@@ -305,8 +292,8 @@ export function HomePage() {
           <Reveal className="contact-card">
             <div className="contact-glow" aria-hidden="true" />
             <div className="contact-copy">
-              <p className="micro-label">Contact / 06</p>
-              <h2>Let&apos;s build something useful together.</h2>
+              <p className="micro-label">Contact / 07</p>
+              <h2>Let&apos;s build something intelligent.</h2>
               <p>Reach out for AI projects, software development, internships, freelance opportunities, or a thoughtful collaboration.</p>
               <ul className="contact-opportunities" aria-label="Open to">
                 <li>AI projects</li><li>Software development</li><li>Internships</li><li>Freelance</li><li>Collaboration</li>

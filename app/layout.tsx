@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { InteractionLayer } from '@/components/interaction-layer';
 import { profile } from '@/data/profile';
 import './globals.css';
 import './project-demos.css';
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     template: '%s | Asim Aslah',
   },
   description:
-    'Portfolio of Asim Aslah, an AI and full-stack developer building practical applications in artificial intelligence, computer vision, privacy-preserving AI and modern web development.',
+    'Portfolio of Asim Aslah, an AI and Full-Stack Developer building applications in computer vision, privacy-preserving AI, image-to-3D generation and modern web technologies.',
   keywords: ['Asim Aslah', 'AI Engineer', 'Full-Stack Developer', 'Python Developer', 'Computer Vision', 'FastAPI'],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <InteractionLayer />
         {children}
       </body>
     </html>

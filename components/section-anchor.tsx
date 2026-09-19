@@ -26,7 +26,8 @@ export function SectionAnchor({ children, href, onNavigate, sectionId, ...props 
     if (!target) return;
 
     event.preventDefault();
-    target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
     window.history.pushState(null, '', `#${sectionId}`);
   };
 

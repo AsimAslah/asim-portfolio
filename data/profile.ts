@@ -36,7 +36,7 @@ export const profile = {
   siteUrl: 'https://asim-aslah-portfolio.asimaslu7.chatgpt.site',
   headline: 'Building useful products at the intersection of AI and the web.',
   intro:
-    'I build practical AI-powered applications using Python, FastAPI, modern web technologies, computer vision, and machine learning.',
+    'I build intelligent digital products across AI, computer vision, privacy, 3D generation, and modern web systems.',
   about:
     'I am a computer science graduate currently pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. My work is focused on practical AI systems, computer vision, privacy-preserving AI, and full-stack products that move beyond experimental notebooks into usable applications.',
 };
@@ -45,6 +45,7 @@ export const navigation = [
   { label: 'Home', href: '/#home' },
   { label: 'About', href: '/#about' },
   { label: 'Projects', href: '/#projects' },
+  { label: 'Experience', href: '/#experience' },
   { label: 'Skills', href: '/#skills' },
   { label: 'Education', href: '/#education' },
   { label: 'Contact', href: '/#contact' },
