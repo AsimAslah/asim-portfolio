@@ -79,19 +79,3 @@ export function AboutPortraits() {
     </div>
   );
 }
-
-export function LifestylePortrait() {
-  return (
-    <figure className="focus-portrait">
-      <ResponsivePortrait
-        src="/images/asim-lifestyle-720.webp"
-        srcSet="/images/asim-lifestyle-480.webp 480w, /images/asim-lifestyle-720.webp 720w, /images/asim-lifestyle-960.webp 960w"
-        sizes="(max-width: 820px) calc(100vw - 36px), 34vw"
-        width={960}
-        height={1280}
-        alt="Asim Aslah P M in a relaxed editorial interior"
-      />
-      <figcaption><span>PERSONAL NOTE / 03</span><span>CURIOUS OFFLINE, PRECISE ONLINE</span></figcaption>
-    </figure>
-  );
-}

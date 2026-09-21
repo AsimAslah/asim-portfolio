@@ -2,6 +2,6 @@ import type { MetadataRoute } from 'next';
 import { profile } from '@/data/profile';
 
 export default function robots(): MetadataRoute.Robots {
-  const base = profile.siteUrl ?? process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const base = profile.siteUrl;
   return { rules: { userAgent: '*', allow: '/' }, sitemap: `${base}/sitemap.xml` };
 }

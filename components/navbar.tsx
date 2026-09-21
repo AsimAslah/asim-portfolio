@@ -23,20 +23,27 @@ export function Navbar() {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
         setIsScrolled(window.scrollY > 18);
-        let current = sections[0].id;
+        let current = '';
         sections.forEach((section) => {
           if (section.getBoundingClientRect().top <= window.innerHeight * 0.38) current = section.id;
         });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+          current = sections.at(-1)?.id ?? current;
+        }
         setActiveSection(current);
       });
     };
     update();
+    const delayedUpdate = window.setTimeout(update, 180);
     window.addEventListener('scroll', update, { passive: true });
     window.addEventListener('resize', update);
+    window.addEventListener('hashchange', update);
     return () => {
       cancelAnimationFrame(frame);
+      window.clearTimeout(delayedUpdate);
       window.removeEventListener('scroll', update);
       window.removeEventListener('resize', update);
+      window.removeEventListener('hashchange', update);
     };
   }, []);
 
@@ -56,7 +63,7 @@ export function Navbar() {
   return (
     <header className={`site-header ${isScrolled ? 'is-scrolled' : ''}`}>
       <nav className="navbar shell" aria-label="Primary navigation">
-        <SectionAnchor className="brand" sectionId="home" aria-label={`${profile.name}, home`}>
+        <SectionAnchor className="brand" sectionId="home" aria-label={`${profile.name}, home`} data-sound="navigation">
           AA<span>.</span>
         </SectionAnchor>
 
@@ -64,7 +71,7 @@ export function Navbar() {
           {navigation.map((item) => {
             const sectionId = item.href.split('#')[1];
             const isActive = activeSection === sectionId;
-            return <SectionAnchor key={item.label} href={item.href} sectionId={sectionId} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined}>{item.label}</SectionAnchor>;
+            return <SectionAnchor key={item.label} href={item.href} sectionId={sectionId} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined} data-sound="navigation">{item.label}</SectionAnchor>;
           })}
         </div>
 
@@ -81,10 +88,10 @@ export function Navbar() {
           )}
           <SoundToggle />
           <ThemeToggle />
-          <a className="resume-button" href={profile.resumeUrl} target="_blank" rel="noreferrer">
+          <a className="resume-button" href={profile.resumeUrl} target="_blank" rel="noreferrer" data-sound="primary">
             Resume <FileDown aria-hidden="true" />
           </a>
-          <button className="icon-button menu-button" type="button" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'}>
+          <button className="icon-button menu-button" type="button" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'} data-sound="menu">
             {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
@@ -96,7 +103,7 @@ export function Navbar() {
             const sectionId = item.href.split('#')[1];
             const isActive = activeSection === sectionId;
             return (
-              <SectionAnchor key={item.label} href={item.href} sectionId={sectionId} onNavigate={() => setIsOpen(false)} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined}>
+              <SectionAnchor key={item.label} href={item.href} sectionId={sectionId} onNavigate={() => setIsOpen(false)} className={isActive ? 'is-active' : ''} aria-current={isActive ? 'location' : undefined} data-sound="navigation">
                 <span>0{index + 1}</span>{item.label}
               </SectionAnchor>
             );

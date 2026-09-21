@@ -84,7 +84,7 @@ function ImageToThreeDemo() {
     <div
       className="project-demo demo-three tone-amber"
       role="img"
-      aria-label="Animated image-to-3D product demonstration: a product image becomes a reconstructed interactive model and an augmented-reality preview."
+      aria-label="Animated image-to-3D product demonstration: a product image becomes a reconstructed model for interactive preview and export."
       data-active="false"
     >
       <div className="demo-technical-grid" aria-hidden="true" />
@@ -122,10 +122,13 @@ function ImageToThreeDemo() {
           <div className="model-controls"><span>ROTATE</span><span>ZOOM</span><span>OBJ</span><span>GLB</span></div>
         </div>
 
-        <div className="demo-scene three-ar">
-          <span className="demo-step">05 / AR</span>
-          <div className="phone-frame"><div className="room-line room-a" /><div className="room-line room-b" /><Chair variant="solid" /></div>
-          <div className="ar-copy"><strong>VIEW IN<br />YOUR SPACE</strong><span>AR QUICK LOOK / READY</span></div>
+        <div className="demo-scene three-delivery">
+          <span className="demo-step">05 / PRODUCT STUDIO</span>
+          <div className="delivery-window">
+            <span>PRODUCT / CHAIR</span>
+            <div><Chair variant="solid" /><p><b>GLB</b><b>OBJ</b><b>SUPABASE</b></p></div>
+          </div>
+          <div className="delivery-copy"><strong>PREVIEW.<br />EXPORT. SAVE.</strong><span>FASTAPI / PRODUCT WORKFLOW</span></div>
         </div>
 
         <div className="demo-scene demo-end three-end">

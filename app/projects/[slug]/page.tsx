@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
@@ -23,13 +24,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: project.title,
       description: project.summary,
       type: 'article',
-      images: project.screenshot ? [{ url: project.screenshot }] : [],
+      images: [{ url: project.screenshot ?? '/og.png', alt: project.screenshotAlt ?? `${project.title} project` }],
     },
     twitter: {
       card: 'summary',
       title: project.title,
       description: project.summary,
-      images: project.screenshot ? [project.screenshot] : [],
+      images: [project.screenshot ?? '/og.png'],
     },
   };
 }
@@ -46,50 +47,72 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <>
       <Navbar />
       <main className="project-page">
-        <div className="shell project-breadcrumb"><Link href="/#projects"><ArrowLeft aria-hidden="true" /> Back to projects</Link><span>{project.label}</span></div>
+        <div className="shell project-breadcrumb"><Link href="/#projects" data-sound="navigation"><ArrowLeft aria-hidden="true" /> Back to projects</Link><span>{project.label}</span></div>
         <section className="shell project-detail-hero">
           <div>
             <p className="micro-label">Project case study</p>
             <h1>{project.title}</h1>
             <p>{project.description}</p>
             <div className="project-detail-actions">
-              {project.githubUrl && <a className="primary-button" href={project.githubUrl} target="_blank" rel="noreferrer"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
-              {project.demoUrl && <a className="secondary-button" href={project.demoUrl} target="_blank" rel="noreferrer">Live demo <ArrowUpRight aria-hidden="true" /></a>}
+              {project.githubUrl && <a className="primary-button" href={project.githubUrl} target="_blank" rel="noreferrer" data-sound="primary"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
+              {project.demoUrl && <a className="secondary-button" href={project.demoUrl} target="_blank" rel="noreferrer" data-sound="primary">Live demo <ArrowUpRight aria-hidden="true" /></a>}
             </div>
           </div>
           <ProjectVisual project={project} compact />
         </section>
 
-        <section className="shell project-detail-grid">
+        {project.screenshot && project.screenshotAlt && project.screenshotSize && (
+          <section className="shell project-proof" aria-labelledby="project-proof-heading">
+            <div className="detail-section-heading">
+              <p className="micro-label">Verified product evidence</p>
+              <h2 id="project-proof-heading">The working interface.</h2>
+            </div>
+            <figure>
+              <Image
+                src={project.screenshot}
+                alt={project.screenshotAlt}
+                width={project.screenshotSize.width}
+                height={project.screenshotSize.height}
+                sizes="(max-width: 820px) calc(100vw - 36px), 68vw"
+                quality={88}
+                loading="lazy"
+              />
+              <figcaption>Screenshot from the public project repository.</figcaption>
+            </figure>
+          </section>
+        )}
+
+        <section className="shell project-detail-grid project-detail-grid-three">
           <article><p className="micro-label">01 / Problem</p><h2>The context</h2><p>{project.problem}</p></article>
           <article><p className="micro-label">02 / Solution</p><h2>The approach</h2><p>{project.solution}</p></article>
+          <article><p className="micro-label">03 / My role</p><h2>My contribution</h2><p>{project.contribution}</p></article>
         </section>
 
         <section className="shell detail-section">
-          <div className="detail-section-heading"><p className="micro-label">03 / System</p><h2>Key features</h2></div>
+          <div className="detail-section-heading"><p className="micro-label">04 / System</p><h2>Key features</h2></div>
           <div className="numbered-grid">
             {project.features.map((feature, index) => <div key={feature}><span>0{index + 1}</span><p>{feature}</p></div>)}
           </div>
         </section>
 
         <section className="shell detail-section architecture-section">
-          <div className="detail-section-heading"><p className="micro-label">04 / Workflow</p><h2>From input to outcome</h2></div>
+          <div className="detail-section-heading"><p className="micro-label">05 / Workflow</p><h2>From input to outcome</h2></div>
           <div className="workflow">
             {project.workflow.map((step, index) => <div key={step}><span>0{index + 1}</span><p>{step}</p>{index < project.workflow.length - 1 && <i aria-hidden="true" />}</div>)}
           </div>
         </section>
 
         <section className="shell project-detail-grid detail-bottom">
-          <article><p className="micro-label">05 / Challenges</p><h2>What required care</h2><ul>{project.challenges.map((challenge) => <li key={challenge}>{challenge}</li>)}</ul></article>
-          <article><p className="micro-label">06 / Outcome</p><h2>What it demonstrates</h2><p>{project.outcome}</p><div className="tag-list detail-tags">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div></article>
+          <article><p className="micro-label">06 / Challenges</p><h2>What required care</h2><ul>{project.challenges.map((challenge) => <li key={challenge}>{challenge}</li>)}</ul></article>
+          <article><p className="micro-label">07 / Outcome</p><h2>What it demonstrates</h2><p>{project.outcome}</p><div className="tag-list detail-tags">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div></article>
         </section>
 
         <section className="shell next-project">
           <p className="micro-label">Continue exploring</p>
-          <Link href={`/projects/${next.slug}`}><span>Next project</span><strong>{next.shortTitle}</strong><ArrowUpRight aria-hidden="true" /></Link>
+          <Link href={`/projects/${next.slug}`} data-sound="project"><span>Next project</span><strong>{next.shortTitle}</strong><ArrowUpRight aria-hidden="true" /></Link>
         </section>
       </main>
-      <footer className="footer"><div className="shell footer-inner"><div><Link className="brand" href="/#home">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div><Link href="/#projects">All projects ↑</Link><p>© {new Date().getFullYear()} {profile.name}</p></div></footer>
+      <footer className="footer"><div className="shell footer-inner"><div><Link className="brand" href="/#home" data-sound="navigation">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div><Link href="/#projects" data-sound="navigation">All projects ↑</Link><p>© {new Date().getFullYear()} {profile.name}</p></div></footer>
     </>
   );
 }
