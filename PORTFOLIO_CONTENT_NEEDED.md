@@ -1,6 +1,20 @@
-# Missing Portfolio Information
+# INFORMATION / FILES NEEDED FROM ASIM
 
 Updated after the September 2026 design-system pass. The redesign deliberately treats Image-to-3D and DataVeil as verified featured work, while Velora and AI Virtual Keyboard remain secondary experiments until the evidence below is supplied.
+
+## Image-to-3D AR Details
+
+Current status:
+Asim confirmed that the project supports AR viewing. The portfolio now states that generated models can be viewed in AR on supported devices. The public repository README does not yet document the AR implementation or compatibility details.
+
+Information needed from Asim:
+1. The exact AR technology or viewer used.
+2. Which devices and browsers have been tested.
+3. One screenshot or short recording of the AR view, if it may be published.
+4. A stable live demo URL, if one exists.
+
+Why it is needed:
+The confirmed feature can be stated now, but implementation details and compatibility claims should not be guessed.
 
 ## Experience / Internship
 

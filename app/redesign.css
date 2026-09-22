@@ -402,6 +402,7 @@ body::before { display: none; }
   .about-grid { grid-template-columns: 1fr; }
   .about-media { width: min(78vw, 560px); }
   .contact-card { grid-template-columns: 1fr; }
+  .footer-links a { display: inline-flex; align-items: center; min-height: 44px; }
 }
 
 @media (max-width: 560px) {
@@ -440,7 +441,8 @@ body::before { display: none; }
   .supporting-work-heading { display: grid; gap: .35rem; margin-top: 4rem; }
   .supporting-work { grid-template-columns: 1fr; }
   .supporting-work .project-visual { min-height: 225px; }
-  .experience-card { border-radius: var(--radius-md); }
+  .experience-card { grid-template-columns: minmax(0, 1fr); border-radius: var(--radius-md); }
+  .experience-actions { grid-column: auto; }
   .about-media { width: 100%; }
   .principles > div { grid-template-columns: 30px 1fr; }
   .principles p { grid-column: 2; }

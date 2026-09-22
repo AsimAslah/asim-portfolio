@@ -58,32 +58,33 @@ export const projects: Project[] = [
     shortTitle: 'Image-to-3D',
     label: '3D reconstruction',
     summary:
-      'Converts a single product image into a 3D mesh with preprocessing controls, interactive preview, and OBJ/GLB export.',
+      'Converts a single product image into a 3D mesh with preprocessing controls, interactive preview, AR viewing, and OBJ/GLB export.',
     build:
-      'A Gradio workflow and FastAPI product studio for image upload, TripoSR inference, mesh export, preview, and Supabase-backed product records.',
+      'A Gradio workflow and FastAPI product studio for image upload, TripoSR inference, mesh preview, AR viewing, export, and Supabase-backed product records.',
     contribution:
       'Integrated the pretrained TripoSR model into the application workflow, added preprocessing and mesh controls, built interactive previews and exports, and documented the project without claiming ownership of the underlying model.',
     description:
-      'A practical application layer around TripoSR that connects single-image reconstruction to configurable preprocessing, model preview, export, and a product-management workflow.',
+      'A practical application layer around TripoSR that connects single-image reconstruction to configurable preprocessing, interactive model and AR viewing, export, and a product-management workflow.',
     problem:
       'Creating a 3D asset for every product is expensive, while customers still benefit from spatial previews before making a purchase decision.',
     solution:
-      'The application accepts a single image, optionally removes its background, runs TripoSR inference, extracts a mesh, and makes the result available for interactive preview and OBJ/GLB export.',
+      'The application accepts a single image, optionally removes its background, runs TripoSR inference, extracts a mesh, and makes the result available for interactive preview, AR viewing, and OBJ/GLB export.',
     features: [
       'Single-image 3D reconstruction with TripoSR',
       'OBJ and GLB mesh export',
       'Interactive web-based 3D preview',
+      'AR viewing on supported devices',
       'FastAPI product workflow with Supabase asset records',
     ],
     technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Gradio', 'Supabase', 'OBJ / GLB'],
-    workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Mesh extraction', 'Preview and export'],
+    workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Mesh extraction', 'Preview, AR view, and export'],
     challenges: [
       'Producing usable geometry from a single limited viewpoint',
       'Turning model output into reliable preview and export formats',
       'Managing GPU-heavy generation behind a responsive product flow',
     ],
     outcome:
-      'A reproducible application with verified chair outputs, interactive preview, and downloadable OBJ and GLB files.',
+      'A reproducible application with verified chair outputs, interactive preview, AR viewing, and downloadable OBJ and GLB files.',
     tone: 'amber',
     githubUrl: 'https://github.com/AsimAslah/Image-to-3D',
     demoUrl: null,

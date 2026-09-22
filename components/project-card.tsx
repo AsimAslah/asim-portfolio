@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import type { Project } from '@/data/profile';
-import { ProjectDemo } from './project-demo';
+import { ProjectVisual } from './project-visual';
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   const isMajor = project.slug === 'dataveil' || project.slug === 'image-to-3d-ar';
@@ -29,7 +29,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             </div>
             <span className="project-shot-proof" aria-hidden="true">Working interface / repository evidence</span>
           </div>
-        ) : <ProjectDemo project={project} index={index} />}
+        ) : <ProjectVisual project={project} index={index} />}
         <span className="project-hover-label">View case study <ArrowUpRight aria-hidden="true" /></span>
       </Link>
       <div className="project-content">
@@ -39,7 +39,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           <p className="project-campaign">
             {project.slug === 'dataveil'
               ? 'Your data. Your privacy. Before AI sees it.'
-              : 'Turn a single image into a preview-ready 3D mesh.'}
+              : 'Turn a single image into an interactive, AR-viewable 3D mesh.'}
           </p>
         )}
         <p className="project-summary">{project.summary}</p>
