@@ -4,6 +4,7 @@ import { InteractionLayer } from '@/components/interaction-layer';
 import { profile } from '@/data/profile';
 import './globals.css';
 import './project-demos.css';
+import './redesign.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -47,8 +48,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   colorScheme: 'light dark',
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f3f4f8' },
-    { media: '(prefers-color-scheme: dark)', color: '#08090c' },
+    { media: '(prefers-color-scheme: light)', color: '#f6f3ed' },
+    { media: '(prefers-color-scheme: dark)', color: '#0d0f15' },
   ],
 };
 

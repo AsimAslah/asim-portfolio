@@ -8,7 +8,7 @@ export function CodeCompanion() {
   return (
     <div className={`code-companion ${isOpen ? 'is-open' : ''}`}>
       <p className="code-companion-note" id="code-companion-note" aria-live="polite">
-        {isOpen ? 'I guard the edge cases. The coffee guards the deadline.' : 'Psst — inspect the builds, not just the buzzwords.'}
+        {isOpen ? 'Yep, I built this. Now I’m probably debugging. 👀' : 'Byte is checking the edge cases.'}
       </p>
       <button
         type="button"
@@ -17,7 +17,7 @@ export function CodeCompanion() {
         aria-expanded={isOpen}
         aria-describedby="code-companion-note"
         aria-label={isOpen ? 'Hide Byte the edge-case bot message' : 'Meet Byte, the edge-case bot'}
-        data-sound="menu"
+        data-sound="success"
       >
         <span className="bot-antenna" aria-hidden="true"><i /></span>
         <span className="bot-face" aria-hidden="true"><i /><i /><b /></span>

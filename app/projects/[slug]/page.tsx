@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
     <>
       <Navbar />
       <main className="project-page">
-        <div className="shell project-breadcrumb"><Link href="/#projects" data-sound="navigation"><ArrowLeft aria-hidden="true" /> Back to projects</Link><span>{project.label}</span></div>
+        <div className="shell project-breadcrumb"><Link href="/#projects" prefetch={false} data-sound="navigation"><ArrowLeft aria-hidden="true" /> Back to projects</Link><span>{project.label}</span></div>
         <section className="shell project-detail-hero">
           <div>
             <p className="micro-label">Project case study</p>
@@ -109,10 +109,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         <section className="shell next-project">
           <p className="micro-label">Continue exploring</p>
-          <Link href={`/projects/${next.slug}`} data-sound="project"><span>Next project</span><strong>{next.shortTitle}</strong><ArrowUpRight aria-hidden="true" /></Link>
+          <Link href={`/projects/${next.slug}`} prefetch={false} data-sound="project"><span>Next project</span><strong>{next.shortTitle}</strong><ArrowUpRight aria-hidden="true" /></Link>
         </section>
       </main>
-      <footer className="footer"><div className="shell footer-inner"><div><Link className="brand" href="/#home" data-sound="navigation">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div><Link href="/#projects" data-sound="navigation">All projects ↑</Link><p>© {new Date().getFullYear()} {profile.name}</p></div></footer>
+      <footer className="footer"><div className="shell footer-inner"><div><Link className="brand" href="/#home" prefetch={false} data-sound="navigation">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div><Link href="/#projects" prefetch={false} data-sound="navigation">All projects ↑</Link><p>© {new Date().getFullYear()} {profile.name}</p></div></footer>
     </>
   );
 }

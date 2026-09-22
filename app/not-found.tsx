@@ -17,7 +17,7 @@ export default function NotFound() {
         <p className="micro-label">404 / Route not found</p>
         <h1>This page slipped outside the build.</h1>
         <p>The portfolio is still here. Return to the work, experience, and contact details on the home page.</p>
-        <Link className="primary-button" href="/#home" data-sound="navigation">
+        <Link className="primary-button" href="/#home" prefetch={false} data-sound="navigation">
           <ArrowLeft aria-hidden="true" /> Back to {profile.shortName}&apos;s portfolio
         </Link>
       </main>

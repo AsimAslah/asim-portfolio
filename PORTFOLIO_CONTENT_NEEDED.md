@@ -1,5 +1,7 @@
 # Missing Portfolio Information
 
+Updated after the September 2026 design-system pass. The redesign deliberately treats Image-to-3D and DataVeil as verified featured work, while Velora and AI Virtual Keyboard remain secondary experiments until the evidence below is supplied.
+
 ## Experience / Internship
 
 Current issue:

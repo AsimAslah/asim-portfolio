@@ -28,11 +28,7 @@ function ResponsivePortrait({ alt, className, eager, height, sizes, src, srcSet,
 
 export function HeroPortrait() {
   return (
-    <figure className="system-map hero-portrait">
-      <div className="system-map-header">
-        <span>PORTRAIT SYSTEM / 01</span>
-        <span className="map-live"><i /> AVAILABLE</span>
-      </div>
+    <figure className="hero-portrait">
       <ResponsivePortrait
         className="hero-portrait-picture"
         src="/images/asim-hero-1080.webp"
@@ -43,20 +39,10 @@ export function HeroPortrait() {
         alt="Asim Aslah P M"
         eager
       />
-      <div className="portrait-edge" aria-hidden="true" />
-      <div className="portrait-grid" aria-hidden="true" />
-      <div className="portrait-scanline" aria-hidden="true" />
-      <div className="portrait-system-state" aria-hidden="true"><span><i /> SYSTEM / ONLINE</span><span>CV · API · WEB</span></div>
-      <div className="portrait-orbit" aria-hidden="true"><i /><i /><i /></div>
-      <div className="portrait-coordinate portrait-coordinate-a" aria-hidden="true">01 / AI ENGINEER</div>
-      <div className="portrait-coordinate portrait-coordinate-b" aria-hidden="true">PYTHON / FASTAPI</div>
-      <div className="portrait-coordinate portrait-coordinate-c" aria-hidden="true">AI / FULL STACK</div>
-      <div className="portrait-bracket portrait-bracket-a" aria-hidden="true" />
-      <div className="portrait-bracket portrait-bracket-b" aria-hidden="true" />
-      <div className="system-map-footer">
-        <span>COMPUTER VISION / PRODUCT BUILDER</span>
-        <span>PALAKKAD, KERALA</span>
-      </div>
+      <span className="portrait-corner portrait-corner-a" aria-hidden="true" />
+      <span className="portrait-corner portrait-corner-b" aria-hidden="true" />
+      <div className="portrait-signal" aria-hidden="true"><i /> Open to thoughtful work</div>
+      <figcaption><span>AI / FULL STACK</span><span>PALAKKAD, IN</span></figcaption>
     </figure>
   );
 }
