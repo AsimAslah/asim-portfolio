@@ -17,7 +17,7 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
         <div className="model-ui">
           <div className="model-object"><span /><span /><span /></div>
           <div className="model-track"><i /><i /><i /><i /><i /></div>
-          <div className="model-label">IMAGE → MESH → AR</div>
+          <div className="model-label">IMAGE → MESH → AR / EXPORT</div>
         </div>
       )}
       {project.slug === 'velora' && (

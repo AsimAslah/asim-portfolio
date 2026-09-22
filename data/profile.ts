@@ -6,6 +6,8 @@ export type Project = {
   shortTitle: string;
   label: string;
   summary: string;
+  build: string;
+  contribution: string;
   description: string;
   problem: string;
   solution: string;
@@ -18,6 +20,8 @@ export type Project = {
   githubUrl: string | null;
   demoUrl: string | null;
   screenshot: string | null;
+  screenshotAlt: string | null;
+  screenshotSize: { width: number; height: number } | null;
 };
 
 export const profile = {
@@ -26,31 +30,68 @@ export const profile = {
   role: 'AI & Full-Stack Developer',
   location: 'Palakkad, Kerala, India',
   email: 'asimaslu7@gmail.com',
-  primaryPhone: '+91 9207900426',
-  secondaryPhone: '+91 7510875426',
   whatsappUrl:
     'https://wa.me/919207900426?text=Hi%20Asim%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.',
   githubUrl: 'https://github.com/AsimAslah',
   linkedinUrl: 'https://www.linkedin.com/in/asim-aslah-pm-05906a222',
   resumeUrl: '/resume.pdf',
-  siteUrl: null as string | null,
+  siteUrl: 'https://asim-aslah-portfolio.asimaslu7.chatgpt.site',
   headline: 'Building useful products at the intersection of AI and the web.',
   intro:
-    'I build practical AI-powered applications using Python, FastAPI, modern web technologies, computer vision, and machine learning.',
+    'I build intelligent digital products across AI, computer vision, privacy, 3D generation, and modern web systems.',
   about:
     'I am a computer science graduate currently pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. My work is focused on practical AI systems, computer vision, privacy-preserving AI, and full-stack products that move beyond experimental notebooks into usable applications.',
 };
 
 export const navigation = [
   { label: 'Home', href: '/#home' },
-  { label: 'About', href: '/#about' },
   { label: 'Projects', href: '/#projects' },
-  { label: 'Skills', href: '/#skills' },
-  { label: 'Education', href: '/#education' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'About', href: '/#about' },
   { label: 'Contact', href: '/#contact' },
 ];
 
 export const projects: Project[] = [
+  {
+    slug: 'image-to-3d-ar',
+    title: 'AI Image-to-3D Platform',
+    shortTitle: 'Image-to-3D',
+    label: '3D reconstruction',
+    summary:
+      'Converts a single product image into a 3D mesh with preprocessing controls, interactive preview, AR viewing, and OBJ/GLB export.',
+    build:
+      'A Gradio workflow and FastAPI product studio for image upload, TripoSR inference, mesh preview, AR viewing, export, and Supabase-backed product records.',
+    contribution:
+      'Integrated the pretrained TripoSR model into the application workflow, added preprocessing and mesh controls, built interactive previews and exports, and documented the project without claiming ownership of the underlying model.',
+    description:
+      'A practical application layer around TripoSR that connects single-image reconstruction to configurable preprocessing, interactive model and AR viewing, export, and a product-management workflow.',
+    problem:
+      'Creating a 3D asset for every product is expensive, while customers still benefit from spatial previews before making a purchase decision.',
+    solution:
+      'The application accepts a single image, optionally removes its background, runs TripoSR inference, extracts a mesh, and makes the result available for interactive preview, AR viewing, and OBJ/GLB export.',
+    features: [
+      'Single-image 3D reconstruction with TripoSR',
+      'OBJ and GLB mesh export',
+      'Interactive web-based 3D preview',
+      'AR viewing on supported devices',
+      'FastAPI product workflow with Supabase asset records',
+    ],
+    technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Gradio', 'Supabase', 'OBJ / GLB'],
+    workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Mesh extraction', 'Preview, AR view, and export'],
+    challenges: [
+      'Producing usable geometry from a single limited viewpoint',
+      'Turning model output into reliable preview and export formats',
+      'Managing GPU-heavy generation behind a responsive product flow',
+    ],
+    outcome:
+      'A reproducible application with verified chair outputs, interactive preview, AR viewing, and downloadable OBJ and GLB files.',
+    tone: 'amber',
+    githubUrl: 'https://github.com/AsimAslah/Image-to-3D',
+    demoUrl: null,
+    screenshot: '/images/projects/image-to-3d-result.png',
+    screenshotAlt: 'Image-to-3D application showing the source chair, processed image, and generated GLB preview',
+    screenshotSize: { width: 1861, height: 1002 },
+  },
   {
     slug: 'dataveil',
     title: 'DataVeil — Privacy-Preserving AI Middleware',
@@ -58,6 +99,10 @@ export const projects: Project[] = [
     label: 'Privacy-preserving AI',
     summary:
       'Masks sensitive information in text and images before it reaches external AI systems, then supports safe restoration afterward.',
+    build:
+      'A local-first middleware flow that detects sensitive content, applies reversible masks, and restores protected AI responses.',
+    contribution:
+      'Designed a unified FastAPI application that combines document and image masking, local detection, selectable privacy effects, recovery packages, and post-AI restoration in one workflow.',
     description:
       'A local-first privacy layer designed to reduce exposure risks when people use generative AI services with sensitive text, documents, and images.',
     problem:
@@ -70,7 +115,7 @@ export const projects: Project[] = [
       'Image-region masking with local processing',
       'Protected request and response restoration workflow',
     ],
-    technologies: ['Python', 'FastAPI', 'NLP', 'Computer Vision', 'U2-Net', 'JavaScript', 'HTML/CSS'],
+    technologies: ['Python', 'FastAPI', 'Presidio', 'spaCy', 'YOLO', 'OpenCV', 'BiSeNet'],
     workflow: ['Input inspection', 'Entity detection', 'Local masking', 'External AI request', 'Protected restoration'],
     challenges: [
       'Preserving enough semantic context for useful AI responses',
@@ -82,40 +127,9 @@ export const projects: Project[] = [
     tone: 'indigo',
     githubUrl: 'https://github.com/AsimAslah/Dataveil',
     demoUrl: null,
-    screenshot: null,
-  },
-  {
-    slug: 'image-to-3d-ar',
-    title: 'AI Image-to-3D & AR Platform',
-    shortTitle: 'Image-to-3D & AR',
-    label: '3D reconstruction / AR',
-    summary:
-      'Converts a single furniture or product image into a 3D model for interactive browser viewing and augmented-reality preview.',
-    description:
-      'A full-stack product workflow that connects single-image reconstruction, file conversion, 3D delivery, and device-appropriate AR experiences.',
-    problem:
-      'Creating a 3D asset for every product is expensive, while customers still benefit from spatial previews before making a purchase decision.',
-    solution:
-      'The platform accepts a single product image, reconstructs a 3D asset with TripoSR, prepares web and mobile formats, and exposes the result through an interactive viewer and iPhone AR Quick Look.',
-    features: [
-      'Single-image 3D reconstruction with TripoSR',
-      'OBJ, GLB, and USDZ asset generation',
-      'Interactive web-based 3D preview',
-      'iPhone AR Quick Look and installable PWA flow',
-    ],
-    technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Three.js', 'Supabase', 'PWA', 'AR'],
-    workflow: ['Image upload', 'Pre-processing', '3D reconstruction', 'Format conversion', 'Web / AR delivery'],
-    challenges: [
-      'Producing usable geometry from a single limited viewpoint',
-      'Converting assets for consistent web and iPhone support',
-      'Managing GPU-heavy generation behind a responsive product flow',
-    ],
-    outcome:
-      'An end-to-end prototype connecting AI reconstruction to a practical shopping and product-visualization experience.',
-    tone: 'amber',
-    githubUrl: 'https://github.com/AsimAslah/Image-to-3D',
-    demoUrl: null,
-    screenshot: null,
+    screenshot: '/images/projects/dataveil-home.png',
+    screenshotAlt: 'DataVeil home screen presenting local document and image privacy workflows',
+    screenshotSize: { width: 1387, height: 953 },
   },
   {
     slug: 'velora',
@@ -124,6 +138,10 @@ export const projects: Project[] = [
     label: 'Frontend / product design',
     summary:
       'A modern furniture website focused on premium product presentation, responsive layouts, and smooth motion-based interactions.',
+    build:
+      'A responsive product catalogue with editorial layouts, collection storytelling, and restrained motion across screen sizes.',
+    contribution:
+      'Implemented the responsive catalogue experience, interaction states, and motion-led product presentation described in this portfolio.',
     description:
       'A design-led frontend project exploring how hierarchy, imagery, motion, and responsive composition can make a product catalogue feel considered and easy to browse.',
     problem:
@@ -140,6 +158,8 @@ export const projects: Project[] = [
     githubUrl: null,
     demoUrl: null,
     screenshot: null,
+    screenshotAlt: null,
+    screenshotSize: null,
   },
   {
     slug: 'ai-virtual-keyboard',
@@ -148,6 +168,10 @@ export const projects: Project[] = [
     label: 'Computer vision',
     summary:
       'A gesture-controlled virtual keyboard that uses real-time hand tracking to translate finger movement into keyboard interaction.',
+    build:
+      'A real-time webcam interface that maps hand landmarks and deliberate selection gestures to an on-screen keyboard.',
+    contribution:
+      'Built the OpenCV-based virtual keyboard and the hand-tracking, gesture-recognition, and key-selection flow for touch-free text entry.',
     description:
       'A computer-vision interface that explores touch-free input using webcam frames, hand landmarks, gesture rules, and on-screen keyboard controls.',
     problem:
@@ -164,46 +188,41 @@ export const projects: Project[] = [
     githubUrl: null,
     demoUrl: null,
     screenshot: null,
+    screenshotAlt: null,
+    screenshotSize: null,
   },
-];
-
-export const academicWork = [
-  { title: 'CBOW Word Prediction', area: 'Natural Language Processing' },
-  { title: 'CIFAR-10 Image Classification', area: 'Deep Learning' },
-  { title: 'SVD-Based Anomaly Detection', area: 'Machine Learning' },
-  { title: 'Statistical Intrusion Detection Research', area: 'Cybersecurity Research' },
-  { title: 'Neural Network Intrusion Detection', area: 'Deep Learning Research' },
 ];
 
 export const skillGroups = [
   { name: 'Languages', skills: ['Python', 'JavaScript', 'TypeScript', 'SQL'] },
-  { name: 'AI / Machine Learning', skills: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP', 'PyTorch', 'OpenCV', 'Image Processing', 'Generative AI concepts'] },
-  { name: 'Backend', skills: ['FastAPI', 'REST APIs', 'Python backend development'] },
-  { name: 'Frontend', skills: ['React', 'Next.js', 'HTML', 'CSS', 'Tailwind CSS', 'JavaScript'] },
-  { name: 'Data / Cloud / Tools', skills: ['Supabase', 'Git', 'GitHub', 'Vercel', 'PWA'] },
+  { name: 'AI / Machine Learning', skills: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP', 'PyTorch', 'OpenCV', 'Image Processing'] },
+  { name: 'Backend', skills: ['FastAPI', 'REST APIs', 'Supabase'] },
+  { name: 'Frontend', skills: ['React', 'Next.js', 'Three.js', 'HTML', 'CSS', 'Tailwind CSS', 'PWA'] },
+  { name: 'Tools', skills: ['Git', 'GitHub'] },
 ];
 
-export const focusAreas = [
-  'AI-powered web applications',
-  'Privacy-preserving AI',
-  'Computer vision systems',
-  'Image-to-3D workflows',
-  'Full-stack product development',
-  'API development',
-  'Progressive Web Apps',
-];
+export const experience = {
+  caption: 'Latest',
+  title: 'Brickrat Product Internship',
+  organization: 'Realviz LLP',
+  product: 'Brickrat',
+  period: '01 Jun 2026 — 31 Jul 2026',
+  description:
+    'Contributed to the Brickrat product during a two-month internship with Realviz LLP under the guidance of CEO Indrajith Kottarathil.',
+  credentialUrl: '/documents/internship-completion-realviz-2026.pdf',
+};
 
 export const education = [
   {
     degree: 'M.Tech — Artificial Intelligence & Data Science',
     institution: 'Government Engineering College, Palakkad',
     university: 'APJ Abdul Kalam Technological University',
-    period: 'Current',
+    period: '2025 — 2027',
   },
   {
     degree: 'B.Tech — Computer Science & Engineering',
-    institution: null as string | null,
-    university: null as string | null,
-    period: 'Graduated 2024',
+    institution: 'MES College of Engineering, Kuttippuram',
+    university: 'APJ Abdul Kalam Technological University',
+    period: '2020 — 2024',
   },
 ];

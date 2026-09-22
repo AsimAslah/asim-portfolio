@@ -9,7 +9,6 @@ from PIL import Image, ImageOps
 PORTRAITS = {
     "asim-hero": ("vibe photo2.jpeg", (4, 5), (0.49, 0.54), (720, 1080, 1440)),
     "asim-about": ("vibe photo.jpeg", (3, 4), (0.5, 0.54), (640, 960, 1280)),
-    "asim-lifestyle": ("vibe photo1.jpeg", (3, 4), (0.54, 0.58), (480, 720, 960)),
 }
 
 

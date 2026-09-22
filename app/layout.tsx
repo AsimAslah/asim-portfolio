@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { InteractionLayer } from '@/components/interaction-layer';
 import { profile } from '@/data/profile';
 import './globals.css';
-import './project-demos.css';
+import './redesign.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -15,12 +16,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(profile.siteUrl),
   title: {
     default: 'Asim Aslah | AI & Full-Stack Developer',
     template: '%s | Asim Aslah',
   },
   description:
-    'Portfolio of Asim Aslah, an AI and full-stack developer building practical applications in artificial intelligence, computer vision, privacy-preserving AI and modern web development.',
+    'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
   keywords: ['Asim Aslah', 'AI Engineer', 'Full-Stack Developer', 'Python Developer', 'Computer Vision', 'FastAPI'],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -29,23 +31,32 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     title: 'Asim Aslah | AI & Full-Stack Developer',
-    description: 'Practical AI systems, computer vision, privacy-preserving AI, and modern full-stack products.',
+    description: 'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
     siteName: 'Asim Aslah — Portfolio',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Asim Aslah P M — AI & Full-Stack Developer' }],
+    images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Asim Aslah P M — AI & Full-Stack Developer' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Asim Aslah | AI & Full-Stack Developer',
-    description: 'Practical AI systems, computer vision, privacy-preserving AI, and modern full-stack products.',
+    description: 'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
     images: ['/og.png'],
   },
   icons: { icon: '/favicon.svg' },
 };
 
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f6f3ed' },
+    { media: '(prefers-color-scheme: dark)', color: '#0d0f15' },
+  ],
+};
+
 const themeScript = `
   try {
     const saved = localStorage.getItem('theme');
-    if (saved !== 'light') document.documentElement.classList.add('dark');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) document.documentElement.classList.add('dark');
   } catch (_) {}
 `;
 
@@ -60,6 +71,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <InteractionLayer />
         {children}
       </body>
     </html>

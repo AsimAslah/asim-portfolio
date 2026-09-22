@@ -1,29 +1,14 @@
 'use client';
 
-import Link from 'next/link';
-import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  FileDown,
-  Mail,
-  MapPin,
-  MessageCircle,
-  Phone,
-} from 'lucide-react';
-import {
-  academicWork,
-  education,
-  focusAreas,
-  profile,
-  projects,
-  skillGroups,
-} from '@/data/profile';
+import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
-import { AboutPortraits, HeroPortrait, LifestylePortrait } from './editorial-portrait';
+import { AboutPortraits, HeroPortrait } from './editorial-portrait';
+import { CodeCompanion } from './code-companion';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
+import { SectionAnchor } from './section-anchor';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -37,65 +22,113 @@ function SectionHeading({ eyebrow, title, description }: { eyebrow: string; titl
   );
 }
 
-export function HomePage() {
-  const reducedMotion = useReducedMotion();
-  const [hideFloatingChat, setHideFloatingChat] = useState(false);
+function ScrollProgressBar() {
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const denseSections = Array.from(document.querySelectorAll('#projects, #contact'));
-    if (!denseSections.length || !('IntersectionObserver' in window)) return;
-    const visibleSections = new Set<Element>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => entry.isIntersecting ? visibleSections.add(entry.target) : visibleSections.delete(entry.target));
-        setHideFloatingChat(visibleSections.size > 0);
-      },
-      { threshold: 0.12 },
-    );
-    denseSections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+        setProgress(Math.min(1, Math.max(0, window.scrollY / scrollable)));
+      });
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
+    };
   }, []);
 
+  return <div className="scroll-progress" aria-hidden="true"><i style={{ transform: `scaleX(${progress})` }} /></div>;
+}
+
+export function HomePage() {
   return (
     <>
       <Navbar />
+      <ScrollProgressBar />
       <main>
         <section className="hero shell" id="home">
-          <motion.div
-            className="hero-copy"
-            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-            animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="hero-copy">
             <p className="status-line"><span /> Available for opportunities</p>
-            <p className="hero-name">{profile.name}</p>
-            <h1>Building useful products at the intersection of <em>AI and the web.</em></h1>
+            <p className="hero-role">{profile.role}</p>
+            <h1 aria-label="Asim Aslah"><span>ASIM</span><span className="hero-name-last">ASLAH</span><i aria-hidden="true">.</i></h1>
             <p className="hero-intro">{profile.intro}</p>
-            <div className="hero-actions">
-              <a className="primary-button" href="#projects">View projects <ArrowDown aria-hidden="true" /></a>
-              <a className="secondary-button" href={profile.resumeUrl} target="_blank" rel="noreferrer">Download resume <FileDown aria-hidden="true" /></a>
+            <ul className="hero-stack" aria-label="Core technologies">
+              <li>Python</li><li>FastAPI</li><li>PyTorch</li><li>React</li>
+            </ul>
+            <div className="hero-actions hero-actions-primary">
+              <SectionAnchor className="primary-button" sectionId="projects" data-sound="primary">View projects <ArrowRight aria-hidden="true" /></SectionAnchor>
+              <SectionAnchor className="secondary-button" sectionId="about" data-sound="navigation">About me <ArrowRight aria-hidden="true" /></SectionAnchor>
             </div>
-            {(profile.githubUrl || profile.linkedinUrl) && (
-              <div className="hero-socials">
-                {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noreferrer"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
-                {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noreferrer"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span> LinkedIn</a>}
-              </div>
-            )}
-          </motion.div>
+            <div className="hero-socials" aria-label="Profile links">
+              <a href={profile.githubUrl} target="_blank" rel="noreferrer" data-sound="navigation"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>
+              <a href={profile.linkedinUrl} target="_blank" rel="noreferrer" data-sound="navigation"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span> LinkedIn</a>
+              <a href={profile.resumeUrl} target="_blank" rel="noreferrer" data-sound="primary"><FileDown aria-hidden="true" /> Download resume</a>
+              <SectionAnchor sectionId="contact" data-sound="navigation">Contact</SectionAnchor>
+            </div>
+          </div>
 
-          <motion.div
-            className="hero-media"
-            initial={reducedMotion ? false : { opacity: 0, scale: 0.97 }}
-            animate={reducedMotion ? undefined : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.65, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="hero-media">
             <HeroPortrait />
-          </motion.div>
+          </div>
+        </section>
+
+        <section className="section shell" id="projects">
+          <Reveal>
+            <SectionHeading eyebrow="Featured projects / 01" title="Products built around real problems." description="Applied AI and full-stack systems shaped as complete, usable workflows — not isolated demos." />
+          </Reveal>
+          <CodeCompanion />
+          <div className="featured-work">
+            {projects.slice(0, 2).map((project, index) => (
+              <Reveal className="project-reveal is-major" key={project.slug} delay={index * 0.06}>
+                <ProjectCard project={project} index={index} />
+              </Reveal>
+            ))}
+          </div>
+          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Frontend craft and human–computer interaction.</span></div>
+          <div className="project-grid supporting-work">
+            {projects.slice(2).map((project, index) => (
+              <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>
+                <ProjectCard project={project} index={index + 2} />
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        <section className="section shell experience-section" id="experience" aria-labelledby="experience-heading">
+          <Reveal>
+            <SectionHeading eyebrow="Experience / 02" title="Industry experience." description="Verified product work with a real software team." />
+          </Reveal>
+          <Reveal className="experience-card">
+            <div className="experience-caption">
+              <span>{experience.caption}</span>
+              <small>Completion verified</small>
+            </div>
+            <div className="experience-copy">
+              <p className="micro-label">{experience.product} / Product</p>
+              <h3 id="experience-heading">{experience.title}</h3>
+              <p className="experience-organization">{experience.organization}</p>
+              <p>{experience.description}</p>
+            </div>
+            <div className="experience-actions">
+              <time>{experience.period}</time>
+              <a className="secondary-button" href={experience.credentialUrl} target="_blank" rel="noreferrer" data-sound="primary">
+                View certificate <FileDown aria-hidden="true" />
+              </a>
+            </div>
+          </Reveal>
         </section>
 
         <section className="section shell" id="about">
           <Reveal>
-            <SectionHeading eyebrow="About / 01" title="Engineering with a product mindset." />
+            <SectionHeading eyebrow="About / 03" title="Engineering with a product mindset." />
           </Reveal>
           <div className="about-grid">
             <Reveal className="about-media"><AboutPortraits /></Reveal>
@@ -109,41 +142,19 @@ export function HomePage() {
                 <div><span>02</span><strong>AI with guardrails</strong><p>Treat privacy, reliability, and user control as product requirements.</p></div>
                 <div><span>03</span><strong>End-to-end ownership</strong><p>Connect models and APIs to interfaces people can actually use.</p></div>
               </Reveal>
-            </div>
-          </div>
-        </section>
-
-        <section className="section shell" id="projects">
-          <Reveal>
-            <SectionHeading eyebrow="Selected work / 02" title="Projects built around real problems." description="AI systems, developer tools, and thoughtful digital products — designed as complete workflows rather than isolated demos." />
-          </Reveal>
-          <div className="project-grid">
-            {projects.map((project, index) => (
-              <Reveal className={`project-reveal ${index < 2 ? 'is-major' : ''}`} key={project.slug} delay={(index % 2) * 0.07}>
-                <ProjectCard project={project} index={index} />
+              <Reveal className="education-mini" delay={0.1}>
+                <p className="micro-label">Education</p>
+                {education.map((item) => (
+                  <div key={item.degree}><time>{item.period}</time><p><strong>{item.degree}</strong><span>{item.institution}</span></p></div>
+                ))}
               </Reveal>
-            ))}
+            </div>
           </div>
-
-          <Reveal className="academic-block">
-            <div className="academic-heading">
-              <p className="micro-label">Additional AI / ML work</p>
-              <p>Selected academic explorations across language, vision, anomaly detection, and cybersecurity.</p>
-            </div>
-            <div className="academic-grid">
-              {academicWork.map((item, index) => (
-                <article key={item.title}>
-                  <span>0{index + 1}</span>
-                  <div><p>{item.area}</p><h3>{item.title}</h3></div>
-                </article>
-              ))}
-            </div>
-          </Reveal>
         </section>
 
         <section className="section shell" id="skills">
           <Reveal>
-            <SectionHeading eyebrow="Capabilities / 03" title="A focused, full-stack toolkit." description="Tools chosen to move from model experimentation to reliable APIs and usable web products." />
+            <SectionHeading eyebrow="Technical skills / 04" title="A focused toolkit, not a keyword wall." description="The technologies I use to move from model experiments to dependable interfaces." />
           </Reveal>
           <div className="skills-grid">
             {skillGroups.map((group, index) => (
@@ -155,78 +166,27 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className="section shell focus-section">
-          <Reveal className="focus-intro">
-            <SectionHeading eyebrow="Focus areas / 04" title="What I build." />
-            <LifestylePortrait />
-          </Reveal>
-          <Reveal className="focus-list">
-            {focusAreas.map((area, index) => (
-              <div key={area}><span>0{index + 1}</span><p>{area}</p><ArrowUpRight aria-hidden="true" /></div>
-            ))}
-          </Reveal>
-        </section>
-
-        <section className="section shell" id="education">
-          <Reveal>
-            <SectionHeading eyebrow="Education / 05" title="Academic foundation." />
-          </Reveal>
-          <div className="education-list">
-            {education.map((item, index) => (
-              <Reveal className="education-item" key={item.degree} delay={index * 0.07}>
-                <div className="education-marker"><span>0{index + 1}</span><i /></div>
-                <div><p className="micro-label">{item.period}</p><h3>{item.degree}</h3><p>{[item.institution, item.university].filter(Boolean).join(' · ')}</p></div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-
-        <section className="section shell cta-section" aria-labelledby="cta-heading">
-          <Reveal className="cta-panel">
-            <div>
-              <p className="micro-label">A good idea deserves momentum</p>
-              <h2 id="cta-heading">Have an idea?<br /><em>Let&apos;s make it real.</em></h2>
-            </div>
-            <div className="cta-actions">
-              <p>From the first useful prototype to a polished AI product, I&apos;m ready to help shape what comes next.</p>
-              <div>
-                <a className="primary-button" href="#contact">Start a conversation <ArrowDown aria-hidden="true" /></a>
-                <a className="secondary-button" href="#projects">View my work <ArrowUpRight aria-hidden="true" /></a>
-              </div>
-            </div>
-          </Reveal>
-        </section>
-
         <section className="section shell contact-section" id="contact">
           <Reveal className="contact-card">
             <div className="contact-glow" aria-hidden="true" />
             <div className="contact-copy">
-              <p className="micro-label">Contact / 06</p>
-              <h2>Let&apos;s build something useful together.</h2>
+              <p className="micro-label">Contact / 05</p>
+              <h2>Let&apos;s build something intelligent.</h2>
               <p>Reach out for AI projects, software development, internships, freelance opportunities, or a thoughtful collaboration.</p>
-              <ul className="contact-opportunities" aria-label="Open to">
-                <li>AI projects</li><li>Software development</li><li>Internships</li><li>Freelance</li><li>Collaboration</li>
-              </ul>
               <p className="contact-status"><span /> Available for opportunities</p>
             </div>
             <div className="contact-directory">
-              <a className="contact-tile contact-tile-wide" href={`mailto:${profile.email}`}>
+              <a className="contact-tile contact-tile-wide" href={`mailto:${profile.email}`} data-sound="primary">
                 <span className="contact-icon"><Mail aria-hidden="true" /></span><span><small>Email</small><strong>{profile.email}</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="contact-tile" href="tel:9207900426">
-                <span className="contact-icon"><Phone aria-hidden="true" /></span><span><small>Phone</small><strong>{profile.primaryPhone}</strong></span><ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile contact-tile-whatsapp" href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer" data-sound="primary">
+                <span className="contact-icon"><MessageCircle aria-hidden="true" /></span><span><small>WhatsApp</small><strong>Start a conversation</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="contact-tile" href="tel:7510875426">
-                <span className="contact-icon"><Phone aria-hidden="true" /></span><span><small>Alternative phone</small><strong>{profile.secondaryPhone}</strong></span><ArrowUpRight aria-hidden="true" />
-              </a>
-              <a className="contact-tile contact-tile-whatsapp" href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <span className="contact-icon"><MessageCircle aria-hidden="true" /></span><span><small>WhatsApp</small><strong>Chat on WhatsApp</strong></span><ArrowUpRight aria-hidden="true" />
-              </a>
-              <a className="contact-tile" href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer">
+              <a className="contact-tile" href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" data-sound="navigation">
                 <span className="contact-icon"><span className="brand-icon brand-icon-in" aria-hidden="true">in</span></span><span><small>LinkedIn</small><strong>Connect professionally</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
-              <a className="contact-tile" href={profile.githubUrl} target="_blank" rel="noopener noreferrer">
-                <span className="contact-icon"><span className="brand-icon" aria-hidden="true">GH</span></span><span><small>GitHub</small><strong>Explore my code</strong></span><ArrowUpRight aria-hidden="true" />
+              <a className="contact-tile" href={profile.githubUrl} target="_blank" rel="noopener noreferrer" data-sound="navigation">
+                <span className="contact-icon"><span className="brand-icon" aria-hidden="true">GH</span></span><span><small>GitHub</small><strong>@AsimAslah</strong></span><ArrowUpRight aria-hidden="true" />
               </a>
             </div>
           </Reveal>
@@ -235,20 +195,16 @@ export function HomePage() {
 
       <footer className="footer">
         <div className="shell footer-inner">
-          <div><Link className="brand" href="/#home">AA<span>.</span></Link><p>{profile.name}<br />{profile.role}</p></div>
+          <div><SectionAnchor className="brand" sectionId="home" data-sound="navigation">AA<span>.</span></SectionAnchor><p>{profile.name}<br />{profile.role}</p></div>
           <div className="footer-links">
-            {profile.githubUrl && <a href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub</a>}
-            {profile.linkedinUrl && <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>}
-            {profile.email && <a href={`mailto:${profile.email}`}>Email</a>}
-            <a href="#home">Back to top ↑</a>
+            <a href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+            <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={`mailto:${profile.email}`}>Email</a>
+            <SectionAnchor sectionId="home" data-sound="navigation">Back to top ↑</SectionAnchor>
           </div>
           <p>© {new Date().getFullYear()} {profile.name}</p>
         </div>
       </footer>
-
-      <a className={`floating-whatsapp ${hideFloatingChat ? 'is-hidden' : ''}`} href={profile.whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="Chat with Asim on WhatsApp" aria-hidden={hideFloatingChat} tabIndex={hideFloatingChat ? -1 : undefined}>
-        <MessageCircle aria-hidden="true" /><span>Chat on WhatsApp</span>
-      </a>
     </>
   );
 }

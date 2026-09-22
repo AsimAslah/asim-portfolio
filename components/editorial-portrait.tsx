@@ -28,32 +28,21 @@ function ResponsivePortrait({ alt, className, eager, height, sizes, src, srcSet,
 
 export function HeroPortrait() {
   return (
-    <figure className="system-map hero-portrait">
-      <div className="system-map-header">
-        <span>PORTRAIT SYSTEM / 01</span>
-        <span className="map-live"><i /> AVAILABLE</span>
-      </div>
+    <figure className="hero-portrait">
       <ResponsivePortrait
         className="hero-portrait-picture"
         src="/images/asim-hero-1080.webp"
         srcSet="/images/asim-hero-720.webp 720w, /images/asim-hero-1080.webp 1080w, /images/asim-hero-1440.webp 1440w"
         sizes="(max-width: 1040px) calc(100vw - 48px), 42vw"
         width={1440}
-        height={1800}
+        height={1920}
         alt="Asim Aslah P M"
         eager
       />
-      <div className="portrait-edge" aria-hidden="true" />
-      <div className="portrait-grid" aria-hidden="true" />
-      <div className="portrait-coordinate portrait-coordinate-a" aria-hidden="true">01 / AI ENGINEER</div>
-      <div className="portrait-coordinate portrait-coordinate-b" aria-hidden="true">PYTHON / FASTAPI</div>
-      <div className="portrait-coordinate portrait-coordinate-c" aria-hidden="true">AI / FULL STACK</div>
-      <div className="portrait-bracket portrait-bracket-a" aria-hidden="true" />
-      <div className="portrait-bracket portrait-bracket-b" aria-hidden="true" />
-      <div className="system-map-footer">
-        <span>COMPUTER VISION / PRODUCT BUILDER</span>
-        <span>PALAKKAD, KERALA</span>
-      </div>
+      <span className="portrait-corner portrait-corner-a" aria-hidden="true" />
+      <span className="portrait-corner portrait-corner-b" aria-hidden="true" />
+      <div className="portrait-signal" aria-hidden="true"><i /> Open to thoughtful work</div>
+      <figcaption><span>AI / FULL STACK</span><span>PALAKKAD, IN</span></figcaption>
     </figure>
   );
 }
@@ -74,21 +63,5 @@ export function AboutPortraits() {
       </figure>
       <div className="about-photo-index" aria-hidden="true">PORTRAIT / 02</div>
     </div>
-  );
-}
-
-export function LifestylePortrait() {
-  return (
-    <figure className="focus-portrait">
-      <ResponsivePortrait
-        src="/images/asim-lifestyle-720.webp"
-        srcSet="/images/asim-lifestyle-480.webp 480w, /images/asim-lifestyle-720.webp 720w, /images/asim-lifestyle-960.webp 960w"
-        sizes="(max-width: 820px) calc(100vw - 36px), 34vw"
-        width={960}
-        height={1280}
-        alt="Asim Aslah P M in a relaxed editorial interior"
-      />
-      <figcaption><span>PERSONAL NOTE / 03</span><span>CURIOUS OFFLINE, PRECISE ONLINE</span></figcaption>
-    </figure>
   );
 }
