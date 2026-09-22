@@ -60,6 +60,9 @@ const themeScript = `
   } catch (_) {}
 `;
 
+const cloudflareAnalyticsToken =
+  process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN?.trim();
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -73,6 +76,14 @@ export default function RootLayout({
       >
         <InteractionLayer />
         {children}
+        {cloudflareAnalyticsToken ? (
+          <script
+            type="module"
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={JSON.stringify({ token: cloudflareAnalyticsToken })}
+          />
+        ) : null}
       </body>
     </html>
   );
