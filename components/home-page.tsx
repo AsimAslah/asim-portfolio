@@ -9,6 +9,7 @@ import { CodeCompanion } from './code-companion';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 import { SectionAnchor } from './section-anchor';
+import { FeedbackSection } from './feedback-section';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -188,6 +189,8 @@ export function HomePage() {
             </div>
           </Reveal>
         </section>
+
+        <FeedbackSection />
       </main>
 
       <footer className="footer">
