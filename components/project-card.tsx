@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import type { Project } from '@/data/profile';
+import { ProjectAdVideo } from './project-ad-video';
 import { ProjectVisual } from './project-visual';
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -9,29 +10,49 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
 
   return (
     <article className={`project-card ${isMajor ? 'is-major' : ''}`} data-project={`0${index + 1}`}>
-      <Link className="project-visual-link" href={`/projects/${project.slug}`} prefetch={false} aria-label={`View ${project.shortTitle} case study`} data-cursor="focus" data-sound="project">
-        {isMajor && project.screenshot && project.screenshotAlt && project.screenshotSize ? (
+      {project.adVideo ? (
+        <div className="project-visual-link project-video-link">
           <div className={`project-shot tone-${project.tone}`}>
             <div className="project-shot-chrome" aria-hidden="true">
               <span><i /><i /><i /></span>
-              <b>{project.shortTitle} / verified build</b>
+              <b>Image / 3D / AR</b>
               <em>0{index + 1}</em>
             </div>
-            <div className="project-shot-frame">
-              <Image
-                src={project.screenshot}
-                alt={project.screenshotAlt}
-                width={project.screenshotSize.width}
-                height={project.screenshotSize.height}
-                sizes="(max-width: 900px) calc(100vw - 40px), 58vw"
-                quality={88}
+            <div className="project-shot-frame project-ad-frame">
+              <ProjectAdVideo
+                src={project.adVideo.src}
+                poster={project.adVideo.poster}
+                label="Promotional overview showing a furniture image becoming a 3D model and being placed in augmented reality"
               />
             </div>
-            <span className="project-shot-proof" aria-hidden="true">Working interface / repository evidence</span>
+            <span className="project-shot-proof" aria-hidden="true">12-second product story / verified workflow</span>
           </div>
-        ) : <ProjectVisual project={project} index={index} />}
-        <span className="project-hover-label">View case study <ArrowUpRight aria-hidden="true" /></span>
-      </Link>
+        </div>
+      ) : (
+        <Link className="project-visual-link" href={`/projects/${project.slug}`} prefetch={false} aria-label={`View ${project.shortTitle} case study`} data-cursor="focus" data-sound="project">
+          {isMajor && project.screenshot && project.screenshotAlt && project.screenshotSize ? (
+            <div className={`project-shot tone-${project.tone}`}>
+              <div className="project-shot-chrome" aria-hidden="true">
+                <span><i /><i /><i /></span>
+                <b>{project.shortTitle} / verified build</b>
+                <em>0{index + 1}</em>
+              </div>
+              <div className="project-shot-frame">
+                <Image
+                  src={project.screenshot}
+                  alt={project.screenshotAlt}
+                  width={project.screenshotSize.width}
+                  height={project.screenshotSize.height}
+                  sizes="(max-width: 900px) calc(100vw - 40px), 58vw"
+                  quality={88}
+                />
+              </div>
+              <span className="project-shot-proof" aria-hidden="true">Working interface / repository evidence</span>
+            </div>
+          ) : <ProjectVisual project={project} index={index} />}
+          <span className="project-hover-label">View case study <ArrowUpRight aria-hidden="true" /></span>
+        </Link>
+      )}
       <div className="project-content">
         <div className="project-kicker"><p className="micro-label">Project / 0{index + 1}</p><span>{project.label}</span></div>
         <h3><Link href={`/projects/${project.slug}`} prefetch={false} data-sound="project">{project.shortTitle}</Link></h3>
@@ -39,7 +60,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
           <p className="project-campaign">
             {project.slug === 'dataveil'
               ? 'Your data. Your privacy. Before AI sees it.'
-              : 'Turn a single image into an interactive, AR-viewable 3D mesh.'}
+              : 'Generate the model, then place it in your room with mobile AR.'}
           </p>
         )}
         <p className="project-summary">{project.summary}</p>

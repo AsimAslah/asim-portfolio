@@ -119,9 +119,6 @@ export function HomePage() {
             </div>
             <div className="experience-actions">
               <time>{experience.period}</time>
-              <a className="secondary-button" href={experience.credentialUrl} target="_blank" rel="noreferrer" data-sound="primary">
-                View certificate <FileDown aria-hidden="true" />
-              </a>
             </div>
           </Reveal>
         </section>

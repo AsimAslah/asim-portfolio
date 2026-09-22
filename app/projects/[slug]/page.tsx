@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/navbar';
+import { ProjectAdVideo } from '@/components/project-ad-video';
 import { ProjectVisual } from '@/components/project-visual';
 import { profile, projects } from '@/data/profile';
 
@@ -24,13 +25,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: project.title,
       description: project.summary,
       type: 'article',
-      images: [{ url: project.screenshot ?? '/og.png', alt: project.screenshotAlt ?? `${project.title} project` }],
+      images: [{ url: project.adVideo?.poster ?? project.screenshot ?? '/og.png', alt: project.screenshotAlt ?? `${project.title} project` }],
     },
     twitter: {
       card: 'summary',
       title: project.title,
       description: project.summary,
-      images: [project.screenshot ?? '/og.png'],
+      images: [project.adVideo?.poster ?? project.screenshot ?? '/og.png'],
     },
   };
 }
@@ -61,23 +62,32 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <ProjectVisual project={project} compact />
         </section>
 
-        {project.screenshot && project.screenshotAlt && project.screenshotSize && (
+        {(project.adVideo || (project.screenshot && project.screenshotAlt && project.screenshotSize)) && (
           <section className="shell project-proof" aria-labelledby="project-proof-heading">
             <div className="detail-section-heading">
-              <p className="micro-label">Verified product evidence</p>
-              <h2 id="project-proof-heading">The working interface.</h2>
+              <p className="micro-label">{project.adVideo ? 'Product overview' : 'Verified product evidence'}</p>
+              <h2 id="project-proof-heading">{project.adVideo ? 'From one image to AR.' : 'The working interface.'}</h2>
             </div>
             <figure>
-              <Image
-                src={project.screenshot}
-                alt={project.screenshotAlt}
-                width={project.screenshotSize.width}
-                height={project.screenshotSize.height}
-                sizes="(max-width: 820px) calc(100vw - 36px), 68vw"
-                quality={88}
-                loading="lazy"
-              />
-              <figcaption>Screenshot from the public project repository.</figcaption>
+              {project.adVideo ? (
+                <ProjectAdVideo
+                  src={project.adVideo.src}
+                  poster={project.adVideo.poster}
+                  label="Advertisement showing the Image-to-3D conversion and mobile AR workflow"
+                  className="project-ad-video-detail"
+                />
+              ) : project.screenshot && project.screenshotAlt && project.screenshotSize ? (
+                <Image
+                  src={project.screenshot}
+                  alt={project.screenshotAlt}
+                  width={project.screenshotSize.width}
+                  height={project.screenshotSize.height}
+                  sizes="(max-width: 820px) calc(100vw - 36px), 68vw"
+                  quality={88}
+                  loading="lazy"
+                />
+              ) : null}
+              <figcaption>{project.adVideo ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.' : 'Screenshot from the public project repository.'}</figcaption>
             </figure>
           </section>
         )}

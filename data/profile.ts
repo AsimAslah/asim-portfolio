@@ -22,12 +22,13 @@ export type Project = {
   screenshot: string | null;
   screenshotAlt: string | null;
   screenshotSize: { width: number; height: number } | null;
+  adVideo?: { src: string; poster: string };
 };
 
 export const profile = {
   name: 'Asim Aslah P M',
   shortName: 'Asim',
-  role: 'AI & Full-Stack Developer',
+  role: 'AI Full-Stack Developer',
   location: 'Palakkad, Kerala, India',
   email: 'asimaslu7@gmail.com',
   whatsappUrl:
@@ -38,9 +39,9 @@ export const profile = {
   siteUrl: 'https://asim-aslah-portfolio.asimaslu7.chatgpt.site',
   headline: 'Building useful products at the intersection of AI and the web.',
   intro:
-    'I build intelligent digital products across AI, computer vision, privacy, 3D generation, and modern web systems.',
+    'I build AI-powered web applications end to end, with a focus on computer vision, privacy, 3D generation, and dependable product experiences.',
   about:
-    'I am a computer science graduate currently pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. My work is focused on practical AI systems, computer vision, privacy-preserving AI, and full-stack products that move beyond experimental notebooks into usable applications.',
+    'I am a computer science graduate currently pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. I work across Python, FastAPI, computer vision, and frontend development to turn AI models into complete, usable applications.',
 };
 
 export const navigation = [
@@ -54,43 +55,47 @@ export const navigation = [
 export const projects: Project[] = [
   {
     slug: 'image-to-3d-ar',
-    title: 'AI Image-to-3D Platform',
+    title: 'Furniture Image-to-3D & AR Studio',
     shortTitle: 'Image-to-3D',
     label: '3D reconstruction',
     summary:
-      'Converts a single product image into a 3D mesh with preprocessing controls, interactive preview, AR viewing, and OBJ/GLB export.',
+      'Converts a furniture image into downloadable 3D assets with browser previews and mobile AR viewing.',
     build:
-      'A Gradio workflow and FastAPI product studio for image upload, TripoSR inference, mesh preview, AR viewing, export, and Supabase-backed product records.',
+      'A FastAPI product studio and PWA for TripoSR generation, validated OBJ/GLB/USDZ exports, on-demand previews, mobile AR, and Supabase-backed product records.',
     contribution:
-      'Integrated the pretrained TripoSR model into the application workflow, added preprocessing and mesh controls, built interactive previews and exports, and documented the project without claiming ownership of the underlying model.',
+      'Built the FastAPI workflow around TripoSR, including image upload, inference, model generation, asset downloads, Supabase persistence, browser previews, and mobile AR delivery.',
     description:
-      'A practical application layer around TripoSR that connects single-image reconstruction to configurable preprocessing, interactive model and AR viewing, export, and a product-management workflow.',
+      'An end-to-end application layer around TripoSR that turns a furniture photo into validated assets for browser preview, download, product records, and supported mobile AR experiences.',
     problem:
       'Creating a 3D asset for every product is expensive, while customers still benefit from spatial previews before making a purchase decision.',
     solution:
-      'The application accepts a single image, optionally removes its background, runs TripoSR inference, extracts a mesh, and makes the result available for interactive preview, AR viewing, and OBJ/GLB export.',
+      'The application preprocesses a single image, runs TripoSR inference, prepares validated model assets, and exposes them through on-demand browser previews, downloads, Supabase records, Apple Quick Look, and Android Scene Viewer.',
     features: [
       'Single-image 3D reconstruction with TripoSR',
-      'OBJ and GLB mesh export',
-      'Interactive web-based 3D preview',
-      'AR viewing on supported devices',
+      'Validated OBJ, GLB, and USDZ asset generation',
+      'On-demand browser-based 3D previews',
+      'Apple Quick Look and Android Scene Viewer AR paths',
       'FastAPI product workflow with Supabase asset records',
     ],
-    technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Gradio', 'Supabase', 'OBJ / GLB'],
-    workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Mesh extraction', 'Preview, AR view, and export'],
+    technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Supabase', 'JavaScript', 'OpenUSD', 'PWA'],
+    workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Asset validation', 'Preview, AR, and export'],
     challenges: [
       'Producing usable geometry from a single limited viewpoint',
-      'Turning model output into reliable preview and export formats',
-      'Managing GPU-heavy generation behind a responsive product flow',
+      'Preserving usable materials and textures across GLB and USDZ',
+      'Delivering reliable device-specific AR while keeping generation responsive',
     ],
     outcome:
-      'A reproducible application with verified chair outputs, interactive preview, AR viewing, and downloadable OBJ and GLB files.',
+      'A working image-to-3D product flow with downloadable assets, browser previews, Supabase persistence, and AR delivery for supported iPhone and Android devices.',
     tone: 'amber',
     githubUrl: 'https://github.com/AsimAslah/Image-to-3D',
     demoUrl: null,
-    screenshot: '/images/projects/image-to-3d-result.png',
-    screenshotAlt: 'Image-to-3D application showing the source chair, processed image, and generated GLB preview',
-    screenshotSize: { width: 1861, height: 1002 },
+    screenshot: null,
+    screenshotAlt: null,
+    screenshotSize: null,
+    adVideo: {
+      src: '/media/image-to-3d-ar-ad.mp4',
+      poster: '/media/image-to-3d-ar-ad-poster.webp',
+    },
   },
   {
     slug: 'dataveil',
@@ -98,22 +103,23 @@ export const projects: Project[] = [
     shortTitle: 'DataVeil',
     label: 'Privacy-preserving AI',
     summary:
-      'Masks sensitive information in text and images before it reaches external AI systems, then supports safe restoration afterward.',
+      'Masks sensitive text, documents, and images locally before they reach external AI systems, then restores protected content afterward.',
     build:
-      'A local-first middleware flow that detects sensitive content, applies reversible masks, and restores protected AI responses.',
+      'A local-first FastAPI application with document anonymization, image-region masking, reversible recovery kits, and two browser interfaces.',
     contribution:
       'Designed a unified FastAPI application that combines document and image masking, local detection, selectable privacy effects, recovery packages, and post-AI restoration in one workflow.',
     description:
-      'A local-first privacy layer designed to reduce exposure risks when people use generative AI services with sensitive text, documents, and images.',
+      'A local-first privacy application designed to reduce exposure when people use generative AI services with sensitive text, PDF, DOCX, PPTX, or image content.',
     problem:
       'Using external AI tools can expose names, identifiers, documents, and visual information that users did not intend to share with a third party.',
     solution:
-      'DataVeil detects sensitive entities, replaces them with reversible semantic masks, and provides a controlled restoration path after the external AI response is received.',
+      'DataVeil detects sensitive entities and visual regions locally, replaces them with reversible masks, and restores protected content after the external AI response is received.',
     features: [
-      'Sensitive entity detection in text and documents',
-      'Semantic and reversible anonymization',
-      'Image-region masking with local processing',
-      'Protected request and response restoration workflow',
+      'Text, PDF, DOCX, and PPTX anonymization with Presidio and spaCy',
+      'Local image masking with YOLOv8, OpenCV, and BiSeNet',
+      'Eight selectable privacy effects for sensitive image regions',
+      'Recovery-kit restoration with ORB/ECC alignment',
+      'Pytest coverage across document and image workflows',
     ],
     technologies: ['Python', 'FastAPI', 'Presidio', 'spaCy', 'YOLO', 'OpenCV', 'BiSeNet'],
     workflow: ['Input inspection', 'Entity detection', 'Local masking', 'External AI request', 'Protected restoration'],
@@ -123,7 +129,7 @@ export const projects: Project[] = [
       'Keeping the privacy-critical portion of the workflow local-first',
     ],
     outcome:
-      'A practical middleware concept that demonstrates how privacy controls can sit between users and generative AI services without discarding the utility of those services.',
+      'A working local-first privacy application that processes content on the user’s machine, stores no uploads, and supports reversible text and image protection workflows.',
     tone: 'indigo',
     githubUrl: 'https://github.com/AsimAslah/Dataveil',
     demoUrl: null,
@@ -135,13 +141,13 @@ export const projects: Project[] = [
     slug: 'velora',
     title: 'Velora — Interactive Furniture Website',
     shortTitle: 'Velora',
-    label: 'Frontend / product design',
+    label: 'Frontend / in progress',
     summary:
-      'A modern furniture website focused on premium product presentation, responsive layouts, and smooth motion-based interactions.',
+      'An in-progress furniture website exploring premium product presentation, responsive layouts, and motion-based interactions.',
     build:
-      'A responsive product catalogue with editorial layouts, collection storytelling, and restrained motion across screen sizes.',
+      'A work-in-progress responsive product catalogue with editorial layouts, collection storytelling, and restrained motion.',
     contribution:
-      'Implemented the responsive catalogue experience, interaction states, and motion-led product presentation described in this portfolio.',
+      'Developing the responsive catalogue experience, interaction states, and motion-led product presentation.',
     description:
       'A design-led frontend project exploring how hierarchy, imagery, motion, and responsive composition can make a product catalogue feel considered and easy to browse.',
     problem:
@@ -153,7 +159,7 @@ export const projects: Project[] = [
     workflow: ['Content hierarchy', 'Responsive layout', 'Interaction states', 'Motion refinement', 'Cross-device review'],
     challenges: ['Keeping product layouts expressive across screen sizes', 'Using motion without delaying navigation', 'Maintaining consistent spacing and hierarchy'],
     outcome:
-      'A polished frontend experience demonstrating product-focused UI design and responsive implementation.',
+      'An ongoing frontend exploration; the project is not presented as a finished or released product.',
     tone: 'sage',
     githubUrl: null,
     demoUrl: null,
@@ -208,8 +214,7 @@ export const experience = {
   product: 'Brickrat',
   period: '01 Jun 2026 — 31 Jul 2026',
   description:
-    'Contributed to the Brickrat product during a two-month internship with Realviz LLP under the guidance of CEO Indrajith Kottarathil.',
-  credentialUrl: '/documents/internship-completion-realviz-2026.pdf',
+    'Built Brickrat’s image-to-3D application workflow, including FastAPI upload and inference, OBJ/GLB asset generation, Supabase persistence, browser previews, and mobile AR delivery through Apple Quick Look and Android Scene Viewer.',
 };
 
 export const education = [

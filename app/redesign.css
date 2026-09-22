@@ -300,6 +300,14 @@ body::before { display: none; }
 .project-shot-chrome em { justify-self: end; color: var(--accent); font-style: normal; }
 .project-shot-frame { width: 100%; overflow: hidden; border: 1px solid rgb(255 255 255 / 65%); border-radius: .55rem; background: white; box-shadow: 0 24px 55px rgb(34 30 24 / 22%); transform: perspective(1000px) rotateX(1deg) rotateY(-1.2deg); transition: transform .65s var(--ease-out), box-shadow .35s var(--ease-out); }
 .project-shot-frame img { display: block; width: 100%; height: auto; transition: transform .7s var(--ease-out); }
+.project-ad-frame { background: #0a0b10; }
+.project-ad-video { position: relative; width: 100%; overflow: hidden; aspect-ratio: 16 / 9; background: #0a0b10; }
+.project-ad-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project-ad-toggle { position: absolute; right: .8rem; bottom: .8rem; display: inline-flex; align-items: center; gap: .42rem; min-height: 38px; padding: 0 .72rem; border: 1px solid rgb(255 255 255 / 28%); border-radius: 999px; background: rgb(8 9 14 / 78%); color: #fff; font-family: var(--font-mono); font-size: .68rem; font-weight: 650; backdrop-filter: blur(12px); transition: transform .2s var(--ease-spring), border-color .18s var(--ease-out), background-color .18s var(--ease-out); }
+.project-ad-toggle:hover, .project-ad-toggle:focus-visible { transform: translateY(-2px); border-color: rgb(173 164 255 / 78%); background: rgb(18 17 31 / 88%); }
+.project-ad-toggle:active { transform: translateY(1px) scale(.96); }
+.project-ad-toggle svg { width: 13px; height: 13px; }
+.project-proof figure .project-ad-video { border-radius: var(--radius-md) var(--radius-md) 0 0; }
 .project-card:hover .project-shot-frame { transform: perspective(1000px) rotateX(0) rotateY(0) translateY(-5px); box-shadow: 0 31px 72px rgb(34 30 24 / 28%); }
 .project-card:hover .project-shot-frame img { transform: scale(1.018); }
 .project-shot-proof { position: absolute; right: 1.25rem; bottom: 1rem; color: rgb(27 28 34 / 60%); font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; }

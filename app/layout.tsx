@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
   title: {
-    default: 'Asim Aslah | AI & Full-Stack Developer',
+    default: 'Asim Aslah | AI Full-Stack Developer',
     template: '%s | Asim Aslah',
   },
   description:
-    'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
+    'Portfolio of Asim Aslah, an AI Full-Stack Developer building computer-vision, privacy-preserving AI, image-to-3D, and modern web applications.',
   keywords: ['Asim Aslah', 'AI Engineer', 'Full-Stack Developer', 'Python Developer', 'Computer Vision', 'FastAPI'],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -30,15 +30,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    title: 'Asim Aslah | AI & Full-Stack Developer',
-    description: 'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
+    title: 'Asim Aslah | AI Full-Stack Developer',
+    description: 'Portfolio of Asim Aslah, an AI Full-Stack Developer building computer-vision, privacy-preserving AI, image-to-3D, and modern web applications.',
     siteName: 'Asim Aslah — Portfolio',
-    images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Asim Aslah P M — AI & Full-Stack Developer' }],
+    images: [{ url: '/og.png', width: 1731, height: 909, alt: 'Asim Aslah P M — AI Full-Stack Developer' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Asim Aslah | AI & Full-Stack Developer',
-    description: 'Portfolio of Asim Aslah, an AI and Full-Stack Developer working across computer vision, privacy-preserving AI, image-to-3D generation and modern web applications.',
+    title: 'Asim Aslah | AI Full-Stack Developer',
+    description: 'Portfolio of Asim Aslah, an AI Full-Stack Developer building computer-vision, privacy-preserving AI, image-to-3D, and modern web applications.',
     images: ['/og.png'],
   },
   icons: { icon: '/favicon.svg' },
