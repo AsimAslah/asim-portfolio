@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "asim-portfolio",
+  "account_id": "a127b1ffc0d74ec5bb1e0daa5d56f98c",
+  "compatibility_date": "2026-09-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "vinext/server/app-router-entry",
+  "assets": {
+    "directory": "dist/client",
+    "not_found_handling": "none",
+    "binding": "ASSETS"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "asim-portfolio-feedback",
+      "database_id": "c13e5b5c-55f1-4d7e-afe3-ad7af7684237"
+    }
+  ]
+}
