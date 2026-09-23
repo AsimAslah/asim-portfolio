@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
@@ -11,6 +11,7 @@ import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 import { SectionAnchor } from './section-anchor';
 import { FeedbackSection } from './feedback-section';
+import { HeroByte } from './hero-byte';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -51,6 +52,18 @@ function ScrollProgressBar() {
 }
 
 export function HomePage() {
+  const [isByteOpen, setIsByteOpen] = useState(false);
+  const lastByteTriggerRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleByteOpenChange = useCallback((isOpen: boolean, trigger?: HTMLButtonElement | null) => {
+    if (isOpen && trigger) lastByteTriggerRef.current = trigger;
+    setIsByteOpen(isOpen);
+
+    if (!isOpen) {
+      requestAnimationFrame(() => lastByteTriggerRef.current?.focus());
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -77,13 +90,15 @@ export function HomePage() {
             </div>
           </div>
 
+          <HeroByte onOpen={(trigger) => handleByteOpenChange(true, trigger)} />
+
         </section>
 
         <section className="section shell" id="projects">
           <Reveal>
             <SectionHeading eyebrow="Featured projects / 01" title="Products built around real problems." description="Applied AI and full-stack systems shaped as complete, usable workflows — not isolated demos." />
           </Reveal>
-          <CodeCompanion />
+          <CodeCompanion isOpen={isByteOpen} onOpenChange={handleByteOpenChange} />
           <div className="featured-work">
             {projects.slice(0, 2).map((project, index) => (
               <Reveal className="project-reveal is-major" key={project.slug} delay={index * 0.06}>
