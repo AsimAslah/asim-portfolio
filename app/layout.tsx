@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { InteractionLayer } from '@/components/interaction-layer';
+import { PortfolioUIProvider } from '@/components/portfolio-ui-provider';
 import { profile } from '@/data/profile';
 import './globals.css';
 import './redesign.css';
@@ -75,7 +76,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <InteractionLayer />
-        {children}
+        <PortfolioUIProvider>{children}</PortfolioUIProvider>
         {cloudflareAnalyticsToken ? (
           <script
             type="module"

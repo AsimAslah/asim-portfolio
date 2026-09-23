@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { Navbar } from '@/components/navbar';
 import { ProjectAdVideo } from '@/components/project-ad-video';
 import { ProjectVisual } from '@/components/project-visual';
+import { ProjectWorkflow } from '@/components/project-workflow';
 import { profile, projects } from '@/data/profile';
 
 export function generateStaticParams() {
@@ -51,9 +52,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="shell project-breadcrumb"><Link href="/#projects" prefetch={false} data-sound="navigation"><ArrowLeft aria-hidden="true" /> Back to projects</Link><span>{project.label}</span></div>
         <section className="shell project-detail-hero">
           <div>
-            <p className="micro-label">Project case study</p>
+            <p className="micro-label">01 / Project overview</p>
             <h1>{project.title}</h1>
             <p>{project.description}</p>
+            <p className="project-overview-build"><strong>What I built</strong>{project.build}</p>
             <div className="project-detail-actions">
               {project.githubUrl && <a className="primary-button" href={project.githubUrl} target="_blank" rel="noreferrer" data-sound="primary"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
               {project.demoUrl && <a className="secondary-button" href={project.demoUrl} target="_blank" rel="noreferrer" data-sound="primary">Live demo <ArrowUpRight aria-hidden="true" /></a>}
@@ -93,28 +95,34 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         )}
 
         <section className="shell project-detail-grid project-detail-grid-three">
-          <article><p className="micro-label">01 / Problem</p><h2>The context</h2><p>{project.problem}</p></article>
-          <article><p className="micro-label">02 / Solution</p><h2>The approach</h2><p>{project.solution}</p></article>
+          <article><p className="micro-label">02 / Problem</p><h2>The context</h2><p>{project.problem}</p></article>
           <article><p className="micro-label">03 / My role</p><h2>My contribution</h2><p>{project.contribution}</p></article>
+          <article><p className="micro-label">04 / Solution</p><h2>The approach</h2><p>{project.solution}</p></article>
         </section>
 
         <section className="shell detail-section">
-          <div className="detail-section-heading"><p className="micro-label">04 / System</p><h2>Key features</h2></div>
+          <div className="detail-section-heading"><p className="micro-label">05 / System</p><h2>Key features</h2></div>
           <div className="numbered-grid">
             {project.features.map((feature, index) => <div key={feature}><span>0{index + 1}</span><p>{feature}</p></div>)}
           </div>
         </section>
 
         <section className="shell detail-section architecture-section">
-          <div className="detail-section-heading"><p className="micro-label">05 / Workflow</p><h2>From input to outcome</h2></div>
-          <div className="workflow">
-            {project.workflow.map((step, index) => <div key={step}><span>0{index + 1}</span><p>{step}</p>{index < project.workflow.length - 1 && <i aria-hidden="true" />}</div>)}
-          </div>
+          <div className="detail-section-heading"><p className="micro-label">06 / Architecture</p><h2>From input to outcome</h2></div>
+          <ProjectWorkflow label={`${project.shortTitle} workflow`} steps={project.workflow} />
         </section>
 
-        <section className="shell project-detail-grid detail-bottom">
-          <article><p className="micro-label">06 / Challenges</p><h2>What required care</h2><ul>{project.challenges.map((challenge) => <li key={challenge}>{challenge}</li>)}</ul></article>
-          <article><p className="micro-label">07 / Outcome</p><h2>What it demonstrates</h2><p>{project.outcome}</p><div className="tag-list detail-tags">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div></article>
+        <section className="shell detail-section technology-section">
+          <div className="detail-section-heading"><p className="micro-label">07 / Technologies</p><h2>The verified toolkit</h2></div>
+          <div className="tag-list detail-tags">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
+        </section>
+
+        <section className={`shell project-detail-grid detail-bottom ${project.keyDecisions?.length ? 'project-detail-grid-three' : ''}`}>
+          <article><p className="micro-label">08 / Challenges</p><h2>What required care</h2><ul>{project.challenges.map((challenge) => <li key={challenge}>{challenge}</li>)}</ul></article>
+          {project.keyDecisions?.length ? (
+            <article><p className="micro-label">09 / Key decisions</p><h2>Why it was built this way</h2><ul>{project.keyDecisions.map((decision) => <li key={decision}>{decision}</li>)}</ul></article>
+          ) : null}
+          <article><p className="micro-label">{project.keyDecisions?.length ? '10' : '09'} / Outcome</p><h2>What it demonstrates</h2><p>{project.outcome}</p></article>
         </section>
 
         <section className="shell next-project">

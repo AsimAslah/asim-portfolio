@@ -15,6 +15,7 @@ export type Project = {
   technologies: string[];
   workflow: string[];
   challenges: string[];
+  keyDecisions?: string[];
   outcome: string;
   tone: ProjectTone;
   githubUrl: string | null;

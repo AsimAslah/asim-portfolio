@@ -1,17 +1,19 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
+import { searchProjects } from '@/lib/project-search';
 import { Navbar } from './navbar';
 import { AboutPortraits } from './editorial-portrait';
-import { CodeCompanion } from './code-companion';
 import { InteractiveName } from './interactive-name';
 import { ProjectCard } from './project-card';
+import { ProjectSearch } from './project-search';
 import { Reveal } from './reveal';
 import { SectionAnchor } from './section-anchor';
 import { FeedbackSection } from './feedback-section';
 import { HeroByte } from './hero-byte';
+import { usePortfolioUI } from './portfolio-ui-provider';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -52,17 +54,10 @@ function ScrollProgressBar() {
 }
 
 export function HomePage() {
-  const [isByteOpen, setIsByteOpen] = useState(false);
-  const lastByteTriggerRef = useRef<HTMLButtonElement | null>(null);
-
-  const handleByteOpenChange = useCallback((isOpen: boolean, trigger?: HTMLButtonElement | null) => {
-    if (isOpen && trigger) lastByteTriggerRef.current = trigger;
-    setIsByteOpen(isOpen);
-
-    if (!isOpen) {
-      requestAnimationFrame(() => lastByteTriggerRef.current?.focus());
-    }
-  }, []);
+  const { openByte } = usePortfolioUI();
+  const [projectQuery, setProjectQuery] = useState('');
+  const visibleProjects = searchProjects(projects, projectQuery);
+  const isSearchingProjects = Boolean(projectQuery.trim());
 
   return (
     <>
@@ -90,7 +85,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <HeroByte onOpen={(trigger) => handleByteOpenChange(true, trigger)} />
+          <HeroByte onOpen={openByte} />
 
         </section>
 
@@ -98,21 +93,49 @@ export function HomePage() {
           <Reveal>
             <SectionHeading eyebrow="Featured projects / 01" title="Products built around real problems." description="Applied AI and full-stack systems shaped as complete, usable workflows — not isolated demos." />
           </Reveal>
-          <CodeCompanion isOpen={isByteOpen} onOpenChange={handleByteOpenChange} />
-          <div className="featured-work">
-            {projects.slice(0, 2).map((project, index) => (
-              <Reveal className="project-reveal is-major" key={project.slug} delay={index * 0.06}>
-                <ProjectCard project={project} index={index} />
-              </Reveal>
-            ))}
-          </div>
-          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Frontend craft and human–computer interaction.</span></div>
-          <div className="project-grid supporting-work">
-            {projects.slice(2).map((project, index) => (
-              <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>
-                <ProjectCard project={project} index={index + 2} />
-              </Reveal>
-            ))}
+          <ProjectSearch
+            query={projectQuery}
+            onQueryChange={setProjectQuery}
+            resultCount={visibleProjects.length}
+            totalCount={projects.length}
+          />
+          <div id="project-results">
+            {isSearchingProjects ? (
+              visibleProjects.length ? (
+                <div className="featured-work project-search-results">
+                  {visibleProjects.map((project, index) => (
+                    <Reveal className={`project-reveal ${project.slug === 'dataveil' || project.slug === 'image-to-3d-ar' ? 'is-major' : ''}`} key={project.slug} delay={index * 0.04}>
+                      <ProjectCard project={project} index={projects.indexOf(project)} />
+                    </Reveal>
+                  ))}
+                </div>
+              ) : (
+                <div className="project-empty" role="status">
+                  <p className="micro-label">No matching projects</p>
+                  <h3>Try a broader search.</h3>
+                  <p>Search by project name, category, or technology such as Python, privacy, React, or computer vision.</p>
+                  <button type="button" className="secondary-button" onClick={() => setProjectQuery('')}>Clear search</button>
+                </div>
+              )
+            ) : (
+              <>
+                <div className="featured-work">
+                  {projects.slice(0, 2).map((project, index) => (
+                    <Reveal className="project-reveal is-major" key={project.slug} delay={index * 0.06}>
+                      <ProjectCard project={project} index={index} />
+                    </Reveal>
+                  ))}
+                </div>
+                <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Frontend craft and human–computer interaction.</span></div>
+                <div className="project-grid supporting-work">
+                  {projects.slice(2).map((project, index) => (
+                    <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>
+                      <ProjectCard project={project} index={index + 2} />
+                    </Reveal>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </section>
 
@@ -203,7 +226,7 @@ export function HomePage() {
           </Reveal>
         </section>
 
-        <FeedbackSection />
+        <div id="feedback"><FeedbackSection /></div>
       </main>
 
       <footer className="footer">
@@ -214,6 +237,7 @@ export function HomePage() {
             <a href={profile.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn</a>
             <a href={`mailto:${profile.email}`}>Email</a>
             <SectionAnchor sectionId="home" data-sound="navigation">Back to top ↑</SectionAnchor>
+            <a href="/build" data-sound="navigation">How it&apos;s built</a>
           </div>
           <p>© {new Date().getFullYear()} {profile.name}</p>
         </div>
