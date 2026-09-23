@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { getByteAnswer } from '../lib/byte.ts';
+import {
+  answerByteQuestion,
+  getByteAnswer,
+  normalizeByteQuestion,
+  routeByteQuestion,
+  type ByteAnswerProvider,
+} from '../lib/byte.ts';
 
 test('BYTE routes suggested project and contact questions to verified answers', () => {
   const dataVeil = getByteAnswer('Tell me about DataVeil');
@@ -31,5 +37,24 @@ test('BYTE routes suggested project and contact questions to verified answers', 
 test('BYTE is honest when a question is outside its scripted portfolio knowledge', () => {
   const answer = getByteAnswer('What is the weather on Mars?');
   assert.match(answer.text, /scripted portfolio guide/);
-  assert.ok(answer.links.some((link) => link.href === '#contact'));
+  assert.ok(answer.links.some((link) => link.href === '/#contact'));
+});
+
+test('BYTE normalizes punctuation and routes questions independently from the UI', () => {
+  assert.equal(normalizeByteQuestion('  Image-to-3D — AR  '), 'image to 3d ar');
+  assert.equal(routeByteQuestion('Could you explain the privacy middleware?'), 'dataveil');
+  assert.equal(routeByteQuestion('Where did Asim study?'), 'education');
+  assert.equal(routeByteQuestion('A question outside the portfolio'), 'overview');
+});
+
+test('BYTE answer providers are replaceable without changing the chat interface', async () => {
+  const provider: ByteAnswerProvider = {
+    kind: 'server',
+    async answer(question) {
+      return { text: `Verified: ${question}`, links: [] };
+    },
+  };
+
+  const answer = await answerByteQuestion('What did Asim build?', provider);
+  assert.equal(answer.text, 'Verified: What did Asim build?');
 });

@@ -2,19 +2,21 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Send, X } from 'lucide-react';
-import { BYTE_SUGGESTIONS, getByteAnswer, type ByteAnswer } from '@/lib/byte';
+import { answerByteQuestion, BYTE_SUGGESTIONS, type ByteAnswer } from '@/lib/byte';
 
 type CodeCompanionProps = {
   isOpen: boolean;
-  onOpenChange: (isOpen: boolean, trigger?: HTMLButtonElement | null) => void;
+  onOpenChange: (isOpen: boolean, trigger?: HTMLElement | null) => void;
 };
 
 export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
   const [answer, setAnswer] = useState<ByteAnswer | null>(null);
   const [answeredQuestion, setAnsweredQuestion] = useState('');
+  const [isAnswering, setIsAnswering] = useState(false);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const conversationRef = useRef<HTMLDivElement>(null);
+  const requestRef = useRef(0);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -43,16 +45,25 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
     return () => cancelAnimationFrame(frame);
   }, [answer]);
 
-  function askByte(question: string) {
+  async function askByte(question: string) {
+    const request = requestRef.current + 1;
+    requestRef.current = request;
     setAnsweredQuestion(question);
-    setAnswer({ ...getByteAnswer(question) });
+    setIsAnswering(true);
     setQuery('');
+
+    try {
+      const nextAnswer = await answerByteQuestion(question);
+      if (requestRef.current === request) setAnswer(nextAnswer);
+    } finally {
+      if (requestRef.current === request) setIsAnswering(false);
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const question = query.trim();
-    if (question) askByte(question);
+    if (question) void askByte(question);
   }
 
   function closeByte() {
@@ -71,7 +82,7 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
             </button>
           </header>
 
-          <div ref={conversationRef} className="byte-conversation" role="log" aria-live="polite" aria-relevant="additions text">
+          <div ref={conversationRef} className="byte-conversation" role="log" aria-live="polite" aria-relevant="additions text" aria-busy={isAnswering}>
             <p><span>BYTE</span> Hi — I can help you explore Asim&apos;s work using verified content from this portfolio.</p>
             {answer ? (
               <div className="byte-answer">
@@ -95,13 +106,14 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
                 </div>
               </div>
             ) : null}
+            {isAnswering ? <p className="byte-answering"><span>BYTE</span> Checking the verified portfolio…</p> : null}
           </div>
 
           <div className="byte-suggestion-wrap">
             <p>Try a verified question</p>
             <div className="byte-suggestions" aria-label="Suggested questions">
               {BYTE_SUGGESTIONS.map((suggestion) => (
-                <button type="button" key={suggestion} onClick={() => askByte(suggestion)}>
+                <button type="button" key={suggestion} onClick={() => void askByte(suggestion)} disabled={isAnswering}>
                   {suggestion}
                 </button>
               ))}
@@ -118,7 +130,7 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
               placeholder="Ask about projects, skills, or contact…"
               autoComplete="off"
             />
-            <button type="submit" aria-label="Ask BYTE" disabled={!query.trim()}>
+            <button type="submit" aria-label="Ask BYTE" disabled={!query.trim() || isAnswering}>
               <Send aria-hidden="true" />
             </button>
           </form>

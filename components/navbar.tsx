@@ -1,16 +1,18 @@
 'use client';
 
-import { FileDown, Menu, X } from 'lucide-react';
+import { Command, FileDown, Menu, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { navigation, profile } from '@/data/profile';
 import { SectionAnchor } from './section-anchor';
 import { SoundToggle } from './sound-toggle';
 import { ThemeToggle } from './theme-toggle';
+import { usePortfolioUI } from './portfolio-ui-provider';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const { openCommandPalette } = usePortfolioUI();
 
   useEffect(() => {
     const sections = navigation
@@ -86,6 +88,17 @@ export function Navbar() {
               <span className="brand-icon brand-icon-in" aria-hidden="true">in</span>
             </a>
           )}
+          <button
+            className="icon-button command-palette-button"
+            type="button"
+            onClick={(event) => openCommandPalette(event.currentTarget)}
+            aria-label="Open command palette"
+            aria-keyshortcuts="Control+K Meta+K"
+            data-sound="navigation"
+          >
+            <Command aria-hidden="true" />
+            <span className="command-shortcut" aria-hidden="true">K</span>
+          </button>
           <SoundToggle />
           <ThemeToggle />
           <a className="resume-button" href={profile.resumeUrl} target="_blank" rel="noreferrer" data-sound="primary">
