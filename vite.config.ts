@@ -15,7 +15,9 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === 'seatbelt';
 
 const localBindingConfig = {
   main: 'vinext/server/app-router-entry',
-  compatibility_flags: ['nodejs_compat'],
+  // Match the newest compatibility date supported by the pinned local runtime.
+  // Production continues to use the date declared in wrangler.jsonc.
+  compatibility_date: '2026-05-22',
   d1_databases: d1
     ? [
         {
