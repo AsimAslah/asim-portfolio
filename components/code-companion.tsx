@@ -4,22 +4,27 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Send, X } from 'lucide-react';
 import { BYTE_SUGGESTIONS, getByteAnswer, type ByteAnswer } from '@/lib/byte';
 
-export function CodeCompanion() {
-  const [isOpen, setIsOpen] = useState(false);
+type CodeCompanionProps = {
+  isOpen: boolean;
+  onOpenChange: (isOpen: boolean, trigger?: HTMLButtonElement | null) => void;
+};
+
+export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
   const [answer, setAnswer] = useState<ByteAnswer | null>(null);
   const [query, setQuery] = useState('');
   const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
+    inputRef.current?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Escape') return;
-      setIsOpen(false);
-      launcherRef.current?.focus();
+      onOpenChange(false);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [isOpen]);
+  }, [isOpen, onOpenChange]);
 
   function askByte(question: string) {
     setAnswer(getByteAnswer(question));
@@ -33,14 +38,13 @@ export function CodeCompanion() {
   }
 
   function closeByte() {
-    setIsOpen(false);
-    launcherRef.current?.focus();
+    onOpenChange(false);
   }
 
   return (
     <div className={`code-companion ${isOpen ? 'is-open' : ''}`}>
       {isOpen ? (
-        <section className="byte-panel" id="byte-panel" aria-label="BYTE portfolio assistant">
+        <section className="byte-panel" id="byte-panel" role="dialog" aria-modal="false" aria-label="BYTE portfolio assistant">
           <header className="byte-panel-header">
             <span><strong>BYTE</strong><small>Portfolio guide</small></span>
             <button type="button" onClick={closeByte} aria-label="Close BYTE" data-sound="navigation">
@@ -84,6 +88,7 @@ export function CodeCompanion() {
           <form className="byte-question" onSubmit={handleSubmit}>
             <label className="sr-only" htmlFor="byte-question">Ask BYTE about Asim&apos;s portfolio</label>
             <input
+              ref={inputRef}
               id="byte-question"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
@@ -103,7 +108,7 @@ export function CodeCompanion() {
         ref={launcherRef}
         type="button"
         className="code-companion-button"
-        onClick={() => setIsOpen((current) => !current)}
+        onClick={() => onOpenChange(!isOpen, launcherRef.current)}
         aria-expanded={isOpen}
         aria-controls="byte-panel"
         aria-describedby={isOpen ? undefined : 'code-companion-note'}
