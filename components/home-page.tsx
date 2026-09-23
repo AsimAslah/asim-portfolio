@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
-import { AboutPortraits, HeroPortrait } from './editorial-portrait';
+import { AboutPortraits } from './editorial-portrait';
 import { CodeCompanion } from './code-companion';
+import { InteractiveName } from './interactive-name';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 import { SectionAnchor } from './section-anchor';
@@ -59,7 +60,7 @@ export function HomePage() {
           <div className="hero-copy">
             <p className="status-line"><span /> Available for opportunities</p>
             <p className="hero-role">{profile.role}</p>
-            <h1 aria-label="Asim Aslah"><span>ASIM</span><span className="hero-name-last">ASLAH</span><i aria-hidden="true">.</i></h1>
+            <InteractiveName />
             <p className="hero-intro">{profile.intro}</p>
             <ul className="hero-stack" aria-label="Core technologies">
               <li>Python</li><li>FastAPI</li><li>PyTorch</li><li>React</li>
@@ -76,9 +77,6 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="hero-media">
-            <HeroPortrait />
-          </div>
         </section>
 
         <section className="section shell" id="projects">

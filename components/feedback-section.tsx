@@ -1,10 +1,19 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { FEEDBACK_MAX_LENGTH, type FeedbackState } from '@/lib/feedback';
+import { hasCompletedFeedback, rememberCompletedFeedback } from '@/lib/feedback-completion';
 import { Reveal } from './reveal';
 
 type RequestStatus = 'idle' | 'submitting' | 'success' | 'error';
+
+function getBrowserStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
 
 export function FeedbackSection() {
   const [rating, setRating] = useState(0);
@@ -13,11 +22,25 @@ export function FeedbackSection() {
   const [summary, setSummary] = useState<FeedbackState['summary'] | null>(null);
   const [summaryUnavailable, setSummaryUnavailable] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [completionChecked, setCompletionChecked] = useState(false);
   const [status, setStatus] = useState<RequestStatus>('idle');
   const [message, setMessage] = useState('');
+  const pendingRef = useRef(false);
 
   useEffect(() => {
     const controller = new AbortController();
+    let active = true;
+    const storage = getBrowserStorage();
+    const storedCompletion = hasCompletedFeedback(storage);
+    window.queueMicrotask(() => {
+      if (!active) return;
+      if (storedCompletion) {
+        setSubmitted(true);
+        setStatus('success');
+        setMessage('Thanks — your feedback has already been recorded.');
+      }
+      setCompletionChecked(true);
+    });
 
     async function loadFeedback() {
       try {
@@ -34,7 +57,8 @@ export function FeedbackSection() {
           setRating(data.submission.rating);
           setSubmitted(true);
           setStatus('success');
-          setMessage('Thanks for your feedback!');
+          setMessage('Thanks — your feedback has already been recorded.');
+          rememberCompletedFeedback(storage);
         }
       } catch (error) {
         if (error instanceof DOMException && error.name === 'AbortError') return;
@@ -43,17 +67,22 @@ export function FeedbackSection() {
     }
 
     loadFeedback();
-    return () => controller.abort();
+    return () => {
+      active = false;
+      controller.abort();
+    };
   }, []);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (pendingRef.current || submitted) return;
     if (!rating) {
       setStatus('error');
       setMessage('Choose a rating before sending.');
       return;
     }
 
+    pendingRef.current = true;
     setStatus('submitting');
     setMessage('');
 
@@ -72,6 +101,7 @@ export function FeedbackSection() {
         setSubmitted(true);
         setStatus('success');
         setMessage('Thanks for your feedback!');
+        rememberCompletedFeedback(getBrowserStorage());
         return;
       }
       if (!response.ok || !data.summary) {
@@ -83,6 +113,7 @@ export function FeedbackSection() {
       setFeedback('');
       setStatus('success');
       setMessage('Thanks for your feedback!');
+      rememberCompletedFeedback(getBrowserStorage());
     } catch (error) {
       setStatus('error');
       setMessage(
@@ -90,6 +121,8 @@ export function FeedbackSection() {
           ? error.message
           : 'Feedback could not be sent right now. Please try again.',
       );
+    } finally {
+      pendingRef.current = false;
     }
   }
 
@@ -113,8 +146,17 @@ export function FeedbackSection() {
           </p>
         </div>
 
-        <form className="feedback-form" onSubmit={handleSubmit} noValidate>
-          <fieldset disabled={isBusy || submitted}>
+        {submitted ? (
+          <div className="feedback-thanks" role="status">
+            <span aria-hidden="true">✓</span>
+            <div>
+              <strong>Thank you for the feedback.</strong>
+              <p>{message || 'Your response has been recorded for this browser.'}</p>
+            </div>
+          </div>
+        ) : completionChecked ? (
+          <form className="feedback-form" onSubmit={handleSubmit} noValidate>
+            <fieldset disabled={isBusy || submitted}>
             <legend className="sr-only">Rate this portfolio from 1 to 5 stars</legend>
             <div
               className="feedback-stars"
@@ -163,22 +205,25 @@ export function FeedbackSection() {
                 {feedback.length} / {FEEDBACK_MAX_LENGTH}
               </output>
             </div>
-          </fieldset>
+            </fieldset>
 
-          <div className="feedback-actions">
-            <button className="feedback-submit" type="submit" disabled={isBusy || submitted}>
-              {isBusy ? 'Sending…' : submitted ? 'Feedback sent' : 'Send feedback'}
-            </button>
-            {message ? (
-              <p
-                className={`feedback-message ${status === 'error' ? 'is-error' : 'is-success'}`}
-                role={status === 'error' ? 'alert' : 'status'}
-              >
-                {message}
-              </p>
-            ) : null}
-          </div>
-        </form>
+            <div className="feedback-actions">
+              <button className="feedback-submit" type="submit" disabled={isBusy || submitted}>
+                {isBusy ? 'Sending…' : submitted ? 'Feedback sent' : 'Send feedback'}
+              </button>
+              {message ? (
+                <p
+                  className={`feedback-message ${status === 'error' ? 'is-error' : 'is-success'}`}
+                  role={status === 'error' ? 'alert' : 'status'}
+                >
+                  {message}
+                </p>
+              ) : null}
+            </div>
+          </form>
+        ) : (
+          <p className="feedback-checking" role="status">Checking feedback status…</p>
+        )}
       </Reveal>
     </section>
   );

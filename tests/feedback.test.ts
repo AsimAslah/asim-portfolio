@@ -8,6 +8,11 @@ import {
 } from '../lib/feedback.ts';
 import { createHmac, isValidDeviceToken, readCookie } from '../lib/feedback-security.ts';
 import {
+  FEEDBACK_COMPLETION_STORAGE_KEY,
+  hasCompletedFeedback,
+  rememberCompletedFeedback,
+} from '../lib/feedback-completion.ts';
+import {
   DuplicateFeedbackError,
   FEEDBACK_RATE_LIMIT,
   FeedbackRateLimitError,
@@ -164,4 +169,27 @@ test('device cookies and server-side HMACs are parsed and generated safely', asy
   assert.equal(isValidDeviceToken('not-valid'), false);
   assert.equal(await createHmac('secret-a', 'value'), await createHmac('secret-a', 'value'));
   assert.notEqual(await createHmac('secret-a', 'value'), await createHmac('secret-b', 'value'));
+});
+
+test('feedback completion persists only after an explicit successful write', () => {
+  const values = new Map<string, string>();
+  const storage = {
+    getItem: (key: string) => values.get(key) ?? null,
+    setItem: (key: string, value: string) => values.set(key, value),
+  };
+
+  assert.equal(hasCompletedFeedback(storage), false);
+  assert.equal(rememberCompletedFeedback(storage), true);
+  assert.equal(values.get(FEEDBACK_COMPLETION_STORAGE_KEY), 'true');
+  assert.equal(hasCompletedFeedback(storage), true);
+});
+
+test('feedback completion storage failures are non-fatal', () => {
+  const unavailableStorage = {
+    getItem: () => { throw new Error('storage disabled'); },
+    setItem: () => { throw new Error('storage disabled'); },
+  };
+
+  assert.equal(hasCompletedFeedback(unavailableStorage), false);
+  assert.equal(rememberCompletedFeedback(unavailableStorage), false);
 });

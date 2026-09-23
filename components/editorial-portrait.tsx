@@ -1,7 +1,6 @@
 type ResponsivePortraitProps = {
   alt: string;
   className?: string;
-  eager?: boolean;
   height: number;
   sizes: string;
   src: string;
@@ -9,7 +8,7 @@ type ResponsivePortraitProps = {
   width: number;
 };
 
-function ResponsivePortrait({ alt, className, eager, height, sizes, src, srcSet, width }: ResponsivePortraitProps) {
+function ResponsivePortrait({ alt, className, height, sizes, src, srcSet, width }: ResponsivePortraitProps) {
   return (
     <picture className={className}>
       <source type="image/webp" srcSet={srcSet} sizes={sizes} />
@@ -18,32 +17,10 @@ function ResponsivePortrait({ alt, className, eager, height, sizes, src, srcSet,
         alt={alt}
         width={width}
         height={height}
-        loading={eager ? 'eager' : 'lazy'}
-        fetchPriority={eager ? 'high' : 'auto'}
+        loading="lazy"
         decoding="async"
       />
     </picture>
-  );
-}
-
-export function HeroPortrait() {
-  return (
-    <figure className="hero-portrait">
-      <ResponsivePortrait
-        className="hero-portrait-picture"
-        src="/images/asim-hero-1080.webp"
-        srcSet="/images/asim-hero-720.webp 720w, /images/asim-hero-1080.webp 1080w, /images/asim-hero-1440.webp 1440w"
-        sizes="(max-width: 1040px) calc(100vw - 48px), 42vw"
-        width={1440}
-        height={1920}
-        alt="Asim Aslah P M"
-        eager
-      />
-      <span className="portrait-corner portrait-corner-a" aria-hidden="true" />
-      <span className="portrait-corner portrait-corner-b" aria-hidden="true" />
-      <div className="portrait-signal" aria-hidden="true"><i /> Open to thoughtful work</div>
-      <figcaption><span>AI / FULL STACK</span><span>PALAKKAD, IN</span></figcaption>
-    </figure>
   );
 }
 
