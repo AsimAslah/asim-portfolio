@@ -11,9 +11,11 @@ type CodeCompanionProps = {
 
 export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
   const [answer, setAnswer] = useState<ByteAnswer | null>(null);
+  const [answeredQuestion, setAnsweredQuestion] = useState('');
   const [query, setQuery] = useState('');
   const launcherRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const conversationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -26,8 +28,25 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen, onOpenChange]);
 
+  useEffect(() => {
+    if (!answer) return;
+
+    const frame = requestAnimationFrame(() => {
+      const conversation = conversationRef.current;
+      if (!conversation) return;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      conversation.scrollTo({
+        top: conversation.scrollHeight,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+    });
+
+    return () => cancelAnimationFrame(frame);
+  }, [answer]);
+
   function askByte(question: string) {
-    setAnswer(getByteAnswer(question));
+    setAnsweredQuestion(question);
+    setAnswer({ ...getByteAnswer(question) });
     setQuery('');
   }
 
@@ -52,11 +71,12 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
             </button>
           </header>
 
-          <div className="byte-conversation" role="log" aria-live="polite" aria-relevant="additions text">
+          <div ref={conversationRef} className="byte-conversation" role="log" aria-live="polite" aria-relevant="additions text">
             <p><span>BYTE</span> Hi — I can help you explore Asim&apos;s work using verified content from this portfolio.</p>
             {answer ? (
               <div className="byte-answer">
-                <p><span>BYTE</span> {answer.text}</p>
+                <p className="byte-asked"><span>You asked</span>{answeredQuestion}</p>
+                <p className="byte-answer-copy"><span>BYTE</span> {answer.text}</p>
                 <div className="byte-answer-links">
                   {answer.links.map((link) => {
                     const isExternal = link.href.startsWith('http');
@@ -77,12 +97,15 @@ export function CodeCompanion({ isOpen, onOpenChange }: CodeCompanionProps) {
             ) : null}
           </div>
 
-          <div className="byte-suggestions" aria-label="Suggested questions">
-            {BYTE_SUGGESTIONS.map((suggestion) => (
-              <button type="button" key={suggestion} onClick={() => askByte(suggestion)}>
-                {suggestion}
-              </button>
-            ))}
+          <div className="byte-suggestion-wrap">
+            <p>Try a verified question</p>
+            <div className="byte-suggestions" aria-label="Suggested questions">
+              {BYTE_SUGGESTIONS.map((suggestion) => (
+                <button type="button" key={suggestion} onClick={() => askByte(suggestion)}>
+                  {suggestion}
+                </button>
+              ))}
+            </div>
           </div>
 
           <form className="byte-question" onSubmit={handleSubmit}>

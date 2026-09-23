@@ -14,6 +14,12 @@ export const BYTE_SUGGESTIONS = [
   'What did Asim build?',
   'Tell me about DataVeil',
   'How does Image-to-3D work?',
+  'What is Velora?',
+  'How does Virtual Keyboard work?',
+  'What experience does Asim have?',
+  'What skills does Asim use?',
+  'Where did Asim study?',
+  'Can I view his résumé?',
   'How can I contact him?',
 ] as const;
 
@@ -33,6 +39,8 @@ function projectLinks(slug: string): ByteLink[] {
 
 const dataVeil = projectBySlug('dataveil');
 const imageTo3d = projectBySlug('image-to-3d-ar');
+const velora = projectBySlug('velora');
+const virtualKeyboard = projectBySlug('ai-virtual-keyboard');
 
 const answers = {
   contact: {
@@ -80,6 +88,14 @@ const answers = {
     text: `Asim’s listed toolkit covers ${skillGroups.map((group) => `${group.name}: ${group.skills.join(', ')}`).join('; ')}.`,
     links: [{ href: '#skills', label: 'View technical skills' }],
   },
+  velora: {
+    text: `${velora.title} ${velora.summary} It is accurately presented as an in-progress frontend exploration, using ${velora.technologies.join(', ')}.`,
+    links: projectLinks(velora.slug),
+  },
+  virtualKeyboard: {
+    text: `${virtualKeyboard.title} ${virtualKeyboard.summary} Its workflow covers ${virtualKeyboard.workflow.join(', ').toLowerCase()}.`,
+    links: projectLinks(virtualKeyboard.slug),
+  },
 } satisfies Record<string, ByteAnswer>;
 
 const fallback: ByteAnswer = {
@@ -91,10 +107,17 @@ const fallback: ByteAnswer = {
 };
 
 export function getByteAnswer(question: string): ByteAnswer {
-  const query = question.toLowerCase().replace(/[–—-]/g, ' ').trim();
+  const query = question
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[–—-]/g, ' ')
+    .trim();
 
   if (/dataveil|privacy|anonym/.test(query)) return answers.dataveil;
   if (/image\s*to\s*3d|3d|ar studio|triposr|furniture image/.test(query)) return answers.imageTo3d;
+  if (/velora/.test(query)) return answers.velora;
+  if (/virtual keyboard|gesture|hand track|touch free/.test(query)) return answers.virtualKeyboard;
   if (/contact|email|reach|linkedin|whatsapp|hire/.test(query)) return answers.contact;
   if (/experience|intern|brickrat|realviz|work history/.test(query)) return answers.experience;
   if (/education|college|degree|study|m\.?(tech| tech)|b\.?(tech| tech)/.test(query)) return answers.education;
