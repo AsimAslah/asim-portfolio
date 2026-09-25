@@ -139,7 +139,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
       title={`Byte is on ${BYTE_TARGETS[currentIndex]}. Move to ${BYTE_TARGETS[getNextByteTargetIndex(currentIndex, BYTE_TARGETS.length)]}.`}
       data-sound="theme"
     >
-      {!hasInteracted ? <span className="mini-byte-hint">Tap me <span aria-hidden="true">👋</span></span> : null}
+      {!hasInteracted ? <span className="mini-byte-hint">Touch me</span> : null}
       <span className="mini-byte-idle" aria-hidden="true">
         <span className="mini-byte-glow" />
         <span className="mini-byte-shell">

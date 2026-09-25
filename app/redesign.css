@@ -339,14 +339,14 @@ html.theme-switching body *::after {
 .mini-byte-eye:nth-child(2) i { animation-delay: .08s; }
 .mini-byte-face b { position: absolute; bottom: 2px; left: 50%; width: 6px; height: 1px; border-radius: 999px; background: var(--border-strong); transform: translateX(-50%); }
 .mini-byte-mark { color: var(--text-secondary); font-family: var(--font-mono); font-size: .25rem; font-weight: 800; line-height: 1; letter-spacing: .14em; }
-.mini-byte-hint { position: absolute; z-index: 2; top: -4px; left: calc(100% + 5px); width: max-content; padding: 4px 7px; border: 1px solid var(--border); border-radius: 999px 999px 999px 4px; background: color-mix(in srgb, var(--surface-elevated) 92%, transparent); box-shadow: var(--shadow-soft); color: var(--text-secondary); font-family: var(--font-mono); font-size: .56rem; font-weight: 700; line-height: 1.2; letter-spacing: .03em; opacity: .74; pointer-events: none; animation: miniByteHint 2.8s var(--ease-in-out) infinite; transition: opacity .2s var(--ease-out), transform .25s var(--ease-spring); }
+.mini-byte-hint { position: absolute; z-index: 2; top: 1px; left: calc(100% + 8px); width: max-content; color: var(--text-muted); font-family: var(--font-body); font-size: .62rem; font-weight: 520; line-height: 1.25; letter-spacing: .075em; white-space: nowrap; opacity: .72; pointer-events: none; animation: miniByteHint 4.8s var(--ease-in-out) infinite; transition: color .2s var(--ease-out), opacity .2s var(--ease-out), transform .25s var(--ease-out); }
 .mini-byte-hero:hover .mini-byte-shell, .mini-byte-hero:focus-visible .mini-byte-shell { transform: translateY(-2px) rotate(-2deg); box-shadow: inset 0 1px rgb(255 255 255 / 72%), 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent); }
 .mini-byte-hero:hover .mini-byte-glow, .mini-byte-hero:focus-visible .mini-byte-glow { opacity: 1; transform: scale(1.12); }
-.mini-byte-hero:hover .mini-byte-hint, .mini-byte-hero:focus-visible .mini-byte-hint { opacity: 1; transform: translateX(2px); }
+.mini-byte-hero:hover .mini-byte-hint, .mini-byte-hero:focus-visible .mini-byte-hint { color: var(--text-secondary); opacity: .96; transform: translateX(1px); }
 .mini-byte-hero:active .mini-byte-idle { transform: scale(1.08, .9); }
 @keyframes miniByteIdle { 0%, 100% { transform: translateY(-1px) rotate(-.6deg); } 50% { transform: translateY(2px) rotate(.6deg); } }
 @keyframes miniByteBlink { 0%, 45%, 47%, 100% { transform: scaleY(1); } 46% { transform: scaleY(.15); } }
-@keyframes miniByteHint { 0%, 100% { opacity: .7; } 50% { opacity: .94; } }
+@keyframes miniByteHint { 0%, 100% { opacity: .68; } 50% { opacity: .8; } }
 
 /* Section rhythm */
 .section-heading { grid-template-columns: minmax(0, 1fr) minmax(260px, 350px); gap: var(--space-12); margin-bottom: var(--space-16); }
@@ -652,7 +652,7 @@ body.command-palette-open { overflow: hidden; }
   .mini-byte-hero { width: 42px; height: 40px; }
   .mini-byte-shell { width: 39px; height: 32px; padding: 6px 4px 3px; }
   .mini-byte-face { height: 15px; gap: 8px; }
-  .mini-byte-hint { top: -2px; left: calc(100% + 3px); font-size: .52rem; }
+  .mini-byte-hint { top: 2px; left: calc(100% + 6px); font-size: .58rem; letter-spacing: .065em; }
   .section-heading { margin-bottom: var(--space-12); }
   .section-heading h2 { font-size: 2.55rem; }
   .code-companion.is-open { width: min(430px, calc(100% - 1.5rem)); }
