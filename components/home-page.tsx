@@ -5,11 +5,13 @@ import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
 import { AboutPortraits } from './editorial-portrait';
+import { HeroByte } from './hero-byte';
 import { InteractiveName } from './interactive-name';
 import { ProjectCard } from './project-card';
 import { Reveal } from './reveal';
 import { SectionAnchor } from './section-anchor';
 import { FeedbackSection } from './feedback-section';
+import { usePortfolioUI } from './portfolio-ui-provider';
 
 function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
   return (
@@ -50,6 +52,8 @@ function ScrollProgressBar() {
 }
 
 export function HomePage() {
+  const { openByte } = usePortfolioUI();
+
   return (
     <>
       <Navbar />
@@ -75,6 +79,8 @@ export function HomePage() {
               <SectionAnchor sectionId="contact" data-sound="navigation">Contact</SectionAnchor>
             </div>
           </div>
+
+          <HeroByte onOpen={openByte} />
 
         </section>
 
