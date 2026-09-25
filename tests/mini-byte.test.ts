@@ -14,7 +14,7 @@ test('mini Byte centers itself over a measured letter target', () => {
   );
 
   assert.equal(position.x, 56);
-  assert.ok(Math.abs(position.y - 13.44) < Number.EPSILON * 10);
+  assert.equal(position.y, -18);
 });
 
 test('mini Byte loops through four letter targets', () => {

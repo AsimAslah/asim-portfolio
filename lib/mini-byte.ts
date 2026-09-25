@@ -18,7 +18,7 @@ type SizeLike = {
 export function getMiniByteTargetPosition(container: RectLike, target: RectLike, byte: SizeLike): MiniBytePoint {
   return {
     x: target.left - container.left + target.width / 2 - byte.width / 2,
-    y: target.top - container.top - byte.height * 0.36,
+    y: target.top - container.top - byte.height - 2,
   };
 }
 

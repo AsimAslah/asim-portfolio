@@ -37,7 +37,7 @@ export const profile = {
   githubUrl: 'https://github.com/AsimAslah',
   linkedinUrl: 'https://www.linkedin.com/in/asim-aslah-pm-05906a222',
   resumeUrl: '/resume.pdf',
-  siteUrl: 'https://asim-aslah-portfolio.asimaslu7.chatgpt.site',
+  siteUrl: 'https://asim-portfolio.asimaslu7.workers.dev',
   headline: 'Building useful products at the intersection of AI and the web.',
   intro:
     'I build AI-powered web applications end to end, with a focus on computer vision, privacy, 3D generation, and dependable product experiences.',

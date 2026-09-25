@@ -35,6 +35,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
   const isJumpingRef = useRef(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [isJumping, setIsJumping] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [positions, setPositions] = useState<MiniBytePoint[]>([]);
 
@@ -94,6 +95,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
     const byte = byteRef.current;
 
     isJumpingRef.current = true;
+    setIsJumping(true);
     setHasInteracted(true);
     togglePortfolioTheme();
 
@@ -116,6 +118,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
 
     setCurrentIndex(nextIndex);
     isJumpingRef.current = false;
+    setIsJumping(false);
     animationRef.current = null;
     scheduleMeasure();
   }
@@ -132,6 +135,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
       className="mini-byte-hero"
       style={style}
       data-ready={isReady ? 'true' : 'false'}
+      data-jumping={isJumping ? 'true' : 'false'}
       data-current-letter={BYTE_TARGETS[currentIndex]}
       onClick={jumpToNextLetter}
       onPointerDown={(event) => event.stopPropagation()}
@@ -139,7 +143,7 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
       title={`Byte is on ${BYTE_TARGETS[currentIndex]}. Move to ${BYTE_TARGETS[getNextByteTargetIndex(currentIndex, BYTE_TARGETS.length)]}.`}
       data-sound="theme"
     >
-      {!hasInteracted ? <span className="mini-byte-hint">Tap me <span aria-hidden="true">👋</span></span> : null}
+      {!hasInteracted ? <span className="mini-byte-hint">Touch me</span> : null}
       <span className="mini-byte-idle" aria-hidden="true">
         <span className="mini-byte-glow" />
         <span className="mini-byte-shell">
@@ -150,6 +154,10 @@ export function MiniByteHero({ containerRef }: MiniByteHeroProps) {
             <b />
           </span>
           <span className="mini-byte-mark">BYTE</span>
+        </span>
+        <span className="mini-byte-legs">
+          <i className="mini-byte-leg" />
+          <i className="mini-byte-leg" />
         </span>
       </span>
     </button>
