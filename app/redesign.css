@@ -237,7 +237,7 @@ html.theme-switching body *::after {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
-.interactive-name-stage { position: relative; width: max-content; max-width: 100%; isolation: isolate; }
+.interactive-name-stage { position: relative; width: max-content; max-width: 100%; padding-top: 3.25rem; isolation: isolate; }
 .interactive-name:focus-visible { outline: 3px solid var(--accent); outline-offset: .09em; }
 .interactive-name-letters { display: inline; }
 .name-word { display: inline-block; }
@@ -339,6 +339,10 @@ html.theme-switching body *::after {
 .mini-byte-eye:nth-child(2) i { animation-delay: .08s; }
 .mini-byte-face b { position: absolute; bottom: 2px; left: 50%; width: 6px; height: 1px; border-radius: 999px; background: var(--border-strong); transform: translateX(-50%); }
 .mini-byte-mark { color: var(--text-secondary); font-family: var(--font-mono); font-size: .25rem; font-weight: 800; line-height: 1; letter-spacing: .14em; }
+.mini-byte-legs { position: absolute; bottom: -5px; left: 50%; display: flex; gap: 11px; transform: translateX(-50%); }
+.mini-byte-leg { --leg-air-angle: -5deg; display: block; width: 4px; height: 7px; border: 1px solid color-mix(in srgb, var(--border-strong) 88%, transparent); border-top: 0; border-radius: 0 0 3px 3px; background: color-mix(in srgb, var(--surface-elevated) 82%, var(--accent-soft)); box-shadow: 0 2px 4px rgb(30 26 55 / 12%); transform-origin: 50% 0; }
+.mini-byte-leg:nth-child(2) { --leg-air-angle: 5deg; }
+.mini-byte-hero[data-jumping='true'] .mini-byte-leg { animation: miniByteLegJump 680ms linear both; }
 .mini-byte-hint { position: absolute; z-index: 2; top: 1px; left: calc(100% + 8px); width: max-content; color: var(--text-muted); font-family: var(--font-body); font-size: .62rem; font-weight: 520; line-height: 1.25; letter-spacing: .075em; white-space: nowrap; opacity: .72; pointer-events: none; animation: miniByteHint 4.8s var(--ease-in-out) infinite; transition: color .2s var(--ease-out), opacity .2s var(--ease-out), transform .25s var(--ease-out); }
 .mini-byte-hero:hover .mini-byte-shell, .mini-byte-hero:focus-visible .mini-byte-shell { transform: translateY(-2px) rotate(-2deg); box-shadow: inset 0 1px rgb(255 255 255 / 72%), 0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent); }
 .mini-byte-hero:hover .mini-byte-glow, .mini-byte-hero:focus-visible .mini-byte-glow { opacity: 1; transform: scale(1.12); }
@@ -347,6 +351,13 @@ html.theme-switching body *::after {
 @keyframes miniByteIdle { 0%, 100% { transform: translateY(-1px) rotate(-.6deg); } 50% { transform: translateY(2px) rotate(.6deg); } }
 @keyframes miniByteBlink { 0%, 45%, 47%, 100% { transform: scaleY(1); } 46% { transform: scaleY(.15); } }
 @keyframes miniByteHint { 0%, 100% { opacity: .68; } 50% { opacity: .8; } }
+@keyframes miniByteLegJump {
+  0%, 100% { transform: translateY(0) scaleY(1) rotate(0); }
+  12% { transform: translateY(2px) scaleY(.58) rotate(0); }
+  30% { transform: translateY(-1px) scaleY(1.16) rotate(0); }
+  56% { transform: translateY(-1px) scaleY(.92) rotate(var(--leg-air-angle)); }
+  87% { transform: translateY(2px) scaleY(.62) rotate(0); }
+}
 
 /* Section rhythm */
 .section-heading { grid-template-columns: minmax(0, 1fr) minmax(260px, 350px); gap: var(--space-12); margin-bottom: var(--space-16); }
@@ -643,6 +654,7 @@ body.command-palette-open { overflow: hidden; }
   .hero h1 .name-word { display: block; }
   .hero h1 .name-word-last { margin: .03em 0 0; }
   .hero h1 .name-dot { position: absolute; margin: .02em 0 0 .05em; }
+  .interactive-name-stage { padding-top: 3rem; }
   .hero-intro { margin-top: 1.65rem; font-size: 1rem; }
   .hero-stack li + li::before { margin-inline: .46rem; }
   .hero-actions { align-items: flex-start; flex-direction: row; }
@@ -698,7 +710,7 @@ body.command-palette-open { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .status-line span, .sound-waves i, .mini-byte-idle, .mini-byte-eye i, .mini-byte-hint { animation: none !important; }
+  .status-line span, .sound-waves i, .mini-byte-idle, .mini-byte-eye i, .mini-byte-leg, .mini-byte-hint { animation: none !important; }
   .mini-byte-shell, .mini-byte-glow, .mini-byte-hint { transition: none !important; }
   .interactive-name[data-bumping='true'] .name-letter { animation: none; }
   .interactive-name:active .interactive-name-letters { color: var(--accent); }
