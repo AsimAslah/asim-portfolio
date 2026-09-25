@@ -1,6 +1,7 @@
 'use client';
 
-import { type CSSProperties, useState } from 'react';
+import { type CSSProperties, useRef, useState } from 'react';
+import { MiniByteHero } from './mini-byte-hero';
 
 type LetterStyle = CSSProperties & {
   '--bump-delay': string;
@@ -21,13 +22,24 @@ const letterMotion: Array<Omit<LetterStyle, '--bump-delay'>> = [
   { '--bump-x': '-0.02em', '--bump-y': '0.07em', '--bump-rotate': '-3deg' },
 ];
 
-function NameWord({ children, offset = 0, className = '' }: { children: string; offset?: number; className?: string }) {
+function NameWord({
+  children,
+  offset = 0,
+  className = '',
+  isBytePath = false,
+}: {
+  children: string;
+  offset?: number;
+  className?: string;
+  isBytePath?: boolean;
+}) {
   return (
     <span className={`name-word ${className}`} aria-hidden="true">
       {[...children].map((letter, index) => (
         <span
           className="name-letter"
           key={`${letter}-${index}`}
+          data-byte-target={isBytePath ? letter : undefined}
           style={{
             ...letterMotion[offset + index],
             '--bump-delay': `${(offset + index) * 18}ms`,
@@ -42,27 +54,31 @@ function NameWord({ children, offset = 0, className = '' }: { children: string; 
 
 export function InteractiveName() {
   const [bumpVersion, setBumpVersion] = useState(0);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <h1>
-        <button
-          type="button"
-          className="interactive-name"
-          aria-label="Asim Aslah"
-          aria-describedby="interactive-name-hint"
-          data-bumping={bumpVersion > 0 ? 'true' : 'false'}
-          data-bump-version={bumpVersion}
-          data-sound="success"
-          onClick={() => setBumpVersion((version) => version + 1)}
-        >
-          <span className="interactive-name-letters" key={bumpVersion}>
-            <NameWord>ASIM</NameWord>
-            <NameWord className="name-word-last" offset={4}>ASLAH</NameWord>
-            <span className="name-dot" aria-hidden="true">.</span>
-          </span>
-        </button>
-      </h1>
+      <div className="interactive-name-stage" ref={stageRef}>
+        <h1>
+          <button
+            type="button"
+            className="interactive-name"
+            aria-label="Asim Aslah"
+            aria-describedby="interactive-name-hint"
+            data-bumping={bumpVersion > 0 ? 'true' : 'false'}
+            data-bump-version={bumpVersion}
+            data-sound="success"
+            onClick={() => setBumpVersion((version) => version + 1)}
+          >
+            <span className="interactive-name-letters" key={bumpVersion}>
+              <NameWord isBytePath>ASIM</NameWord>
+              <NameWord className="name-word-last" offset={4}>ASLAH</NameWord>
+              <span className="name-dot" aria-hidden="true">.</span>
+            </span>
+          </button>
+        </h1>
+        <MiniByteHero containerRef={stageRef} />
+      </div>
       <span className="sr-only" id="interactive-name-hint">
         Activate to gently move the letters. The name returns to its original position.
       </span>

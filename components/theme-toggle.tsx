@@ -2,26 +2,27 @@
 
 import { Moon, Sun } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { getPortfolioTheme, PORTFOLIO_THEME_CHANGE_EVENT, togglePortfolioTheme } from '@/lib/theme';
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    const frame = requestAnimationFrame(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    return () => cancelAnimationFrame(frame);
+    const syncTheme = () => setIsDark(getPortfolioTheme() === 'dark');
+    const frame = requestAnimationFrame(syncTheme);
+
+    window.addEventListener(PORTFOLIO_THEME_CHANGE_EVENT, syncTheme);
+    window.addEventListener('storage', syncTheme);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener(PORTFOLIO_THEME_CHANGE_EVENT, syncTheme);
+      window.removeEventListener('storage', syncTheme);
+    };
   }, []);
 
   function toggleTheme() {
-    const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
-    document.documentElement.classList.toggle('dark', next === 'dark');
-    setIsDark(next === 'dark');
-    try {
-      localStorage.setItem('theme', next);
-    } catch {
-      // The selected theme still applies for the current visit.
-    }
+    const nextTheme = togglePortfolioTheme();
+    setIsDark(nextTheme === 'dark');
   }
 
   return (
