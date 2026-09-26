@@ -9,11 +9,17 @@ Professional portfolio for **Asim Aslah P M**, an AI Full-Stack Developer buildi
 ## Highlights
 
 - Responsive project case studies for Image-to-3D, DataVeil, Velora, and AI Virtual Keyboard
-- BYTE portfolio assistant with verified, scripted answers and recruiter-focused shortcuts
+- Large interactive BYTE portfolio guide in the hero, with verified, scripted answers and recruiter-focused shortcuts
 - Interactive Mini Byte hero companion with theme switching and reduced-motion support
 - Light and dark themes, optional interface sound, keyboard navigation, and responsive layouts
 - Persistent portfolio ratings backed by Cloudflare D1
 - SEO metadata, Open Graph imagery, sitemap, robots metadata, and accessible interaction states
+
+## BYTE portfolio guide
+
+The hero includes a large interactive **BYTE** guide that opens the portfolio assistant. Visitors can use its suggested questions or type their own question to explore verified information about Asim's projects, experience, skills, education, résumé, and contact details. BYTE is scripted entirely from the portfolio's maintained content and does not send questions to a live AI service.
+
+Large BYTE is separate from **Mini Byte**, the smaller character that moves across the letters in Asim's name and provides the playful theme-switching interaction.
 
 ## Technology
 
