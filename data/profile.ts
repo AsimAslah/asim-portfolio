@@ -140,9 +140,9 @@ export const projects: Project[] = [
   },
   {
     slug: 'shopify-fashion-store',
-    title: 'Shopify Fashion Storefront',
-    shortTitle: 'Shopify Store',
-    label: 'Shopify / E-commerce',
+    title: 'ASIMON Fashion Studio — Shopify E-commerce Project',
+    shortTitle: 'ASIMON Fashion Studio',
+    label: 'Shopify / E-commerce · Completed',
     summary:
       'A fashion-led Shopify storefront with custom collection storytelling, responsive shopping flows, and a self-modelled campaign.',
     build:

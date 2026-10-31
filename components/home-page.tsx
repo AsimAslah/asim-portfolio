@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
@@ -63,10 +64,11 @@ export function HomePage() {
           <div className="hero-copy">
             <div className="hero-status-row">
               <p className="status-line"><span /> Available for opportunities</p>
-              <div className="current-project-status" aria-label="Current project: PII-Shift RAG">
+              <Link className="current-project-status" href="/projects/piishift-rag" prefetch={false} aria-label="Explore current project: PIIShift-RAG" data-sound="project">
                 <span className="current-project-indicator" aria-hidden="true"><i /></span>
-                <p><small>Currently building</small><strong>PII-Shift RAG</strong></p>
-              </div>
+                <p><small>Currently building</small><strong>PIIShift-RAG</strong><span>Privacy-Aware Retrieval-Augmented Generation</span></p>
+                <em>Explore Project <ArrowUpRight aria-hidden="true" /></em>
+              </Link>
             </div>
             <p className="hero-role">{profile.role}</p>
             <InteractiveName />

@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import type { Project } from '@/data/profile';
+import { ShopifyCarousel } from './shopify-carousel';
 
 export function ProjectVisual({ project, index, compact = false }: { project: Project; index?: number; compact?: boolean }) {
   return (
-    <div className={`project-visual tone-${project.tone} ${compact ? 'is-compact' : ''}`} aria-hidden="true">
+    <div className={`project-visual tone-${project.tone} ${compact ? 'is-compact' : ''}`} aria-hidden={project.slug === 'shopify-fashion-store' ? undefined : true}>
       {typeof index === 'number' && <span className="visual-index">0{index + 1}</span>}
       <div className="visual-grid" />
       {project.slug === 'dataveil' && (
@@ -22,19 +22,7 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
         </div>
       )}
       {project.slug === 'shopify-fashion-store' && (
-        <div className="shopify-ui">
-          <Image className="shopify-slide shopify-slide-primary" src={project.screenshot ?? '/images/projects/asimon-charcoal-utility-overshirt.png'} alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
-          <Image className="shopify-slide shopify-slide-secondary" src="/images/asim-about-960.webp" alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
-          <div className="shopify-storebar"><strong>ASIMON</strong><span>SHOPIFY PRODUCT</span></div>
-          <div className="shopify-product-card">
-            <small>ASIMON / NEW ARRIVAL</small>
-            <strong>Charcoal Utility Overshirt</strong>
-            <span className="shopify-price">$89.00</span>
-            <div className="shopify-sizes"><em>Size</em>{['S', 'M', 'L', 'XL'].map((size) => <i key={size}>{size}</i>)}</div>
-          </div>
-          <div className="shopify-cart">BAG / 0</div>
-          <div className="shopify-slide-dots"><i /><i /></div>
-        </div>
+        <ShopifyCarousel compact={compact} />
       )}
       {project.slug === 'ai-virtual-keyboard' && (
         <div className="keyboard-ui">
