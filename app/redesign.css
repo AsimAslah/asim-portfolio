@@ -912,7 +912,7 @@ body.command-palette-open { overflow: hidden; }
 /* ASIMON Shopify carousel */
 .project-carousel-link { cursor: default; }
 .project-carousel-link .project-visual { padding: 1rem; }
-.shopify-carousel { position: relative; z-index: 1; width: min(390px, 88%); height: 236px; overflow: hidden; border: 1px solid rgb(255 255 255 / 46%); border-radius: .85rem; background: #11140f; color: #fff; box-shadow: 0 25px 55px rgb(14 18 12 / 32%); }
+.shopify-carousel { position: relative; z-index: 1; width: min(390px, 88%); height: 310px; overflow: hidden; border: 1px solid rgb(255 255 255 / 46%); border-radius: .85rem; background: #11140f; color: #fff; box-shadow: 0 25px 55px rgb(14 18 12 / 32%); }
 .shopify-carousel.is-compact { width: min(610px, 90%); height: min(470px, calc(100% - 3rem)); min-height: 330px; }
 .shopify-carousel-media, .shopify-carousel-slide, .shopify-carousel-slide::after { position: absolute; inset: 0; }
 .shopify-carousel-slide { margin: 0; opacity: 0; transform: scale(1.035); transition: opacity .72s var(--ease-in-out), transform 5.2s linear; pointer-events: none; }
