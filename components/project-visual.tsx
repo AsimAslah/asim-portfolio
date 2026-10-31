@@ -23,7 +23,8 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
       )}
       {project.slug === 'shopify-fashion-store' && (
         <div className="shopify-ui">
-          <Image src={project.screenshot ?? '/images/projects/asimon-charcoal-utility-overshirt.png'} alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
+          <Image className="shopify-slide shopify-slide-primary" src={project.screenshot ?? '/images/projects/asimon-charcoal-utility-overshirt.png'} alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
+          <Image className="shopify-slide shopify-slide-secondary" src="/images/asim-about-960.webp" alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
           <div className="shopify-storebar"><strong>ASIMON</strong><span>SHOPIFY PRODUCT</span></div>
           <div className="shopify-product-card">
             <small>ASIMON / NEW ARRIVAL</small>
@@ -32,6 +33,7 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
             <div className="shopify-sizes"><em>Size</em>{['S', 'M', 'L', 'XL'].map((size) => <i key={size}>{size}</i>)}</div>
           </div>
           <div className="shopify-cart">BAG / 0</div>
+          <div className="shopify-slide-dots"><i /><i /></div>
         </div>
       )}
       {project.slug === 'ai-virtual-keyboard' && (

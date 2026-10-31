@@ -208,7 +208,12 @@ body.menu-open { overflow: hidden; }
 .model-label { position: absolute; bottom: 11px; left: 14px; font-family: var(--font-geist-mono), monospace; font-size: 7px; letter-spacing: .1em; }
 .shopify-ui { position: relative; width: min(370px, 78%); height: 225px; overflow: hidden; border: 1px solid rgb(255 255 255 / 68%); background: #151714; box-shadow: 0 22px 55px rgb(29 34 27 / 28%); }
 .shopify-ui::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(8 12 8 / 18%), transparent 58%), linear-gradient(0deg, rgb(8 12 8 / 42%), transparent 55%); pointer-events: none; }
-.shopify-ui img { width: 100%; height: 100%; object-fit: cover; object-position: center 48%; filter: saturate(.82) contrast(1.04); }
+.shopify-ui img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.82) contrast(1.04); }
+.shopify-slide { opacity: 0; animation: shopifySlidePrimary 10s var(--ease-in-out) infinite; }
+.shopify-slide-primary { object-position: center 48%; }
+.shopify-slide-secondary { object-position: center 66%; animation-name: shopifySlideSecondary; }
+@keyframes shopifySlidePrimary { 0%, 42% { opacity: 1; transform: scale(1); } 50%, 92% { opacity: 0; transform: scale(1.035); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes shopifySlideSecondary { 0%, 42% { opacity: 0; transform: scale(1.035); } 50%, 92% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.035); } }
 .shopify-storebar { position: absolute; z-index: 1; top: 0; right: 0; left: 0; display: flex; justify-content: space-between; align-items: center; min-height: 31px; padding: 0 10px; border-bottom: 1px solid rgb(255 255 255 / 35%); color: white; font-family: var(--font-geist-mono), monospace; font-size: 6px; letter-spacing: .12em; }
 .shopify-storebar strong { font-weight: 650; }.shopify-storebar span { opacity: .72; }
 .shopify-product-card { position: absolute; z-index: 1; right: 10px; bottom: 10px; display: grid; width: min(170px, 49%); padding: 10px; border: 1px solid rgb(255 255 255 / 44%); background: rgb(11 14 11 / 78%); color: white; backdrop-filter: blur(8px); }
@@ -220,6 +225,12 @@ body.menu-open { overflow: hidden; }
 .shopify-sizes i { display: grid; place-items: center; width: 19px; height: 17px; border: 1px solid rgb(255 255 255 / 44%); font-style: normal; }
 .shopify-sizes i:first-of-type { border-color: white; background: white; color: #151714; }
 .shopify-cart { position: absolute; z-index: 1; bottom: 13px; left: 11px; color: white; }
+.shopify-slide-dots { position: absolute; z-index: 2; bottom: 12px; left: 50%; display: flex; gap: 4px; transform: translateX(-50%); }
+.shopify-slide-dots i { width: 12px; height: 2px; background: rgb(255 255 255 / 38%); }
+.shopify-slide-dots i:first-child { background: white; animation: shopifyDotPrimary 10s step-end infinite; }
+.shopify-slide-dots i:last-child { animation: shopifyDotSecondary 10s step-end infinite; }
+@keyframes shopifyDotPrimary { 0%, 49%, 100% { background: white; } 50%, 99% { background: rgb(255 255 255 / 38%); } }
+@keyframes shopifyDotSecondary { 0%, 49%, 100% { background: rgb(255 255 255 / 38%); } 50%, 99% { background: white; } }
 .keyboard-ui { position: relative; width: min(370px, 78%); padding: 85px 15px 18px; border: 1px solid rgb(255 255 255 / 70%); background: rgb(255 255 255 / 25%); }
 .keys { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
 .keys span { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid #43545d6b; background: rgb(255 255 255 / 32%); font-family: var(--font-geist-mono), monospace; font-size: 7px; }

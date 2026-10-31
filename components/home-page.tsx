@@ -61,7 +61,13 @@ export function HomePage() {
       <main>
         <section className="hero shell" id="home">
           <div className="hero-copy">
-            <p className="status-line"><span /> Available for opportunities</p>
+            <div className="hero-status-row">
+              <p className="status-line"><span /> Available for opportunities</p>
+              <div className="current-project-status" aria-label="Current project: PII-Shift RAG">
+                <span className="current-project-indicator" aria-hidden="true"><i /></span>
+                <p><small>Currently building</small><strong>PII-Shift RAG</strong></p>
+              </div>
+            </div>
             <p className="hero-role">{profile.role}</p>
             <InteractiveName />
             <p className="hero-intro">{profile.intro}</p>
