@@ -176,7 +176,7 @@ export const projects: Project[] = [
     demoUrl: null,
     screenshot: '/images/projects/asimon-charcoal-utility-overshirt.png',
     screenshotAlt: 'Asim Aslah modelling the ASIMON Charcoal Utility Overshirt',
-    screenshotSize: { width: 493, height: 493 },
+    screenshotSize: { width: 1254, height: 1254 },
   },
   {
     slug: 'ai-virtual-keyboard',
