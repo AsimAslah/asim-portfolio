@@ -95,7 +95,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 {project.adVideo
                   ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.'
                   : project.slug === 'shopify-fashion-store'
-                    ? 'Campaign image featuring Asim as the storefront model and creative lead.'
+                    ? 'ASIMON Charcoal Utility Overshirt product image featuring Asim as the storefront model.'
                     : 'Screenshot from the public project repository.'}
               </figcaption>
             </figure>

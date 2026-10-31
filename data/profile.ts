@@ -174,9 +174,9 @@ export const projects: Project[] = [
     tone: 'sage',
     githubUrl: null,
     demoUrl: null,
-    screenshot: '/images/asim-about-960.webp',
-    screenshotAlt: 'Asim Aslah modelling the featured fashion campaign in an editorial interior',
-    screenshotSize: { width: 960, height: 1280 },
+    screenshot: '/images/projects/asimon-charcoal-utility-overshirt.png',
+    screenshotAlt: 'Asim Aslah modelling the ASIMON Charcoal Utility Overshirt',
+    screenshotSize: { width: 493, height: 493 },
   },
   {
     slug: 'ai-virtual-keyboard',
