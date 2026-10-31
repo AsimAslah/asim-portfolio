@@ -206,11 +206,15 @@ body.menu-open { overflow: hidden; }
 .model-track i { width: 5px; height: 5px; border: 1px solid #665e4d; border-radius: 50%; }
 .model-track i:nth-child(-n+3) { background: #665e4d; }
 .model-label { position: absolute; bottom: 11px; left: 14px; font-family: var(--font-geist-mono), monospace; font-size: 7px; letter-spacing: .1em; }
-.velora-ui { position: relative; width: min(350px, 75%); height: 220px; }
-.furniture-back { position: absolute; top: 35px; left: 50%; width: 145px; height: 95px; border-radius: 52px 52px 12px 12px; background: #6f7d64; transform: translateX(-50%); box-shadow: inset 0 0 0 1px #ffffff42; }
-.furniture-seat { position: absolute; top: 115px; left: 50%; width: 170px; height: 45px; border-radius: 8px 8px 18px 18px; background: #59694f; transform: translateX(-50%); }
-.furniture-leg { position: absolute; top: 155px; width: 4px; height: 48px; background: #30382c; }.leg-a { left: calc(50% - 64px); transform: rotate(5deg); }.leg-b { right: calc(50% - 64px); transform: rotate(-5deg); }
-.velora-ui div { position: absolute; top: 7px; left: 0; font-family: Georgia, serif; font-size: 15px; letter-spacing: .18em; }.velora-ui small { display: block; margin-top: 5px; font-family: var(--font-geist-sans); font-size: 6px; letter-spacing: .08em; }
+.shopify-ui { position: relative; width: min(370px, 78%); height: 225px; overflow: hidden; border: 1px solid rgb(255 255 255 / 68%); background: #151714; box-shadow: 0 22px 55px rgb(29 34 27 / 28%); }
+.shopify-ui::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(8 12 8 / 32%), transparent 58%), linear-gradient(0deg, rgb(8 12 8 / 48%), transparent 48%); pointer-events: none; }
+.shopify-ui img { width: 100%; height: 100%; object-fit: cover; object-position: center 69%; filter: saturate(.78) contrast(1.04); }
+.shopify-storebar { position: absolute; z-index: 1; top: 0; right: 0; left: 0; display: flex; justify-content: space-between; align-items: center; min-height: 31px; padding: 0 10px; border-bottom: 1px solid rgb(255 255 255 / 35%); color: white; font-family: var(--font-geist-mono), monospace; font-size: 6px; letter-spacing: .12em; }
+.shopify-storebar strong { font-weight: 650; }.shopify-storebar span { opacity: .72; }
+.shopify-product-card { position: absolute; z-index: 1; right: 10px; bottom: 10px; display: grid; min-width: 125px; padding: 10px; border: 1px solid rgb(255 255 255 / 44%); background: rgb(11 14 11 / 73%); color: white; backdrop-filter: blur(8px); }
+.shopify-product-card small, .shopify-product-card span, .shopify-cart { font-family: var(--font-geist-mono), monospace; font-size: 6px; letter-spacing: .1em; text-transform: uppercase; }
+.shopify-product-card strong { margin: 4px 0 8px; font-family: Georgia, serif; font-size: 15px; font-weight: 500; text-transform: uppercase; }
+.shopify-product-card span { color: #d8e3d3; }.shopify-cart { position: absolute; z-index: 1; bottom: 13px; left: 11px; color: white; }
 .keyboard-ui { position: relative; width: min(370px, 78%); padding: 85px 15px 18px; border: 1px solid rgb(255 255 255 / 70%); background: rgb(255 255 255 / 25%); }
 .keys { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
 .keys span { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid #43545d6b; background: rgb(255 255 255 / 32%); font-family: var(--font-geist-mono), monospace; font-size: 7px; }
@@ -397,7 +401,7 @@ body.menu-open { overflow: hidden; }
   .about-copy > p { font-size: 19px; }
   .principles > div { grid-template-columns: 30px 1fr; }.principles p { grid-column: 2; }
   .project-visual { min-height: 240px; }.project-content { padding: 23px 20px 24px; }.project-content h3 { font-size: 25px; }
-  .dataveil-ui, .model-ui, .velora-ui, .keyboard-ui { width: 80%; }
+  .dataveil-ui, .model-ui, .shopify-ui, .keyboard-ui { width: 80%; }
   .skills-grid { grid-template-columns: 1fr; }.skill-group:nth-child(5) { grid-column: auto; }.skill-group { min-height: auto; }
   .education-list { --timeline-marker: 97px; }
   .education-item { grid-template-columns: 80px 34px 1fr; min-height: 126px; padding-block: 22px; }

@@ -8,7 +8,7 @@ Professional portfolio for **Asim Aslah P M**, an AI Full-Stack Developer buildi
 
 ## Highlights
 
-- Responsive project case studies for Image-to-3D, DataVeil, Velora, and AI Virtual Keyboard
+- Responsive project case studies for Image-to-3D, DataVeil, Shopify Fashion Storefront, and AI Virtual Keyboard
 - Large interactive BYTE portfolio guide in the hero, with verified, scripted answers and recruiter-focused shortcuts
 - Interactive Mini Byte hero companion with theme switching and reduced-motion support
 - Light and dark themes, optional interface sound, keyboard navigation, and responsive layouts

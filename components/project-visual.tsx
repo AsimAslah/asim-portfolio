@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import type { Project } from '@/data/profile';
 
 export function ProjectVisual({ project, index, compact = false }: { project: Project; index?: number; compact?: boolean }) {
@@ -20,13 +21,12 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
           <div className="model-label">IMAGE → MESH → AR / EXPORT</div>
         </div>
       )}
-      {project.slug === 'velora' && (
-        <div className="velora-ui">
-          <span className="furniture-back" />
-          <span className="furniture-seat" />
-          <span className="furniture-leg leg-a" />
-          <span className="furniture-leg leg-b" />
-          <div>VELORA<small>Considered spaces.</small></div>
+      {project.slug === 'shopify-fashion-store' && (
+        <div className="shopify-ui">
+          <Image src={project.screenshot ?? '/images/asim-about-960.webp'} alt="" fill sizes="(max-width: 900px) 80vw, 370px" />
+          <div className="shopify-storebar"><strong>ASIM / SELECTS</strong><span>SHOPIFY EDIT</span></div>
+          <div className="shopify-product-card"><small>NEW DROP / 01</small><strong>Midnight edit</strong><span>View collection →</span></div>
+          <div className="shopify-cart">01 / CART</div>
         </div>
       )}
       {project.slug === 'ai-virtual-keyboard' && (

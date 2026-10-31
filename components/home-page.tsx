@@ -95,7 +95,7 @@ export function HomePage() {
               </Reveal>
             ))}
           </div>
-          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Frontend craft and human–computer interaction.</span></div>
+          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Commerce interfaces and human–computer interaction.</span></div>
           <div className="project-grid supporting-work">
             {projects.slice(2).map((project, index) => (
               <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>

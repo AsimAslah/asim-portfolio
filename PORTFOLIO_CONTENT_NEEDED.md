@@ -15,9 +15,9 @@ No additional information is required for the current version. The items below a
 - A public demo only if sensitive uploads can remain local and are never retained by the host.
 - Measured masking or restoration performance, with the test conditions documented.
 
-## Velora
+## Shopify Fashion Storefront
 
-Velora is explicitly presented as an in-progress project. Add source, screenshots, or a demo only after the project is complete enough to represent publicly.
+The campaign portrait is included. Add a public storefront URL or theme repository only when it is ready to represent publicly.
 
 ## AI Virtual Keyboard
 
