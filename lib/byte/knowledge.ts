@@ -5,7 +5,7 @@ export const BYTE_SUGGESTIONS = [
   'What did Asim build?',
   'Tell me about DataVeil',
   'How does Image-to-3D work?',
-  'What is Velora?',
+  'Tell me about the Shopify store',
   'How does Virtual Keyboard work?',
   'What experience does Asim have?',
   'What skills does Asim use?',
@@ -30,7 +30,7 @@ function projectLinks(slug: string): ByteLink[] {
 
 const dataVeil = projectBySlug('dataveil');
 const imageTo3d = projectBySlug('image-to-3d-ar');
-const velora = projectBySlug('velora');
+const shopify = projectBySlug('shopify-fashion-store');
 const virtualKeyboard = projectBySlug('ai-virtual-keyboard');
 
 export const byteKnowledge: ByteKnowledge = {
@@ -80,9 +80,9 @@ export const byteKnowledge: ByteKnowledge = {
       text: `Asim’s listed toolkit covers ${skillGroups.map((group) => `${group.name}: ${group.skills.join(', ')}`).join('; ')}.`,
       links: [{ href: '/#skills', label: 'View technical skills' }],
     },
-    velora: {
-      text: `${velora.title} ${velora.summary} It is accurately presented as an in-progress frontend exploration, using ${velora.technologies.join(', ')}.`,
-      links: projectLinks(velora.slug),
+    shopify: {
+      text: `${shopify.title} ${shopify.summary} Asim designed the storefront experience, directed the campaign, and modelled for its lead photography. The project uses ${shopify.technologies.join(', ')}.`,
+      links: projectLinks(shopify.slug),
     },
     virtualKeyboard: {
       text: `${virtualKeyboard.title} ${virtualKeyboard.summary} Its workflow covers ${virtualKeyboard.workflow.join(', ').toLowerCase()}.`,

@@ -21,9 +21,9 @@ test('BYTE routes suggested project and contact questions to verified answers', 
   assert.match(contact.text, /asimaslu7@gmail\.com/);
   assert.ok(contact.links.some((link) => link.href.startsWith('mailto:')));
 
-  const velora = getByteAnswer('What is Velora?');
-  assert.match(velora.text, /in-progress frontend exploration/);
-  assert.ok(velora.links.some((link) => link.href === '/projects/velora'));
+  const shopify = getByteAnswer('Tell me about the Shopify store');
+  assert.match(shopify.text, /modelled for its lead photography/);
+  assert.ok(shopify.links.some((link) => link.href === '/projects/shopify-fashion-store'));
 
   const virtualKeyboard = getByteAnswer('How does Virtual Keyboard work?');
   assert.match(virtualKeyboard.text, /hand tracking/);

@@ -28,6 +28,10 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             <span className="project-shot-proof" aria-hidden="true">12-second product story / verified workflow</span>
           </div>
         </div>
+      ) : project.slug === 'shopify-fashion-store' ? (
+        <div className="project-visual-link project-carousel-link">
+          <ProjectVisual project={project} index={index} />
+        </div>
       ) : (
         <Link className="project-visual-link" href={`/projects/${project.slug}`} prefetch={false} aria-label={`View ${project.shortTitle} case study`} data-cursor="focus" data-sound="project">
           {isMajor && project.screenshot && project.screenshotAlt && project.screenshotSize ? (

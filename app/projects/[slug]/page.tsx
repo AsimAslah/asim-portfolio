@@ -68,7 +68,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <section className="shell project-proof" aria-labelledby="project-proof-heading">
             <div className="detail-section-heading">
               <p className="micro-label">{project.adVideo ? 'Product overview' : 'Verified product evidence'}</p>
-              <h2 id="project-proof-heading">{project.adVideo ? 'From one image to AR.' : 'The working interface.'}</h2>
+              <h2 id="project-proof-heading">
+                {project.adVideo ? 'From one image to AR.' : project.slug === 'shopify-fashion-store' ? 'The storefront campaign.' : 'The working interface.'}
+              </h2>
             </div>
             <figure>
               {project.adVideo ? (
@@ -89,7 +91,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   loading="lazy"
                 />
               ) : null}
-              <figcaption>{project.adVideo ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.' : 'Screenshot from the public project repository.'}</figcaption>
+              <figcaption>
+                {project.adVideo
+                  ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.'
+                  : project.slug === 'shopify-fashion-store'
+                    ? 'ASIMON Charcoal Utility Overshirt product image featuring Asim as the storefront model.'
+                    : 'Screenshot from the public project repository.'}
+              </figcaption>
             </figure>
           </section>
         )}

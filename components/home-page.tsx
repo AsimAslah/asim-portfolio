@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, FileDown, Mail, MapPin, MessageCircle } from 'lucide-react';
 import { education, experience, profile, projects, skillGroups } from '@/data/profile';
 import { Navbar } from './navbar';
@@ -61,7 +62,14 @@ export function HomePage() {
       <main>
         <section className="hero shell" id="home">
           <div className="hero-copy">
-            <p className="status-line"><span /> Available for opportunities</p>
+            <div className="hero-status-row">
+              <p className="status-line"><span /> Available for opportunities</p>
+              <Link className="current-project-status" href="/projects/piishift-rag" prefetch={false} aria-label="Explore current project: PIIShift-RAG" data-sound="project">
+                <span className="current-project-indicator" aria-hidden="true"><i /></span>
+                <p><small>Currently building</small><strong>PIIShift-RAG</strong><span>Privacy-Aware Retrieval-Augmented Generation</span></p>
+                <em>Explore Project <ArrowUpRight aria-hidden="true" /></em>
+              </Link>
+            </div>
             <p className="hero-role">{profile.role}</p>
             <InteractiveName />
             <p className="hero-intro">{profile.intro}</p>
@@ -95,7 +103,7 @@ export function HomePage() {
               </Reveal>
             ))}
           </div>
-          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Frontend craft and human–computer interaction.</span></div>
+          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Commerce interfaces and human–computer interaction.</span></div>
           <div className="project-grid supporting-work">
             {projects.slice(2).map((project, index) => (
               <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>

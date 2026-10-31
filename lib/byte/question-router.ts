@@ -15,7 +15,7 @@ export function routeByteQuestion(question: string): ByteTopic | null {
 
   if (/dataveil|privacy|anonym/.test(query)) return 'dataveil';
   if (/image\s*to\s*3d|3d|ar studio|triposr|furniture image/.test(query)) return 'imageTo3d';
-  if (/velora/.test(query)) return 'velora';
+  if (/shopify|fashion store|storefront|ecommerce|e commerce/.test(query)) return 'shopify';
   if (/virtual keyboard|gesture|hand track|touch free/.test(query)) return 'virtualKeyboard';
   if (/contact|email|reach|linkedin|whatsapp|hire/.test(query)) return 'contact';
   if (/experience|intern|brickrat|realviz|work history/.test(query)) return 'experience';

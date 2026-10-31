@@ -139,34 +139,44 @@ export const projects: Project[] = [
     screenshotSize: { width: 1387, height: 953 },
   },
   {
-    slug: 'velora',
-    title: 'Velora — Interactive Furniture Website',
-    shortTitle: 'Velora',
-    label: 'Frontend / in progress',
+    slug: 'shopify-fashion-store',
+    title: 'ASIMON Fashion Studio — Shopify E-commerce Project',
+    shortTitle: 'ASIMON Fashion Studio',
+    label: 'Shopify / E-commerce · Completed',
     summary:
-      'An in-progress furniture website exploring premium product presentation, responsive layouts, and motion-based interactions.',
+      'A fashion-led Shopify storefront with custom collection storytelling, responsive shopping flows, and a self-modelled campaign.',
     build:
-      'A work-in-progress responsive product catalogue with editorial layouts, collection storytelling, and restrained motion.',
+      'A responsive Shopify storefront that combines custom Liquid sections, product-led editorial layouts, collection discovery, and a streamlined path to cart.',
     contribution:
-      'Developing the responsive catalogue experience, interaction states, and motion-led product presentation.',
+      'Designed and developed the storefront experience, shaped the campaign art direction, and modelled for the featured product photography.',
     description:
-      'A design-led frontend project exploring how hierarchy, imagery, motion, and responsive composition can make a product catalogue feel considered and easy to browse.',
+      'A Shopify commerce project that treats the storefront as both a practical shopping experience and a focused fashion campaign, using my own portrait as the lead visual.',
     problem:
-      'Furniture catalogues can become visually dense and generic, making it difficult for individual products and collections to feel distinctive.',
+      'Template-led stores can feel interchangeable, making it difficult for a small fashion collection to establish a clear identity while keeping products easy to discover.',
     solution:
-      'Velora uses editorial layouts, purposeful spacing, responsive product storytelling, and restrained motion to create a more premium browsing experience.',
-    features: ['Responsive product layouts', 'Motion-led browsing interactions', 'Collection and product presentation', 'Mobile-first navigation patterns'],
-    technologies: ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design', 'Motion'],
-    workflow: ['Content hierarchy', 'Responsive layout', 'Interaction states', 'Motion refinement', 'Cross-device review'],
-    challenges: ['Keeping product layouts expressive across screen sizes', 'Using motion without delaying navigation', 'Maintaining consistent spacing and hierarchy'],
+      'The storefront pairs flexible Shopify sections with strong campaign imagery, clear collection navigation, responsive product layouts, and an uncluttered route from discovery to cart.',
+    features: [
+      'Custom Shopify theme sections built with Liquid',
+      'Responsive collection and product layouts',
+      'Campaign-led visual merchandising',
+      'Clear product discovery and cart journeys',
+      'Mobile-first storefront navigation',
+    ],
+    technologies: ['Shopify', 'Liquid', 'JavaScript', 'HTML', 'CSS', 'Responsive Design'],
+    workflow: ['Campaign direction', 'Theme structure', 'Collection setup', 'Responsive build', 'Storefront refinement'],
+    challenges: [
+      'Balancing editorial imagery with fast product discovery',
+      'Keeping reusable theme sections visually consistent',
+      'Making the campaign feel considered across desktop and mobile',
+    ],
     outcome:
-      'An ongoing frontend exploration; the project is not presented as a finished or released product.',
+      'A distinctive Shopify storefront concept that demonstrates theme customization, commerce UX, responsive frontend craft, and hands-on campaign direction.',
     tone: 'sage',
     githubUrl: null,
     demoUrl: null,
-    screenshot: null,
-    screenshotAlt: null,
-    screenshotSize: null,
+    screenshot: '/images/projects/asimon-charcoal-utility-overshirt.png',
+    screenshotAlt: 'Asim Aslah modelling the ASIMON Charcoal Utility Overshirt',
+    screenshotSize: { width: 493, height: 493 },
   },
   {
     slug: 'ai-virtual-keyboard',

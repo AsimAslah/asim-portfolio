@@ -59,7 +59,7 @@ Motion is attached to an interaction: buttons lift and compress, arrows translat
 - Education was merged into About as compact academic context.
 - Skills moved after About and were redesigned as horizontal capability rows.
 - Image-to-3D and DataVeil became large alternating featured stories.
-- Velora and AI Virtual Keyboard moved into a smaller “More experiments” group.
+- Shopify Fashion Storefront and AI Virtual Keyboard sit in the smaller “More experiments” group.
 - The standalone Education section was removed.
 - The primary page narrative is now Hero, Selected Work, Experience, About, Skills, Contact.
 
@@ -72,7 +72,7 @@ The mobile container uses 20 px side padding at 375–430 px. The name breaks cl
 The visual hierarchy now reflects evidence quality, but content gaps remain:
 
 - specific Realviz / Brickrat responsibilities, technologies, and outcomes;
-- public Velora source, screenshots, scope, and deployment;
+- a public Shopify storefront URL or theme repository;
 - AI Virtual Keyboard source, visual proof, model/library details, and measurements;
 - stable public demo URLs for Image-to-3D and DataVeil;
 - reproducible project metrics;

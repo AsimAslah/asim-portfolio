@@ -17,7 +17,7 @@ export type ByteTopic =
   | 'overview'
   | 'resume'
   | 'skills'
-  | 'velora'
+  | 'shopify'
   | 'virtualKeyboard';
 
 export type ByteKnowledge = {

@@ -1,8 +1,9 @@
 import type { Project } from '@/data/profile';
+import { ShopifyCarousel } from './shopify-carousel';
 
 export function ProjectVisual({ project, index, compact = false }: { project: Project; index?: number; compact?: boolean }) {
   return (
-    <div className={`project-visual tone-${project.tone} ${compact ? 'is-compact' : ''}`} aria-hidden="true">
+    <div className={`project-visual tone-${project.tone} ${compact ? 'is-compact' : ''}`} aria-hidden={project.slug === 'shopify-fashion-store' ? undefined : true}>
       {typeof index === 'number' && <span className="visual-index">0{index + 1}</span>}
       <div className="visual-grid" />
       {project.slug === 'dataveil' && (
@@ -20,14 +21,8 @@ export function ProjectVisual({ project, index, compact = false }: { project: Pr
           <div className="model-label">IMAGE → MESH → AR / EXPORT</div>
         </div>
       )}
-      {project.slug === 'velora' && (
-        <div className="velora-ui">
-          <span className="furniture-back" />
-          <span className="furniture-seat" />
-          <span className="furniture-leg leg-a" />
-          <span className="furniture-leg leg-b" />
-          <div>VELORA<small>Considered spaces.</small></div>
-        </div>
+      {project.slug === 'shopify-fashion-store' && (
+        <ShopifyCarousel compact={compact} />
       )}
       {project.slug === 'ai-virtual-keyboard' && (
         <div className="keyboard-ui">
