@@ -15,6 +15,7 @@ export type ByteTopic =
   | 'experience'
   | 'imageTo3d'
   | 'overview'
+  | 'piishift'
   | 'resume'
   | 'skills'
   | 'shopify'

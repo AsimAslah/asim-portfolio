@@ -29,20 +29,20 @@ export type Project = {
 export const profile = {
   name: 'Asim Aslah P M',
   shortName: 'Asim',
-  role: 'AI Full-Stack Developer',
+  role: 'AI/ML & Generative AI Developer | AI Research | Full-Stack Software Engineer',
   location: 'Palakkad, Kerala, India',
   email: 'asimaslu7@gmail.com',
   whatsappUrl:
     'https://wa.me/919207900426?text=Hi%20Asim%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.',
   githubUrl: 'https://github.com/AsimAslah',
   linkedinUrl: 'https://www.linkedin.com/in/asim-aslah-pm-05906a222',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/Asim_Aslah_GenAI_AIResearch_FullStack_Resume.pdf',
   siteUrl: 'https://asim-portfolio.asimaslu7.workers.dev',
-  headline: 'Building useful products at the intersection of AI and the web.',
+  headline: 'Building privacy-aware AI systems and full-stack products from research concepts to deployed applications.',
   intro:
-    'I build AI-powered web applications end to end, with a focus on computer vision, privacy, 3D generation, and dependable product experiences.',
+    'I build Python and FastAPI systems that turn AI models and research ideas into usable products. My work spans computer vision, privacy-preserving AI, retrieval-augmented generation research, REST APIs, and React applications deployed on Cloudflare.',
   about:
-    'I am a computer science graduate currently pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. I work across Python, FastAPI, computer vision, and frontend development to turn AI models into complete, usable applications.',
+    'I am a computer science graduate pursuing an M.Tech in Artificial Intelligence & Data Science at Government Engineering College, Palakkad. My current research explores conformal privacy-risk routing for retrieval-augmented generation under PII distribution shift. I also build and test full-stack AI applications with Python, FastAPI, React, and cloud services.',
 };
 
 export const navigation = [
@@ -76,7 +76,7 @@ export const projects: Project[] = [
       'Validated OBJ, GLB, and USDZ asset generation',
       'On-demand browser-based 3D previews',
       'Apple Quick Look and Android Scene Viewer AR paths',
-      'FastAPI product workflow with Supabase asset records',
+      'Bounded uploads and sanitized Supabase error handling',
     ],
     technologies: ['Python', 'FastAPI', 'TripoSR', 'PyTorch', 'Supabase', 'JavaScript', 'OpenUSD', 'PWA'],
     workflow: ['Image upload', 'Pre-processing', 'TripoSR inference', 'Asset validation', 'Preview, AR, and export'],
@@ -120,9 +120,9 @@ export const projects: Project[] = [
       'Local image masking with YOLOv8, OpenCV, and BiSeNet',
       'Eight selectable privacy effects for sensitive image regions',
       'Recovery-kit restoration with ORB/ECC alignment',
-      'Pytest coverage across document and image workflows',
+      'Pytest coverage and bounded privacy-sensitive requests',
     ],
-    technologies: ['Python', 'FastAPI', 'Presidio', 'spaCy', 'YOLO', 'OpenCV', 'BiSeNet'],
+    technologies: ['Python', 'FastAPI', 'Presidio', 'spaCy', 'YOLO', 'OpenCV', 'BiSeNet', 'pytest'],
     workflow: ['Input inspection', 'Entity detection', 'Local masking', 'External AI request', 'Protected restoration'],
     challenges: [
       'Preserving enough semantic context for useful AI responses',
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     outcome:
       'A distinctive Shopify storefront concept that demonstrates theme customization, commerce UX, responsive frontend craft, and hands-on campaign direction.',
     tone: 'sage',
-    githubUrl: null,
+    githubUrl: 'https://github.com/AsimAslah/asimon-shopify-store',
     demoUrl: null,
     screenshot: '/images/projects/asimon-charcoal-utility-overshirt.png',
     screenshotAlt: 'Asim Aslah modelling the ASIMON Charcoal Utility Overshirt',
@@ -211,11 +211,13 @@ export const projects: Project[] = [
 ];
 
 export const skillGroups = [
-  { name: 'Languages', skills: ['Python', 'JavaScript', 'TypeScript', 'SQL'] },
-  { name: 'AI / Machine Learning', skills: ['Machine Learning', 'Deep Learning', 'Computer Vision', 'NLP', 'PyTorch', 'OpenCV', 'Image Processing'] },
-  { name: 'Backend', skills: ['FastAPI', 'REST APIs', 'Supabase'] },
-  { name: 'Frontend', skills: ['React', 'Next.js', 'Three.js', 'HTML', 'CSS', 'Tailwind CSS', 'PWA'] },
-  { name: 'Tools', skills: ['Git', 'GitHub'] },
+  { name: 'Generative AI & LLMs', skills: ['Retrieval-Augmented Generation (research)', 'Privacy-Aware AI', 'Generative AI Workflows', 'NLP', 'Named Entity Recognition'] },
+  { name: 'Machine Learning & Deep Learning', skills: ['PyTorch', 'Computer Vision', 'Object Detection', 'Semantic Segmentation', 'TripoSR', 'YOLO', 'BiSeNet', 'OpenCV'] },
+  { name: 'AI Research & Experimentation', skills: ['Conformal Risk Control (research)', 'Distribution Shift (research)', 'Privacy-Risk Estimation', 'NumPy', 'Pandas'] },
+  { name: 'Backend Development', skills: ['Python', 'FastAPI', 'REST APIs', 'Uvicorn'] },
+  { name: 'Frontend Development', skills: ['TypeScript', 'JavaScript', 'React', 'Next.js', 'HTML', 'CSS', 'Liquid'] },
+  { name: 'Databases & Cloud', skills: ['SQL', 'Supabase', 'Cloudflare Workers', 'Cloudflare D1', 'Shopify'] },
+  { name: 'Testing & Developer Tools', skills: ['pytest', 'Node.js Test Runner', 'GitHub Actions', 'Git', 'GitHub', 'ESLint', 'Vite'] },
 ];
 
 export const experience = {
@@ -225,7 +227,7 @@ export const experience = {
   product: 'Brickrat',
   period: '01 Jun 2026 — 31 Jul 2026',
   description:
-    'Built Brickrat’s image-to-3D application workflow, including FastAPI upload and inference, OBJ/GLB asset generation, Supabase persistence, browser previews, and mobile AR delivery through Apple Quick Look and Android Scene Viewer.',
+    'Built and tested Brickrat’s image-to-3D application workflow, including FastAPI upload and inference, OBJ/GLB/USDZ asset generation, Supabase persistence, browser previews, REST endpoints, and mobile AR delivery through Apple Quick Look and Android Scene Viewer.',
 };
 
 export const education = [

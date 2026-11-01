@@ -1,6 +1,6 @@
 # Asim Aslah — Portfolio
 
-Professional portfolio for **Asim Aslah P M**, an AI Full-Stack Developer building computer-vision, privacy-preserving AI, image-to-3D, and modern web applications.
+Professional portfolio for **Asim Aslah P M**, an AI/ML and Generative AI developer, AI researcher, and full-stack software engineer building privacy-preserving AI, image-to-3D, and deployed web applications.
 
 [View the live portfolio](https://asim-portfolio.asimaslu7.workers.dev/)
 
@@ -9,6 +9,7 @@ Professional portfolio for **Asim Aslah P M**, an AI Full-Stack Developer buildi
 ## Highlights
 
 - Responsive project case studies for Image-to-3D, DataVeil, Shopify Fashion Storefront, and AI Virtual Keyboard
+- Ongoing PIIShift-RAG M.Tech research presented separately from implemented and validated project work
 - Large interactive BYTE portfolio guide in the hero, with verified, scripted answers and recruiter-focused shortcuts
 - Interactive Mini Byte hero companion with theme switching and reduced-motion support
 - Light and dark themes, optional interface sound, keyboard navigation, and responsive layouts

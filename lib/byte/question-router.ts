@@ -13,6 +13,7 @@ export function normalizeByteQuestion(question: string) {
 export function routeByteQuestion(question: string): ByteTopic | null {
   const query = normalizeByteQuestion(question);
 
+  if (/piishift|rag|retrieval augmented|conformal|distribution shift/.test(query)) return 'piishift';
   if (/dataveil|privacy|anonym/.test(query)) return 'dataveil';
   if (/image\s*to\s*3d|3d|ar studio|triposr|furniture image/.test(query)) return 'imageTo3d';
   if (/shopify|fashion store|storefront|ecommerce|e commerce/.test(query)) return 'shopify';

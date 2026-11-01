@@ -74,7 +74,7 @@ export function HomePage() {
             <InteractiveName />
             <p className="hero-intro">{profile.intro}</p>
             <ul className="hero-stack" aria-label="Core technologies">
-              <li>Python</li><li>FastAPI</li><li>PyTorch</li><li>React</li>
+              <li>Python</li><li>FastAPI</li><li>PyTorch</li><li>RAG Research</li>
             </ul>
             <div className="hero-actions hero-actions-primary">
               <SectionAnchor className="primary-button" sectionId="projects" data-sound="primary">View projects <ArrowRight aria-hidden="true" /></SectionAnchor>
@@ -136,7 +136,7 @@ export function HomePage() {
 
         <section className="section shell" id="about">
           <Reveal>
-            <SectionHeading eyebrow="About / 03" title="Engineering with a product mindset." />
+            <SectionHeading eyebrow="About / 03" title="AI research with a product mindset." />
           </Reveal>
           <div className="about-grid">
             <Reveal className="about-media"><AboutPortraits /></Reveal>
@@ -162,7 +162,7 @@ export function HomePage() {
 
         <section className="section shell" id="skills">
           <Reveal>
-            <SectionHeading eyebrow="Technical skills / 04" title="A focused toolkit, not a keyword wall." description="The technologies I use to move from model experiments to dependable interfaces." />
+            <SectionHeading eyebrow="Technical skills / 04" title="Research methods and production tools." description="Verified skills from AI research, model integration, APIs, full-stack development, testing, and deployment." />
           </Reveal>
           <div className="skills-grid">
             {skillGroups.map((group, index) => (
