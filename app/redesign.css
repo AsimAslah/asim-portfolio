@@ -939,6 +939,9 @@ body.command-palette-open { overflow: hidden; }
 .shopify-carousel-dots { position: absolute; z-index: 5; bottom: 1rem; left: 1rem; display: flex; gap: .38rem; }
 .shopify-carousel-dots button { width: 22px; height: 4px; padding: 0; border: 0; border-radius: 999px; background: rgb(255 255 255 / 34%); cursor: pointer; transition: width .2s var(--ease-spring), background-color .18s var(--ease-out); }
 .shopify-carousel-dots button.is-active { width: 34px; background: white; }
+.shopify-carousel-playback { position: absolute; z-index: 5; bottom: .3rem; left: 7.45rem; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid rgb(255 255 255 / 35%); border-radius: .4rem; background: rgb(7 10 7 / 54%); color: white; cursor: pointer; backdrop-filter: blur(8px); }
+.shopify-carousel-playback:hover, .shopify-carousel-playback:focus-visible { background: rgb(7 10 7 / 82%); }
+.shopify-carousel-playback svg { width: 14px; height: 14px; }
 .shopify-carousel.is-compact .shopify-carousel-slide figcaption { bottom: 4.2rem; padding-right: 42%; }
 .shopify-carousel.is-compact .shopify-carousel-slide figcaption strong { font-size: clamp(1rem, 2vw, 1.35rem); }
 
