@@ -1,7 +1,7 @@
 'use client';
 
 import { Command, FileDown, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { navigation, profile } from '@/data/profile';
 import { SectionAnchor } from './section-anchor';
 import { SoundToggle } from './sound-toggle';
@@ -12,6 +12,8 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
   const { openCommandPalette } = usePortfolioUI();
 
   useEffect(() => {
@@ -52,11 +54,18 @@ export function Navbar() {
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setIsOpen(false);
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
+      }
     };
     document.body.classList.add('menu-open');
     document.addEventListener('keydown', onKeyDown);
+    const frame = requestAnimationFrame(() => {
+      mobileMenuRef.current?.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
     return () => {
+      cancelAnimationFrame(frame);
       document.body.classList.remove('menu-open');
       document.removeEventListener('keydown', onKeyDown);
     };
@@ -104,13 +113,25 @@ export function Navbar() {
           <a className="resume-button" href={profile.resumeUrl} target="_blank" rel="noreferrer" data-sound="primary">
             Resume <FileDown aria-hidden="true" />
           </a>
-          <button className="icon-button menu-button" type="button" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-controls="mobile-menu" aria-label={isOpen ? 'Close menu' : 'Open menu'} data-sound="menu">
+          <button
+            ref={menuButtonRef}
+            className="icon-button menu-button"
+            type="button"
+            onClick={() => {
+              if (isOpen) menuButtonRef.current?.focus();
+              setIsOpen((current) => !current);
+            }}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            data-sound="menu"
+          >
             {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
         </div>
       </nav>
 
-      <div className={`mobile-menu ${isOpen ? 'is-open' : ''}`} id="mobile-menu" aria-hidden={!isOpen} inert={isOpen ? undefined : true}>
+      <div ref={mobileMenuRef} className={`mobile-menu ${isOpen ? 'is-open' : ''}`} id="mobile-menu" aria-hidden={!isOpen} inert={isOpen ? undefined : true}>
         <div className="shell mobile-menu-inner">
           {navigation.map((item, index) => {
             const sectionId = item.href.split('#')[1];

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 const slides = [
@@ -33,18 +33,38 @@ const slides = [
 
 export function ShopifyCarousel({ compact = false }: { compact?: boolean }) {
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [manuallyPaused, setManuallyPaused] = useState(false);
+  const [interactionPaused, setInteractionPaused] = useState(false);
+  const [pageVisible, setPageVisible] = useState(true);
   const regionRef = useRef<HTMLDivElement>(null);
+  const autoplayPaused = manuallyPaused || interactionPaused || !pageVisible;
 
   useEffect(() => {
-    if (paused) return;
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotionPreference = () => {
+      if (media.matches) setManuallyPaused(true);
+    };
+    const updateVisibility = () => setPageVisible(document.visibilityState === 'visible');
+
+    updateMotionPreference();
+    updateVisibility();
+    media.addEventListener('change', updateMotionPreference);
+    document.addEventListener('visibilitychange', updateVisibility);
+    return () => {
+      media.removeEventListener('change', updateMotionPreference);
+      document.removeEventListener('visibilitychange', updateVisibility);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (autoplayPaused) return;
     const timer = window.setInterval(() => setActive((current) => (current + 1) % slides.length), 5200);
     return () => window.clearInterval(timer);
-  }, [paused]);
+  }, [autoplayPaused]);
 
   const select = (index: number) => {
     setActive((index + slides.length) % slides.length);
-    setPaused(true);
+    setManuallyPaused(true);
   };
 
   return (
@@ -54,11 +74,11 @@ export function ShopifyCarousel({ compact = false }: { compact?: boolean }) {
       role="region"
       aria-roledescription="carousel"
       aria-label="ASIMON Shopify campaign gallery"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
+      onMouseEnter={() => setInteractionPaused(true)}
+      onMouseLeave={() => setInteractionPaused(false)}
+      onFocusCapture={() => setInteractionPaused(true)}
       onBlurCapture={(event) => {
-        if (!regionRef.current?.contains(event.relatedTarget as Node | null)) setPaused(false);
+        if (!regionRef.current?.contains(event.relatedTarget as Node | null)) setInteractionPaused(false);
       }}
     >
       <div className="shopify-carousel-status">
@@ -66,7 +86,7 @@ export function ShopifyCarousel({ compact = false }: { compact?: boolean }) {
         <small>Shopify e-commerce project</small>
       </div>
 
-      <div className="shopify-carousel-media" aria-live="polite">
+      <div className="shopify-carousel-media" aria-live={autoplayPaused ? 'polite' : 'off'}>
         {slides.map((slide, index) => (
           <figure className={`shopify-carousel-slide ${active === index ? 'is-active' : ''}`} key={slide.src} aria-hidden={active !== index}>
             <Image
@@ -110,6 +130,16 @@ export function ShopifyCarousel({ compact = false }: { compact?: boolean }) {
           />
         ))}
       </div>
+
+      <button
+        className="shopify-carousel-playback"
+        type="button"
+        onClick={() => setManuallyPaused((current) => !current)}
+        aria-label={manuallyPaused ? 'Resume automatic slide rotation' : 'Pause automatic slide rotation'}
+        aria-pressed={manuallyPaused}
+      >
+        {manuallyPaused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+      </button>
     </div>
   );
 }
