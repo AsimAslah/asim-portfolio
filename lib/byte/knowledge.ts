@@ -3,6 +3,7 @@ import type { ByteKnowledge, ByteLink } from './types.ts';
 
 export const BYTE_SUGGESTIONS = [
   'What did Asim build?',
+  'What is PIIShift-RAG?',
   'Tell me about DataVeil',
   'How does Image-to-3D work?',
   'Tell me about the Shopify store',
@@ -69,6 +70,10 @@ export const byteKnowledge: ByteKnowledge = {
         { href: profile.githubUrl, label: 'Asim on GitHub' },
       ],
     },
+    piishift: {
+      text: 'PIIShift-RAG is Asim’s ongoing M.Tech research on conformal privacy-risk routing for retrieval-augmented generation under PII distribution shift. The research framing and proposed architecture are defined, while implementation choices, experiments, and empirical results remain future work.',
+      links: [{ href: '/projects/piishift-rag', label: 'Explore PIIShift-RAG research' }],
+    },
     resume: {
       text: `Asim’s resume and the portfolio’s project details are available directly from this site.`,
       links: [
@@ -90,7 +95,7 @@ export const byteKnowledge: ByteKnowledge = {
     },
   },
   fallback: {
-    text: 'I’m a small scripted portfolio guide, so I may not have that answer. Try asking about Asim’s projects, DataVeil, Image-to-3D, experience, education, skills, resume, or contact details.',
+    text: 'I’m a small scripted portfolio guide, so I may not have that answer. Try asking about Asim’s projects, PIIShift-RAG, DataVeil, Image-to-3D, experience, education, skills, resume, or contact details.',
     links: [
       { href: '/#projects', label: 'Browse projects' },
       { href: '/#contact', label: 'Contact Asim' },

@@ -31,7 +31,12 @@ test('BYTE routes suggested project and contact questions to verified answers', 
 
   const resume = getByteAnswer('Can I view his résumé?');
   assert.match(resume.text, /resume/i);
-  assert.ok(resume.links.some((link) => link.href === '/resume.pdf'));
+  assert.ok(resume.links.some((link) => link.href === '/Asim_Aslah_GenAI_AIResearch_FullStack_Resume.pdf'));
+
+  const piishift = getByteAnswer('What is PIIShift-RAG?');
+  assert.match(piishift.text, /ongoing M\.Tech research/);
+  assert.match(piishift.text, /future work/);
+  assert.ok(piishift.links.some((link) => link.href === '/projects/piishift-rag'));
 });
 
 test('BYTE is honest when a question is outside its scripted portfolio knowledge', () => {
@@ -44,6 +49,7 @@ test('BYTE normalizes punctuation and routes questions independently from the UI
   assert.equal(normalizeByteQuestion('  Image-to-3D — AR  '), 'image to 3d ar');
   assert.equal(routeByteQuestion('Could you explain the privacy middleware?'), 'dataveil');
   assert.equal(routeByteQuestion('Where did Asim study?'), 'education');
+  assert.equal(routeByteQuestion('How will conformal routing work under distribution shift?'), 'piishift');
   assert.equal(routeByteQuestion('A question outside the portfolio'), 'overview');
 });
 
