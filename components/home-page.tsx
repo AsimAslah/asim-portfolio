@@ -74,7 +74,7 @@ export function HomePage() {
             <InteractiveName />
             <p className="hero-intro">{profile.intro}</p>
             <ul className="hero-stack" aria-label="Core technologies">
-              <li>Python</li><li>FastAPI</li><li>PyTorch</li><li>RAG Research</li>
+              <li>LLM Evaluation</li><li>Python</li><li>FastAPI</li><li>React</li><li>RAG Research</li>
             </ul>
             <div className="hero-actions hero-actions-primary">
               <SectionAnchor className="primary-button" sectionId="projects" data-sound="primary">View projects <ArrowRight aria-hidden="true" /></SectionAnchor>
@@ -94,7 +94,7 @@ export function HomePage() {
 
         <section className="section shell" id="projects">
           <Reveal>
-            <SectionHeading eyebrow="Featured projects / 01" title="Products built around real problems." description="Applied AI and full-stack systems shaped as complete, usable workflows — not isolated demos." />
+            <SectionHeading eyebrow="Latest projects / 01" title="AI quality, made inspectable." description="Evaluation platforms and full-stack AI systems built around evidence, reproducibility, privacy, and observable execution." />
           </Reveal>
           <div className="featured-work">
             {projects.slice(0, 2).map((project, index) => (
@@ -103,7 +103,7 @@ export function HomePage() {
               </Reveal>
             ))}
           </div>
-          <div className="supporting-work-heading"><p className="micro-label">More experiments</p><span>Commerce interfaces and human–computer interaction.</span></div>
+          <div className="supporting-work-heading"><p className="micro-label">More production work</p><span>Applied AI, privacy engineering, commerce interfaces, and human–computer interaction.</span></div>
           <div className="project-grid supporting-work">
             {projects.slice(2).map((project, index) => (
               <Reveal className="project-reveal" key={project.slug} delay={index * 0.06}>

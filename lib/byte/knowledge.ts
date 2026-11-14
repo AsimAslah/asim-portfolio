@@ -3,6 +3,12 @@ import type { ByteKnowledge, ByteLink } from './types.ts';
 
 export const BYTE_SUGGESTIONS = [
   'What did Asim build?',
+  'What is EvalLens?',
+  'How does EvalLens evaluate AI responses?',
+  'What is AI Quality Lab?',
+  'What is the difference between the evaluation projects?',
+  'Does Asim have AI evaluation experience?',
+  'What are Asim’s latest projects?',
   'What is PIIShift-RAG?',
   'Tell me about DataVeil',
   'How does Image-to-3D work?',
@@ -30,12 +36,32 @@ function projectLinks(slug: string): ByteLink[] {
 }
 
 const dataVeil = projectBySlug('dataveil');
+const evalLens = projectBySlug('evallens');
+const aiQualityLab = projectBySlug('ai-quality-lab');
 const imageTo3d = projectBySlug('image-to-3d-ar');
 const shopify = projectBySlug('shopify-fashion-store');
 const virtualKeyboard = projectBySlug('ai-virtual-keyboard');
 
 export const byteKnowledge: ByteKnowledge = {
   answers: {
+    aiEvaluation: {
+      text: 'Asim has hands-on AI evaluation engineering experience through completed personal projects. EvalLens covers human-centered pairwise comparison, rubric scoring, evidence-backed preference, and analytics; AI Quality Lab covers explainable automated checks, privacy gating, live execution observability, replay, and failure recovery. This portfolio does not present those projects as professional AI-evaluation employment.',
+      links: [
+        { href: '/projects/evallens', label: 'Explore EvalLens' },
+        { href: '/projects/ai-quality-lab', label: 'Explore AI Quality Lab' },
+      ],
+    },
+    aiEvaluationComparison: {
+      text: 'EvalLens is the human-centered comparative platform: an evaluator scores two supplied responses independently, records evidence, and makes an explicit preference that remains separate from the calculated rubric score. AI Quality Lab automates deterministic and labeled heuristic checks, then exposes the real eight-stage server execution through persisted events, SSE, replay, privacy checks, and failure recovery.',
+      links: [
+        { href: '/projects/evallens', label: 'View EvalLens' },
+        { href: '/projects/ai-quality-lab', label: 'View AI Quality Lab' },
+      ],
+    },
+    aiQualityLab: {
+      text: `${aiQualityLab.title} ${aiQualityLab.summary} Its execution graph is reconstructed from ordered persisted backend events; playback speed changes only the replay presentation, not the original timestamps or durations. The implementation is complete, but no public Replit deployment is claimed yet.`,
+      links: projectLinks(aiQualityLab.slug),
+    },
     contact: {
       text: `The quickest route is email at ${profile.email}. You can also connect with Asim on LinkedIn, message him on WhatsApp, or use the contact section below.`,
       links: [
@@ -93,9 +119,23 @@ export const byteKnowledge: ByteKnowledge = {
       text: `${virtualKeyboard.title} ${virtualKeyboard.summary} Its workflow covers ${virtualKeyboard.workflow.join(', ').toLowerCase()}.`,
       links: projectLinks(virtualKeyboard.slug),
     },
+    evallens: {
+      text: `${evalLens.title} ${evalLens.summary} It applies a selected default or custom weighted rubric to Responses A and B independently, excludes per-response N/A criteria from normalization, snapshots the rubric at save time, and keeps explicit human preference separate from calculated scores.`,
+      links: [
+        ...projectLinks(evalLens.slug),
+        ...(evalLens.demoUrl ? [{ href: evalLens.demoUrl, label: 'Open live EvalLens' }] : []),
+      ],
+    },
+    latestProjects: {
+      text: `Asim’s latest completed projects are ${evalLens.shortTitle}, a human-centered pairwise evaluation and analytics platform, and ${aiQualityLab.shortTitle}, an explainable evaluation workspace with observable server execution and failure recovery.`,
+      links: [
+        { href: '/projects/evallens', label: 'View EvalLens' },
+        { href: '/projects/ai-quality-lab', label: 'View AI Quality Lab' },
+      ],
+    },
   },
   fallback: {
-    text: 'I’m a small scripted portfolio guide, so I may not have that answer. Try asking about Asim’s projects, PIIShift-RAG, DataVeil, Image-to-3D, experience, education, skills, resume, or contact details.',
+    text: 'I’m a small scripted portfolio guide, so I may not have that answer. Try asking about EvalLens, AI Quality Lab, Asim’s AI evaluation projects, PIIShift-RAG, other projects, experience, education, skills, resume, or contact details.',
     links: [
       { href: '/#projects', label: 'Browse projects' },
       { href: '/#contact', label: 'Contact Asim' },

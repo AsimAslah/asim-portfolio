@@ -13,6 +13,11 @@ export function normalizeByteQuestion(question: string) {
 export function routeByteQuestion(question: string): ByteTopic | null {
   const query = normalizeByteQuestion(question);
 
+  if (/(difference|compare|versus|vs).*(evallens|quality lab|evaluation project)|(evallens|quality lab).*(difference|compare|versus|vs)/.test(query)) return 'aiEvaluationComparison';
+  if (/latest (project|work)|newest (project|work)|recent (project|work)/.test(query)) return 'latestProjects';
+  if (/evallens|pairwise.*(evaluation|response)|human preference|preference ranking/.test(query)) return 'evallens';
+  if (/ai quality lab|replit project|shows? its work|execution (graph|diagram|observability)|server sent events|\bsse\b|execution replay/.test(query)) return 'aiQualityLab';
+  if (/ai evaluation experience|llm evaluation|evaluation engineer|ai quality (experience|engineering)|evaluate ai responses/.test(query)) return 'aiEvaluation';
   if (/piishift|rag|retrieval augmented|conformal|distribution shift/.test(query)) return 'piishift';
   if (/dataveil|privacy|anonym/.test(query)) return 'dataveil';
   if (/image\s*to\s*3d|3d|ar studio|triposr|furniture image/.test(query)) return 'imageTo3d';

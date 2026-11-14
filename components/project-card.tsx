@@ -6,7 +6,7 @@ import { ProjectAdVideo } from './project-ad-video';
 import { ProjectVisual } from './project-visual';
 
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
-  const isMajor = project.slug === 'dataveil' || project.slug === 'image-to-3d-ar';
+  const isMajor = Boolean(project.featured);
 
   return (
     <article className={`project-card ${isMajor ? 'is-major' : ''}`} data-project={`0${index + 1}`}>
@@ -28,7 +28,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             <span className="project-shot-proof" aria-hidden="true">12-second product story / verified workflow</span>
           </div>
         </div>
-      ) : project.slug === 'shopify-fashion-store' ? (
+      ) : project.visualKind === 'shopify' ? (
         <div className="project-visual-link project-carousel-link">
           <ProjectVisual project={project} index={index} />
         </div>
@@ -60,13 +60,8 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
       <div className="project-content">
         <div className="project-kicker"><p className="micro-label">Project / 0{index + 1}</p><span>{project.label}</span></div>
         <h3><Link href={`/projects/${project.slug}`} prefetch={false} data-sound="project">{project.shortTitle}</Link></h3>
-        {isMajor && (
-          <p className="project-campaign">
-            {project.slug === 'dataveil'
-              ? 'Your data. Your privacy. Before AI sees it.'
-              : 'Generate the model, then place it in your room with mobile AR.'}
-          </p>
-        )}
+        {project.tagline && <p className="project-campaign">{project.tagline}</p>}
+        {project.status && <p className="project-status"><span aria-hidden="true" />{project.status}</p>}
         <p className="project-summary">{project.summary}</p>
         {isMajor ? (
           <div className="project-brief">
