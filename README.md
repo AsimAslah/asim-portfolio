@@ -1,6 +1,6 @@
 # Asim Aslah — Portfolio
 
-Professional portfolio for **Asim Aslah P M**, an AI/ML and Generative AI developer, AI researcher, and full-stack software engineer building privacy-preserving AI, image-to-3D, and deployed web applications.
+Professional portfolio for **Asim Aslah P M**, an AI evaluation engineer, AI/ML and Generative AI developer, AI researcher, and full-stack software engineer building explainable evaluation systems, privacy-preserving AI, and deployed web applications.
 
 [View the live portfolio](https://asim-portfolio.asimaslu7.workers.dev/)
 
@@ -8,6 +8,8 @@ Professional portfolio for **Asim Aslah P M**, an AI/ML and Generative AI develo
 
 ## Highlights
 
+- Dedicated case studies for EvalLens and AI Quality Lab, covering human-centered comparative evaluation and observable automated evaluation
+- Authentic EvalLens product screenshots, verified v1.0.0 release evidence, and an honest implementation-complete status for AI Quality Lab
 - Responsive project case studies for Image-to-3D, DataVeil, Shopify Fashion Storefront, and AI Virtual Keyboard
 - Ongoing PIIShift-RAG M.Tech research presented separately from implemented and validated project work
 - Large interactive BYTE portfolio guide in the hero, with verified, scripted answers and recruiter-focused shortcuts
@@ -20,7 +22,7 @@ Professional portfolio for **Asim Aslah P M**, an AI/ML and Generative AI develo
 
 The hero includes a large interactive **BYTE** guide that opens the portfolio assistant. Visitors can use its suggested questions or type their own question to explore verified information about Asim's projects, experience, skills, education, résumé, and contact details. BYTE is scripted entirely from the portfolio's maintained content and does not send questions to a live AI service.
 
-Large BYTE is separate from **Mini Byte**, the smaller character that moves across the letters in Asim's name and provides the playful theme-switching interaction.
+BYTE understands both evaluation projects, how their methodologies differ, Asim's project-based AI evaluation experience, and the latest-project order. Large BYTE remains separate from **Mini Byte**, the smaller character that moves across the letters in Asim's name and provides the playful theme-switching interaction.
 
 ## Technology
 
@@ -29,6 +31,7 @@ Large BYTE is separate from **Mini Byte**, the smaller character that moves acro
 - Cloudflare Workers, Assets, and D1
 - Drizzle ORM
 - Node.js test runner and ESLint
+- Vitest and Playwright as demonstrated project-quality skills
 
 ## Local development
 
@@ -75,6 +78,8 @@ The production application is deployed as the `asim-portfolio` Cloudflare Worker
 pnpm build
 pnpm exec wrangler deploy
 ```
+
+Deployment remains a post-review step. Feature work is validated on its branch and merged before the existing Cloudflare Worker is updated; no D1 migration or secret change is required for the AI evaluation portfolio content.
 
 ## Project structure
 

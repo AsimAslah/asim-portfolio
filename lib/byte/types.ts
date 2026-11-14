@@ -9,11 +9,16 @@ export type ByteAnswer = {
 };
 
 export type ByteTopic =
+  | 'aiEvaluation'
+  | 'aiEvaluationComparison'
+  | 'aiQualityLab'
   | 'contact'
   | 'dataveil'
   | 'education'
+  | 'evallens'
   | 'experience'
   | 'imageTo3d'
+  | 'latestProjects'
   | 'overview'
   | 'piishift'
   | 'resume'

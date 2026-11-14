@@ -44,6 +44,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
+  const evidence = project.evidence ?? (project.screenshot && project.screenshotAlt && project.screenshotSize
+    ? [{ src: project.screenshot, alt: project.screenshotAlt, width: project.screenshotSize.width, height: project.screenshotSize.height, caption: 'Screenshot from the public project repository.' }]
+    : []);
 
   return (
     <>
@@ -54,25 +57,29 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           <div>
             <p className="micro-label">01 / Project overview</p>
             <h1>{project.title}</h1>
+            {project.tagline && <p className="project-detail-tagline">{project.tagline}</p>}
+            {project.status && <p className="project-detail-status"><span aria-hidden="true" />{project.status}</p>}
+            {project.program && <p className="project-program">Built for {project.program}.</p>}
             <p>{project.description}</p>
             <p className="project-overview-build"><strong>What I built</strong>{project.build}</p>
             <div className="project-detail-actions">
               {project.githubUrl && <a className="primary-button" href={project.githubUrl} target="_blank" rel="noreferrer" data-sound="primary"><span className="brand-icon" aria-hidden="true">GH</span> GitHub</a>}
               {project.demoUrl && <a className="secondary-button" href={project.demoUrl} target="_blank" rel="noreferrer" data-sound="primary">Live demo <ArrowUpRight aria-hidden="true" /></a>}
+              {project.releaseUrl && <a className="secondary-button" href={project.releaseUrl} target="_blank" rel="noreferrer" data-sound="primary">Release notes <ArrowUpRight aria-hidden="true" /></a>}
             </div>
           </div>
           <ProjectVisual project={project} compact />
         </section>
 
-        {(project.adVideo || (project.screenshot && project.screenshotAlt && project.screenshotSize)) && (
+        {(project.adVideo || evidence.length > 0) && (
           <section className="shell project-proof" aria-labelledby="project-proof-heading">
             <div className="detail-section-heading">
               <p className="micro-label">{project.adVideo ? 'Product overview' : 'Verified product evidence'}</p>
               <h2 id="project-proof-heading">
-                {project.adVideo ? 'From one image to AR.' : project.slug === 'shopify-fashion-store' ? 'The storefront campaign.' : 'The working interface.'}
+                {project.adVideo ? 'From one image to AR.' : evidence.length > 1 ? 'The working product, from multiple views.' : 'The working interface.'}
               </h2>
             </div>
-            <figure>
+            {project.adVideo ? <figure>
               {project.adVideo ? (
                 <ProjectAdVideo
                   src={project.adVideo.src}
@@ -80,25 +87,23 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   label="Advertisement showing the Image-to-3D conversion and mobile AR workflow"
                   className="project-ad-video-detail"
                 />
-              ) : project.screenshot && project.screenshotAlt && project.screenshotSize ? (
-                <Image
-                  src={project.screenshot}
-                  alt={project.screenshotAlt}
-                  width={project.screenshotSize.width}
-                  height={project.screenshotSize.height}
-                  sizes="(max-width: 820px) calc(100vw - 36px), 68vw"
-                  quality={88}
-                  loading="lazy"
-                />
               ) : null}
               <figcaption>
                 {project.adVideo
-                  ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.'
-                  : project.slug === 'shopify-fashion-store'
-                    ? 'ASIMON Charcoal Utility Overshirt product image featuring Asim as the storefront model.'
-                    : 'Screenshot from the public project repository.'}
+                  ? 'Promotional visualization of the implemented image conversion, model export, and mobile AR workflow.' : null}
               </figcaption>
-            </figure>
+            </figure> : (
+              <div className={`project-evidence-gallery ${evidence.length === 1 ? 'is-single' : ''}`}>
+                {evidence.map((item) => (
+                  <figure key={item.src}>
+                    <a href={item.src} target="_blank" rel="noreferrer" aria-label={`Open full-size image: ${item.alt}`}>
+                      <Image src={item.src} alt={item.alt} width={item.width} height={item.height} sizes="(max-width: 820px) calc(100vw - 36px), 46vw" quality={88} loading="lazy" />
+                    </a>
+                    <figcaption>{item.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
           </section>
         )}
 
@@ -132,6 +137,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
           ) : null}
           <article><p className="micro-label">{project.keyDecisions?.length ? '10' : '09'} / Outcome</p><h2>What it demonstrates</h2><p>{project.outcome}</p></article>
         </section>
+
+        {(project.testing?.length || project.limitations?.length) && (
+          <section className="shell project-detail-grid project-validation-grid">
+            {project.testing?.length ? <article><p className="micro-label">Validation</p><h2>Testing and quality gates</h2><ul>{project.testing.map((item) => <li key={item}>{item}</li>)}</ul></article> : null}
+            {project.limitations?.length ? <article><p className="micro-label">Boundaries</p><h2>Outcomes and limitations</h2><ul>{project.limitations.map((item) => <li key={item}>{item}</li>)}</ul></article> : null}
+          </section>
+        )}
 
         <section className="shell next-project">
           <p className="micro-label">Continue exploring</p>

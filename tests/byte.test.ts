@@ -9,6 +9,28 @@ import {
 } from '../lib/byte.ts';
 
 test('BYTE routes suggested project and contact questions to verified answers', () => {
+  const evalLens = getByteAnswer('How does EvalLens evaluate AI responses?');
+  assert.match(evalLens.text, /independently/);
+  assert.match(evalLens.text, /human preference separate/i);
+  assert.ok(evalLens.links.some((link) => link.href === '/projects/evallens'));
+
+  const qualityLab = getByteAnswer('How does the Replit project work?');
+  assert.match(qualityLab.text, /persisted backend events/);
+  assert.match(qualityLab.text, /no public Replit deployment/i);
+  assert.ok(qualityLab.links.some((link) => link.href === '/projects/ai-quality-lab'));
+
+  const comparison = getByteAnswer('What is the difference between EvalLens and AI Quality Lab?');
+  assert.match(comparison.text, /human-centered comparative platform/);
+  assert.match(comparison.text, /eight-stage server execution/);
+
+  const evaluationExperience = getByteAnswer('Does Asim have AI evaluation experience?');
+  assert.match(evaluationExperience.text, /completed personal projects/);
+  assert.match(evaluationExperience.text, /not.*professional AI-evaluation employment/i);
+
+  const latest = getByteAnswer('What are Asim’s latest projects?');
+  assert.match(latest.text, /EvalLens/);
+  assert.match(latest.text, /AI Quality Lab/);
+
   const dataVeil = getByteAnswer('Tell me about DataVeil');
   assert.match(dataVeil.text, /Privacy-Preserving AI Middleware/);
   assert.ok(dataVeil.links.some((link) => link.href === '/projects/dataveil'));
@@ -50,6 +72,8 @@ test('BYTE normalizes punctuation and routes questions independently from the UI
   assert.equal(routeByteQuestion('Could you explain the privacy middleware?'), 'dataveil');
   assert.equal(routeByteQuestion('Where did Asim study?'), 'education');
   assert.equal(routeByteQuestion('How will conformal routing work under distribution shift?'), 'piishift');
+  assert.equal(routeByteQuestion('Compare EvalLens vs AI Quality Lab'), 'aiEvaluationComparison');
+  assert.equal(routeByteQuestion('How does the Replit project work?'), 'aiQualityLab');
   assert.equal(routeByteQuestion('A question outside the portfolio'), 'overview');
 });
 
